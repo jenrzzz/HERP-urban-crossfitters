@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Herpcs110s</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <title><%= @title || 'Page' %> &mdash; Urban Crossfitters</title>
+  <%= stylesheet_link_tag    "application", "bootstrap.min", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+<div class="container">
+	<%= yield %>
+</div>
 
 </body>
 </html>
