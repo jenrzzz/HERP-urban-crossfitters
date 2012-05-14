@@ -22,6 +22,8 @@ end
 
 gem 'jquery-rails'
 gem 'thin'
+gem 'omniauth', '>= 1.1.0'
+gem 'omniauth-facebook', :git => 'https://github.com/mkdynamic/omniauth-facebook'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
