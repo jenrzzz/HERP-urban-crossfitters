@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Persistant Count Up Timer</title>
+  <meta charset="utf-8">
+  <style type="text/css">
+    P#time {
+      font-size: 48pt;
+      font-family: courier;
+      margin: 0px auto;
+      color: gray;
+    }
+  </style>
+  <script type="text/javascript">
+   
+   timer = null;
+
+  function get_time() {
+      var now = new Date;
+      return now.getTime();
+    }
+
+    function show() {
+      var t = timer ? get_time() - base : total;
+      var mms = (t/10);
+      var ms = Math.round(mms/10);
+      var s = Math.round(ms/10);
+      var m = Math.floor(s/60);
+      var h = Math.floor(m/60);
+      
+      
+
+      ms = ms%10;
+      s = s%60;
+      if (s < 10) {
+      	s = "0"+s;
+      	}
+      m = m%60;
+      if (m < 10) {
+      	m = "0"+m;
+      	}
+      if (h < 10) {
+      	h = "0"+h;
+      	}
+      p.innerHTML = h+":"+m+":"+s+"."+ms;
+    }
+
+    function update() {
+      show();
+      dt = 1000 - (get_time()-base);
+      timer = setTimeout(update, dt);
+    }
+
+    function start() {
+      base = get_time() - total;
+      localStorage.base = base;
+      delete localStorage.total;
+      p.style.color = "black";
+      update();
+    }
+
+    function stop() {
+      clearTimeout(timer);
+      timer = null;
+      total = get_time() - base;
+      delete localStorage.base;
+      localStorage.total = total;
+      p.style.color = "gray";
+    }
+	
+	function reset() {
+	  clearTimeout(timer);
+	  timer = null;
+	  total = 0;
+	  delete localStorage.base;
+	  localStorage.total = total;
+	  p.style.color = "gray";
+	}
+	
+    function click_handler() {
+      if (timer) stop(); else start();
+    }
+    
+    function dblclick_handler() {
+    reset();
+    }
+
+    function init() {
+      p = document.getElementById("time");
+      total = localStorage.total ? localStorage.total : 0.0;
+      show();
+      if (localStorage.base) {
+        total = get_time() - localStorage.base;
+        start();
+      }
+      window.ondblclick = dblclick_handler;
+      window.onclick = click_handler;
+      
+    }
+  </script>
+</head>
+<body onload="init()">
+  <p id="time">loading &hellip;
+  <p>Tap on the screen to start the timer.<br>
+  It will continue counting until the screen is tapped again to stop.
+  Double tap to clear the timer! 
+</body>
+</html>
