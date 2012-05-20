@@ -26,6 +26,6 @@ class SessionsController < ApplicationController
   	
 
   def failure
-  	render :text => "You just fucked up somewhere. no clue where but you just did"
+  	render :text => "You just messed up somewhere. no clue where but you just did"
   end
 end
