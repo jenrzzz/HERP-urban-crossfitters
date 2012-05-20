@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
                                 :uid => auth_hash["uid"])
        if user.save
          #new user created
-         render :text => "Congratulations #{user.name}! You have just signed up."
+         redirect_to new_profile_path
+         #render :text => "Congratulations #{user.name}! You have just signed up."
        else
          #print out errors if user didn't save
          puts user.errors
