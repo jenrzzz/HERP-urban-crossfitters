@@ -1,8 +1,8 @@
 Herpcs110s::Application.routes.draw do
 
   resources  :session
-  resources  :profile
-  resource  :dashboard
+  resource   :profile
+  resource   :dashboard
   # The priority is based upon order of creation:
   # first created -> highest priority.
   
@@ -13,6 +13,8 @@ Herpcs110s::Application.routes.draw do
   #Creates authentication for omni-auth
   match '/auth/:provider/callback' => 'sessions#create'
   match '/auth/failure', :to => 'sessions#failure'
+
+  match '/profile/create', :to => 'profiles#create'
 
   root :to => "home#index"
 end
