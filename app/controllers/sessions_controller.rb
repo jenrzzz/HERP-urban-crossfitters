@@ -10,8 +10,8 @@ class SessionsController < ApplicationController
   	if @authorization 
   	   render :text => "Welcome back #{@authorization.user.name}!"
   	else
-  		user = User.new :name => auth_hash["user_info"]["name"], :email => auth_hash["user_info"]["email"]
-  		user.authorization.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
+  		user = User.new :name => auth_hash["info"]["name"], :email => auth_hash["info"]["email"]
+  		user.authorizations.build :provider => auth_hash["provider"], :uid => auth_hash["uid"]
   		user.save
   		
   		render :text => "Congratulations #{user.name}! You have just signed up."
