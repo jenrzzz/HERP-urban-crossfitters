@@ -1,0 +1,30 @@
+#!/bin/bash
+case $1 in
+	start)
+		if [ -f ./tmp/pids/server.pid ] 
+		then
+			echo "Server is already running with PID `cat ./tmp/pids/server.pid`" && exit 1
+		else
+			echo "Starting Rails..."
+			/usr/local/bin/rails server thin -d && echo  "Running with PID `cat ./tmp/pids/server.pid`"
+		fi
+		;;
+	stop)
+		if [ ! -f ./tmp/pids/server.pid ]
+		then
+			echo "Server is not running." && exit 1
+		else
+			echo "Stopping Rails..."
+			kill `cat ./tmp/pids/server.pid` && rm ./tmp/pids/server.pid && echo "Stopped Rails."
+		fi
+		;;
+	restart)
+		kill `cat ./tmp/pids/server.pid`
+		/usr/local/bin/rails server thin -d
+		;;
+	*)
+		echo "Usage: herp_init [start|stop|restart]"
+		exit 1
+		;;
+esac
+		
