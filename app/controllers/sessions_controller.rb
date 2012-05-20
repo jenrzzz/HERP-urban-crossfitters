@@ -21,15 +21,16 @@ class SessionsController < ApplicationController
 
       user.authorizations.build(:provider => auth_hash["provider"],
                                 :uid => auth_hash["uid"])
-       if user.save
-         #new user created
-         redirect_to new_profile_path
-         #render :text => "Congratulations #{user.name}! You have just signed up."
-       else
-         #print out errors if user didn't save
-         puts user.errors
-         session.failure
-       end
+      if user.save
+        #new user created
+        session[:user_id] = user.id      
+        redirect_to new_profile_path
+        #render :text => "Congratulations #{user.name}! You have just signed up."
+      else
+        #print out errors if user didn't save
+        puts user.errors
+        session.failure
+      end
     end  	
   end
   
