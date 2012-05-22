@@ -6,6 +6,10 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
+
+    temp = session
+    reset_session
+    session.reverse_merge!(temp)
 	
     # Authentication utilizing provider and UID
     unless @authorization = Authorization.find_from_hash(auth_hash)
