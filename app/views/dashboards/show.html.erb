@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="hero-unit">
+    <h1>Urban Crossfitters</h1>
+    <h2>Dashboard</h2>
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    Welcome <%= current_user.name %>!</br>
+    <% if !current_user.profile.nil? %>
+      <%= link_to "View Profile", profile_path %></br>
+    <% else %>
+      <%= link_to "Create Profile", new_profile_path %></br>
+    <% end %>
+    <%= link_to "Log out", logout_path %>
+  </div>
+</div>

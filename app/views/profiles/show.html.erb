@@ -1,3 +1,8 @@
-<h1>Profile#show</h1>
-<p>Find me in app/views/profile/show.html.erb</p>
-<%= current_user.profile.inspect %>
+<h1>Your Profile</h1>
+<%= link_to "Return to Dashboard", dashboard_path %></br>
+<% profile = current_user.profile %>
+Name: <%= profile.first_name %> <%= profile.last_name %></br>
+Birthday: <%= profile.birthdate %></br>
+Height: <%= profile.height %></br>
+Weight: <%= profile.weight %></br>
+Bio: <%= profile.description %></br>
