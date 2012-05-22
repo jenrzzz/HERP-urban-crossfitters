@@ -16,6 +16,9 @@ class SessionsController < ApplicationController
       @authorization = Authorization.create_from_hash(auth_hash, current_user)
     end
     self.current_user = @authorization.user
+    unless current_user.profile
+      flash[:notice] = "Welcome, #{current_user.name}! Try filling in your profile"
+    end
     redirect_to :controller => 'home', :action => 'index'
   end
   

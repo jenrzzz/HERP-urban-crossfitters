@@ -3,6 +3,9 @@
     <h1>Urban Crossfitters</h1>
     <p>Coming soon.</p>
     <% if current_user %>
+      <% if flash[:notice] %>
+        <p class="notice"><%= flash[:notice] %></p>
+      <% end %>
       Welcome <%= current_user.name %>!
       <%= link_to "Log out", logout_path %>
     <% else %>
