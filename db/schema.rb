@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120522194031) do
+ActiveRecord::Schema.define(:version => 20120522195454) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20120522194031) do
     t.date     "deadline",    :null => false
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
   end
 
   create_table "health_records", :force => true do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20120522194031) do
     t.integer  "calories_consumed"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "user_id"
   end
 
   create_table "injury_records", :force => true do |t|
@@ -65,11 +67,13 @@ ActiveRecord::Schema.define(:version => 20120522194031) do
     t.integer  "severity",                    :null => false
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.integer  "user_id"
   end
 
   create_table "personal_records", :force => true do |t|
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -115,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20120522194031) do
     t.integer  "rounds"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "user_id"
   end
 
   create_table "workout_types", :force => true do |t|
