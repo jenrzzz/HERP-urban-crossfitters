@@ -13,15 +13,15 @@ class SessionsController < ApplicationController
 	
     # Authentication utilizing provider and UID
     unless @authorization = Authorization.find_from_hash(auth_hash)
-      @auth = Authorization.create_from_hash(auth_hash, current_user)
+      @authorization = Authorization.create_from_hash(auth_hash, current_user)
     end
-    self.current_user = @auth.user
-    render :text => "Welcome back #{current_user.name}!"
+    self.current_user = @authorization.user
+    redirect_to :controller => 'home', :action => 'index'
   end
   
   def destroy
     reset_session
-    render :text => "You have successfully logged out!"
+    redirect_to :controller => 'home', :action => 'index'
   end
   	
   def failure

@@ -8,7 +8,7 @@ Herpcs110s::Application.routes.draw do
   
   #Get Connect with facebook link
   get '/login', :to => 'sessions#new', :as => :login
-  get '/logout', :to => 'sessions#destroy'
+  get '/logout', :to => 'sessions#destroy', :as => :logout
 
   #Creates authentication for omni-auth
   match '/auth/:provider/callback' => 'sessions#create'

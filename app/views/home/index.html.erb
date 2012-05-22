@@ -1,7 +1,13 @@
 <div class="row">
-	<div class="hero-unit">
-		<h1>Urban Crossfitters</h1>
-		<p>Coming soon.</p>
-		<%= link_to "Connect With Facebook", "/auth/facebook" %>
-	</div>
+  <div class="hero-unit">
+    <h1>Urban Crossfitters</h1>
+    <p>Coming soon.</p>
+    <% if current_user %>
+      Welcome <%= current_user.name %>!
+      <%= link_to "Log out", logout_path %>
+    <% else %>
+      <%= link_to "Connect With Facebook", "/auth/facebook" %></br>
+      <%= link_to "Authenticate as Dev", "/auth/developer" %></br>
+  </div>
 </div>
+<% end %>
