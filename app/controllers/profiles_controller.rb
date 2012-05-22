@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
     #FIXME profile doesn't get saved to a user
     @profile = Profile.new(params[:profile])
     if @profile.save
+      current_user.profile = @profile
       render :action => "show"
     else
       render :action => "new"
