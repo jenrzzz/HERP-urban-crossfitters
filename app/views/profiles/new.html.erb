@@ -1,12 +1,17 @@
-<h1>Profile#new</h1>
-<p>Find me in app/views/profile/new.html.erb</p>
-
-<%= form_for @profile, :url => { :action => "create" } do |f| %>
-  First name:<%= f.text_field :first_name, :placeholder => "John" %></br>
-  Last name:<%= f.text_field :last_name, :placeholder => "Doe" %></br>
-  Height:<%= f.text_field :height, :placeholder => "6'5\""%></br>
-  Weight: <%= f.text_field :weight, :placeholder => "145" %></br>
-  Birthday:<%= f.text_field :birthdate, :placeholder => "01/21/1984" %></br>
-  Bio: <%= f.text_area  :description, :placeholder => "I love Crossfit" %></br>
-  <%= f.submit "Submit" %>
-<% end %>
+<div class="row">
+    <div class="span8">
+      <h1>Profile#new</h1>
+      <p>Find me in app/views/profile/new.html.erb</p>
+    </div>
+    <div class="span8">
+        <%= form_for @profile, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
+          <%= label_tag :first_name, 'First Name' %><%= f.text_field :first_name, :placeholder => "John" %>
+          <%= label_tag :last_name, 'Last Name' %><%= f.text_field :last_name, :placeholder => "Doe" %>
+          <%= label_tag :height, 'Height'%><%= f.text_field :height, :placeholder => "6'5\""%>
+          <%= label_tag :weight, 'Weight'%><%= f.text_field :weight, :placeholder => "145" %>
+          <%= label_tag :birthday, 'Birthday'%><%= f.text_field :birthdate, :placeholder => "01/21/1984" %>
+          <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :placeholder => "I love Crossfit" %>
+          <%= f.submit "Submit" %>
+        <% end %>
+    </div>
+</div>
