@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
     unless current_user.profile
       flash[:notice] = "Welcome, #{current_user.name}! Try filling in your profile"
     end
-    redirect_to :controller => 'dashboard', :action => 'show'
+    redirect_to :controller => 'dashboards', :action => 'show'
   end
   
   def destroy
