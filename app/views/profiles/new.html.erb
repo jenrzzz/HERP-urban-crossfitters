@@ -22,6 +22,7 @@
                 <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :placeholder => "I love Crossfit" %>
             </fieldset>
             <%= f.submit "Save changes", :html => { :class => 'btn btn-primary' } %>
+            <% end %>
         <% else %>
             <p>Sorry, but we were unable to pull your information from Facebook.</p>
         <% end %>
