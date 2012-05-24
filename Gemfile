@@ -31,7 +31,8 @@ gem 'omniauth', '>= 1.1.0'
 gem 'omniauth-facebook', :git => 'https://github.com/mkdynamic/omniauth-facebook'
 
 # For Graph API access
-gem 'koala'
+gem 'faraday', '~> 0.7.0' # new koala needs old faraday
+gem 'koala', '>= 1.4.1'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
