@@ -4,6 +4,8 @@ class ProfilesController < ApplicationController
     @profile = Profile.new
     @graph = Koala::Facebook::API.new session[:fbaccess]['token']
     @user = @graph.get_object 'me'
+    picture = @graph.get_object 'me', :fields => 'picture'
+    @user.merge! picture
   end
 
   def create
