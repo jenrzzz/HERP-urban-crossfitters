@@ -2,11 +2,12 @@
     <div class="span8">
       <h1>Create Profile</h1>
     </div>
-    <div class="span8">
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
         <% if @user %>
-            <div class="span2"><%= image_tag @user['picture'] %></div>
             <%= form_for @profile, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
-            <fieldset>
+            <fieldset class="control-group">
                 <%= label_tag :first_name, 'First Name' %>
                 <%= f.text_field :first_name, :class => 'uneditable-input', :value => @user['first_name'] %>
                 <%= label_tag :last_name, 'Last Name' %>
@@ -16,14 +17,17 @@
                     <option value="male"<%= ' selected' if @user['gender'] == 'male' %>>Male</option>
                     <option value="female"<%= ' selected' if @user['gender'] == 'female' %>>Female</option>
                 </select>
-                <%= label_tag :height, 'Height'%><%= f.text_field :height, :placeholder => "6'5\""%>
-                <%= label_tag :weight, 'Weight'%><%= f.text_field :weight, :placeholder => "145" %>
-                <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :placeholder => "I love Crossfit" %>
+                <%= label_tag :birthdate, 'Date of birth' %>
+                <%= f.text_field :birthdate, :class => 'uneditable-input', :value => @user['birthday'] %>
+                <%= label_tag :height, 'Height'%><%= f.text_field :height %>
+                <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
+                <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
+                <%= f.submit "Save changes", :class => 'btn btn-primary' %>
             </fieldset>
-            <%= f.submit "Save changes", :class => 'btn btn-primary' %>
             <% end %>
         <% else %>
             <p>Sorry, but we were unable to pull your information from Facebook.</p>
         <% end %>
     </div>
+    <div class="span2"><%= image_tag @user['picture'] %></div>
 </div>

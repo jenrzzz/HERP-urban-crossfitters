@@ -1,10 +1,11 @@
 class ProfilesController < ApplicationController
   def new
     #FIXME Not sure if this is the best way to do this
+    @title = 'Create a profile'
     @profile = Profile.new
     @graph = Koala::Facebook::API.new session[:fbaccess]['token']
     @user = @graph.get_object 'me'
-    picture = @graph.get_object 'me', :fields => 'picture'
+    picture = @graph.get_object 'me', :fields => 'picture,birthday'
     @user.merge! picture
   end
 

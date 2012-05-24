@@ -34,6 +34,11 @@ gem 'omniauth-facebook', :git => 'https://github.com/mkdynamic/omniauth-facebook
 gem 'faraday', '~> 0.7.0' # new koala needs old faraday
 gem 'koala', '>= 1.4.1'
 
+# To fetch WOD info from CrossFit's RSS feed
+gem 'feedzirra', :git => 'https://github.com/pauldix/feedzirra'
+gem 'htmlentities' # people who include html in an RSS feed body shall
+                   # be sent back to magic kindergarten
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
