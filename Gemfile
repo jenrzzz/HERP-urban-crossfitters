@@ -21,9 +21,17 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+# My name's not Rick!
 gem 'thin'
+
+# Need OmniAuth 1.1.0 or newer for authentication
+# and fetch the Facebook provider while we're at it.
 gem 'omniauth', '>= 1.1.0'
 gem 'omniauth-facebook', :git => 'https://github.com/mkdynamic/omniauth-facebook'
+
+# For Graph API access
+gem 'koala'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -2,6 +2,8 @@ class ProfilesController < ApplicationController
   def new
     #FIXME Not sure if this is the best way to do this
     @profile = Profile.new
+    @graph = Koala::Facebook::API.new session[:fbaccess]['token']
+    @user = @graph.get_object 'me'
   end
 
   def create

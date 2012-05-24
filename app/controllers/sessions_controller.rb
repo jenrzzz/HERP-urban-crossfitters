@@ -6,11 +6,14 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-
+    
     temp = session
     reset_session
     session.reverse_merge!(temp)
-	
+
+    # Save the access_token that we get from OmniAuth with this session.
+    session[:fbaccess] = auth_hash['credentials']
+
     # Authentication utilizing provider and UID
     unless @authorization = Authorization.find_from_hash(auth_hash)
       @authorization = Authorization.create_from_hash(auth_hash, current_user)
