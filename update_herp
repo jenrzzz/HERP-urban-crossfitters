@@ -1,0 +1,14 @@
+#!/bin/bash
+case $1 in
+    views)
+        ssh jlafave@herp.edgetechsd.com "rm -rf /var/www/app/app/views"
+        scp -r ./app/views/ jlafave@herp.edgetechsd.com:/var/www/app/app/views/
+        ;;
+    controllers)
+        ssh jlafave@herp.edgetechsd.com "rm -rf /var/www/app/app/controllers"
+        scp -r ./app/controllers/ jlafave@herp.edgetechsd.com:/var/www/app/app/controllers/
+        ;;
+    *)
+        echo "nope"
+        ;;
+esac
