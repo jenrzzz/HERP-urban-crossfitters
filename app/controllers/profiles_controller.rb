@@ -11,6 +11,7 @@ class ProfilesController < ApplicationController
     else
       @user = nil
     end
+    @profile = Profile.new
   end
 
   def create
