@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
 
   def create
     @profile = Profile.new params[:profile]
-    pic = Profile.fetch_fb_graph_user(session[:fbgraph])['picture'], :type => 'normal'
+    pic = Profile.fetch_fb_graph_user(session[:fbgraph])['picture']
     @profile.picture = pic
     if @profile.save
       current_user.profile = @profile
