@@ -1,13 +1,13 @@
 class ProfilesController < ApplicationController
   def new
     @title = 'Create a profile'
-    if Profile.where(:user => current_user).first then
+    if current_user.profile then
       flash[:notice] = 'You have already created a profile.'
       redirect_to :controller => 'profiles', :action => 'edit'
     end
     if session[:fbaccess]['token'] then
       session[:fbgraph] ||= Profile.open_graph session[:fbaccess]['token']
-      @user = fetch_fb_graph_user session[:fbgraph]
+      @user = Profile.fetch_fb_graph_user session[:fbgraph]
     else
       @user = nil
     end
@@ -32,7 +32,7 @@ class ProfilesController < ApplicationController
 
   def edit
     @title = 'Edit profile'
-    @profile = Profile.where(:user => current_user).first
+    @profile = current_user.profile
     if session[:fbaccess]['token'] then
       session[:fbgraph] ||= Profile.open_graph session[:fbaccess]['token']
       @user = Profile.fetch_fb_graph_user session[:fbgraph]

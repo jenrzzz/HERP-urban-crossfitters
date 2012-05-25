@@ -28,11 +28,11 @@ class Profile < ActiveRecord::Base
   end
   
   # Facebook stuff... TODO there might be a better place for these
-  def open_graph(token)
+  def self.open_graph(token)
     Koala::Facebook::API.new token
   end
 
-  def fetch_fb_graph_user(graph)
+  def self.fetch_fb_graph_user(graph)
     user = graph.get_object 'me'
     picture = graph.get_object 'me', :fields => 'picture,birthday'
     user.merge! picture
