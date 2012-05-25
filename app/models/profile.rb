@@ -1,6 +1,6 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :height, :weight, :birthdate,
-                  :description
+  attr_accessible :first_name, :last_name, :height, :weight, :picture, 
+                  :birthdate, :description
   # attr_accessible :title, :body
   belongs_to :user
 
@@ -25,6 +25,17 @@ class Profile < ActiveRecord::Base
   # string formate is "MM/DD/YY" or(?) "MM/DD/YYYY" FIXME confirm format
   def birthdate=(s)
     self[:birthdate] = Date.strptime( s, "%m/%d/%y" )
+  end
+  
+  # Facebook stuff... TODO there might be a better place for these
+  def open_graph(token)
+    Koala::Facebook::API.new token
+  end
+
+  def fetch_fb_graph_user(graph)
+    user = graph.get_object 'me'
+    picture = graph.get_object 'me', :fields => 'picture,birthday'
+    user.merge! picture
   end
 
   validates :weight, :numericality => { :only_integer => true,
