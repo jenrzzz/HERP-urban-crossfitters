@@ -10,6 +10,7 @@ class ProfilesController < ApplicationController
       @user = fetch_fb_graph_user session[:fbgraph]
     else
       @user = nil
+    end
   end
 
   def create
