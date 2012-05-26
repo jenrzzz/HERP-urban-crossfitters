@@ -29,7 +29,11 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    @profile = Profile.find params[:id] if params[:id] or current_user.profile
+    if params[:id] then
+      @profile = Profile.find params[:id]
+    else 
+      @profile = current_user.profile
+    end
     @title = "#{@profile.first_name} #{@profile.last_name}"
   end
 
