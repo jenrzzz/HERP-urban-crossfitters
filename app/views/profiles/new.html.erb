@@ -5,29 +5,25 @@
 </div>&nbsp;
 <div class="row">
     <div class="span4">
-        <% if @user %>
-            <%= form_for @profile, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
-            <fieldset class="control-group">
-                <%= label_tag :first_name, 'First Name' %>
-                <%= f.text_field :first_name, :class => 'uneditable-input', :value => @user['first_name'] %>
-                <%= label_tag :last_name, 'Last Name' %>
-                <%= f.text_field :last_name, :class => 'uneditable-input', :value => @user['last_name'] %>
-                <%= label_tag :gender, 'Gender' %>
-                <select name="gender">
-                    <option value="male"<%= ' selected' if @user['gender'] == 'male' %>>Male</option>
-                    <option value="female"<%= ' selected' if @user['gender'] == 'female' %>>Female</option>
-                </select>
-                <%= label_tag :birthdate, 'Date of birth' %>
-                <%= f.text_field :birthdate, :class => 'uneditable-input', :value => @user['birthday'] %>
-                <%= label_tag :height, 'Height'%><%= f.text_field :height %>
-                <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
-                <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
-                <%= f.submit "Save changes", :class => 'btn btn-primary' %>
-            </fieldset>
-            <% end %>
-        <% else %>
-            <p>Sorry, but we were unable to pull your information from Facebook.</p>
+        <%= form_for @profile, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
+        <fieldset class="control-group">
+            <%= label_tag :first_name, 'First Name' %>
+            <%= f.text_field :first_name, :value => (@user['first_name'] if @user) %>
+            <%= label_tag :last_name, 'Last Name' %>
+            <%= f.text_field :last_name, :value => (@user['last_name'] if @user) %>
+            <%= label_tag :gender, 'Gender' %>
+            <select name="gender">
+                <option value="male"<%= ' selected' if @user and @user['gender'] == 'male' %>>Male</option>
+                <option value="female"<%= ' selected' if @user and @user['gender'] == 'female' %>>Female</option>
+            </select>
+            <%= label_tag :birthdate, 'Date of birth' %>
+            <%= f.text_field :birthdate, :value => (@user['birthday'] if @user) %>
+            <%= label_tag :height, 'Height'%><%= f.text_field :height %>
+            <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
+            <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
+            <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+        </fieldset>
         <% end %>
     </div>
-    <div class="span2"><%= image_tag @user['picture'] %></div>
+    <div class="span2"><%= @user ? image_tag(@user['picture']) : image_tag('profiles/user_missing.png') %></div>
 </div>
