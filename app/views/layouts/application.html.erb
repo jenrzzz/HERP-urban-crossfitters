@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h1><%= link_to 'Urban Crossfitters', dashboards_path if logged_in? else 'Urban Crossfitters' %></h1>
+        <h1><%= logged_in? ? link_to 'Urban Crossfitters', dashboards_path : 'Urban Crossfitters' %></h1>
     </div>
 	<%= yield %>
 	<div class="footer">
