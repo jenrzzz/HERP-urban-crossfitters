@@ -33,6 +33,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.find params[:id]
     else 
       @profile = current_user.profile
+    end
     @title = "#{@profile.first_name} #{@profile.last_name}"
   end
 
