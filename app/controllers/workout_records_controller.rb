@@ -27,7 +27,7 @@ class WorkoutRecordsController < ApplicationController
 
   # update a specific workout record
   def update
-    @workout_record = Workout.find_by_id( params[:id] )
+    @workout_record = WorkoutRecord.find_by_id( params[:id] )
   end
 
   # delete a specific workout record

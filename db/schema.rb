@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525032259) do
+ActiveRecord::Schema.define(:version => 20120526051047) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(:version => 20120525032259) do
     t.integer  "rounds"
     t.integer  "distance"
     t.string   "units"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "workout_id"
+    t.integer  "exercise_type_id"
   end
 
   create_table "goals", :force => true do |t|
@@ -79,9 +81,10 @@ ActiveRecord::Schema.define(:version => 20120525032259) do
   end
 
   create_table "personal_records", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "user_id"
+    t.integer  "workout_record_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -129,6 +132,8 @@ ActiveRecord::Schema.define(:version => 20120525032259) do
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
     t.integer  "user_id"
+    t.integer  "workout_id"
+    t.integer  "trainer_id"
   end
 
   create_table "workout_types", :force => true do |t|
@@ -138,9 +143,10 @@ ActiveRecord::Schema.define(:version => 20120525032259) do
   end
 
   create_table "workouts", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",            :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "workout_type_id"
   end
 
 end
