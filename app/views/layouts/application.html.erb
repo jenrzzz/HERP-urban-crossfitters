@@ -2,13 +2,24 @@
 <html>
 <head>
   <title><%= @title || 'Page' %> &mdash; Urban Crossfitters</title>
-  <%= stylesheet_link_tag    "application", "bootstrap.min", :media => "all" %>
+  <%= stylesheet_link_tag "application", "bootstrap.min", :media => "all" %>
+  <%= stylesheet_link_tag "application", "bootstrap-responsive.min", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div class="container">
+    <div class="page-header">
+        <h1><%= link_to 'Urban Crossfitters', dashboards_path if logged_in? else 'Urban Crossfitters' %></h1>
+    </div>
 	<%= yield %>
+	<div class="footer">
+	   <div class="row">
+	       <div class="span12">
+	           &nbsp;
+	       </div>
+	   </div>
+    </div>
 </div>
 
 </body>

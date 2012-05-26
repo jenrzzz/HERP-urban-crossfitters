@@ -1,8 +1,21 @@
-<h1>Your Profile</h1>
-<%= link_to "Return to Dashboard", dashboard_path %></br>
-<% profile = current_user.profile %>
-Name: <%= profile.first_name %> <%= profile.last_name %></br>
-Birthday: <%= profile.birthdate %></br>
-Height: <%= profile.height %></br>
-Weight: <%= profile.weight %></br>
-Bio: <%= profile.description %></br>
+<div class="row">
+    <div class="span2">
+        <% if @profile.picture %>
+            <%= image_tag @profile.picture %>
+        <% else %>
+            <%= image_tag 'profiles/user_missing.png' %>
+        <% end %>
+    <div class="span8">
+        <h1><%= @title %></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="span8">
+        <table class="table">
+            <tr><td>Birthday</td><td><%= @profile.birthdate %></td></tr>
+            <tr><td>Height</td><td><%= @profile.height %></td></tr>
+            <tr><td>Weight</td><td><%= @profile.weight %></td></tr>
+        </table>
+        <p><%= @profile.description %></p>
+    </div>
+</div>
