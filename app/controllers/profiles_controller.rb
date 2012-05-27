@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
     @profile.picture = pic
     if @profile.save
       current_user.profile = @profile
-      render :action => "show"
+      redirect_to profile_path()
     else
       flash.now[:error] = 'There was a problem saving your profile changes.'
       flash.now[:errors] = @profile.errors
