@@ -8,6 +8,7 @@
     Welcome <%= current_user.name %>!</br>
     <% if current_user.profile %>
       <%= link_to "View Profile", profile_path('me') %></br>
+      <%= link_to "Edit Profile", edit_profile_path('me') %></br>
     <% else %>
       <%= link_to "Create Profile", new_profile_path %></br>
     <% end %>
