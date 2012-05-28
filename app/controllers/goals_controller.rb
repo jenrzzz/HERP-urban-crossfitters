@@ -2,7 +2,12 @@ class GoalsController < ApplicationController
 # display list of all goals
   def index
     @goals = current_user.goals
-    @title = "All goals for #{current_user.profile.first_name}"
+    if current_user.profile
+      name = current_user.profile.first_name
+    else
+      name = current_user.username
+    end
+      @title = "All goals for #{name}"
   end
 
   # return an HTML form to add new goal
