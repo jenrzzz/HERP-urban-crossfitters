@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="span8">
+        <h2><%= @goal.name %></h2>
+        <p><%= @goal.description %></p>
+        <p>Status: 
+            <span class="label<%= ' label-success' if @goal.status == 'Complete' %>">
+            <%= @goal.status %>
+            </span>
+        </p>
+        <p><strong>Deadline: </strong><%= @goal.deadline %></p>
+    </div>
+</div>

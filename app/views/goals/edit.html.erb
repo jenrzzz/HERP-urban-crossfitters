@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="span8">
+      <h1>Edit Goal</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+        <%= form_for @goal, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
+        <fieldset class="control-group">
+            <%= label_tag :name, 'Name' %>
+            <%= f.text_field :name, :value => @goal.name %>
+            <%= label_tag :description, 'Description' %>
+            <%= f.text_area :description, :rows => 4, :value => @goal.description %>
+            <%= label_tag :status, 'Status' %>
+            <%= f.select :status, options_for_select({ :incomplete => 'Incomplete', :complete => 'Complete' }, :incomplete) %>
+            <%= label_tag :deadline, 'Deadline' %>
+            <%= date_select :goal, :deadline, :order => [:month, :day, :year] %>
+            <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+        </fieldset>
+        <% end %>
+    </div>
+</div>
