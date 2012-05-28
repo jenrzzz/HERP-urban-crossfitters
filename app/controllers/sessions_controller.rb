@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
     end
     self.current_user = @authorization.user
     unless current_user.profile
-      flash[:notice] = "Welcome, #{current_user.name}! Try filling in your profile"
+      flash[:notice] = "Welcome, #{current_user.username}! Try filling in your profile"
     end
     redirect_to :controller => 'dashboards', :action => 'show'
   end
