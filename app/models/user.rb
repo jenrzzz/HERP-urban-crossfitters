@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :name
+  attr_accessible :email, :username
   # attr_accessible :title, :body
   has_one  :profile
   has_many :goals
@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
   
   #authorization
   has_many :authorizations
-  validates :name, :email, :presence => true
+  validates :username, :email, :presence => true
 
   def self.create_from_hash!(hash)
-    create(:name => hash['info']['name'], :email => hash['info']['email'])
+    create(:username => hash['info']['name'], :email => hash['info']['email'])
   end  
 end
