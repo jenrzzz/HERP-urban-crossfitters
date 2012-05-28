@@ -18,7 +18,9 @@
             </select>
             <%= label_tag :birthdate, 'Date of birth:' %>
             <%= date_select :profile, :birthdate, :start_year => 1920, :order => [:month, :day, :year] %>
-            <%= label_tag :height, 'Height'%><%= f.text_field :height %>
+            <%= label_tag :height_feet, 'Height'%>
+              <%= select :height, :feet, (0..10).to_a %> feet
+              <%= select :height, :inches, (0..11).to_a %> inches
             <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
             <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
             <%= f.submit "Save changes", :class => 'btn btn-primary' %>

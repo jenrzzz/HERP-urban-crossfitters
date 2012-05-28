@@ -5,7 +5,7 @@
     <% if flash[:notice] %>
       <p class="notice"><%= flash[:notice] %></p>
     <% end %>
-    Welcome <%= current_user.name %>!</br>
+    Welcome <%= current_user.profile.first_name %>!</br>
     <% if current_user.profile %>
       <%= link_to "View Profile", profile_path('me') %></br>
       <%= link_to "Edit Profile", edit_profile_path('me') %></br>
