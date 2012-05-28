@@ -1,6 +1,8 @@
 class GoalsController < ApplicationController
 # display list of all goals
   def index
+    @goals = current_user.goals
+    @title = "All goals for #{current_user.profile.first_name}"
   end
 
   # return an HTML form to add new goal
@@ -11,7 +13,7 @@ class GoalsController < ApplicationController
 
   # create a new goal
   def create
-    @goal = Goal.new(params[:goal])
+    @goal = Goal.new params[:goal]
     if @goal.save
       current_user.goals << @goal
     else
@@ -24,18 +26,15 @@ class GoalsController < ApplicationController
 
   # display a specific goal
   def show
-    @workout = Workout.find_by_id( params[:id] )
-    render :action => "show"
+    @goal = Goal.find_by_id params[:id]
   end
 
   # return a form to edit a goal
   def edit
-    render :action => "edit"
   end
 
   # update a specific goal
   def update
-    @goal = Goal.find_by_id( params[:id] )
   end
 
   # delete a specific goal
