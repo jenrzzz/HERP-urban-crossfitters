@@ -27,14 +27,21 @@ class GoalsController < ApplicationController
   # display a specific goal
   def show
     @goal = Goal.find_by_id params[:id]
+    @title = "Goal #{@goal.name}"
   end
 
   # return a form to edit a goal
   def edit
+    @goal = Goal.find_by_id params[:id]
+    @title = "Editing #{@goal.name}"
   end
 
   # update a specific goal
   def update
+    @goal = Goal.find_by_id params[:id]
+    if @goal.update_attributes params[:goal]
+      redirect_to :action => 'show', :id => @goal.id
+    end
   end
 
   # delete a specific goal

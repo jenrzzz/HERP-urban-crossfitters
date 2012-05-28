@@ -12,12 +12,9 @@
             <%= label_tag :description, 'Description' %>
             <%= f.text_area :description, :rows => 4 %>
             <%= label_tag :status, 'Status' %>
-            <select name="status">
-                <option value="incomplete">Incomplete</option>
-                <option value="complete">Complete</option>
-            </select>
+            <%= f.select :status, options_for_select({ :incomplete => 'Incomplete', :complete => 'Complete' }, :incomplete) %>
             <%= label_tag :deadline, 'Deadline' %>
-            <%= date_select :goal, :deadline, :start_year => 1920, :order => [:month, :day, :year] %>
+            <%= date_select :goal, :deadline, :order => [:month, :day, :year] %>
             <%= f.submit "Save changes", :class => 'btn btn-primary' %>
         </fieldset>
         <% end %>

@@ -6,7 +6,7 @@
       <% if flash[:notice] %>
         <p class="notice"><%= flash[:notice] %></p>
       <% end %>
-      Welcome <%= current_user.name %>!
+      Welcome <%= current_user.profile.first_name %>!
       <%= link_to "Log out", logout_path %>
     <% else %>
       <%= link_to "Connect With Facebook", "/auth/facebook" %></br>
