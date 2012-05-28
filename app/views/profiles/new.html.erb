@@ -29,7 +29,7 @@
                                     (@user['gender'] if @user)), :include_blank => 'Select One' %>
             <%= label_tag :birthdate, 'Date of birth:' %>
             <%= date_select :profile, :birthdate, :start_year => 1920, :order => [:month, :day, :year] %>
-            <%= label_tag :feet, 'Height' %>
+            <%= label_tag :height, 'Height' %>
               <%= select :height, :feet, (0..10).collect {|n| [n, n] } %> feet
               <%= select :height, :inches, (0..11).collect {|n| [n, n] } %> inches
             <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>

@@ -8,9 +8,9 @@
         <%= form_for @profile, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
           <fieldset class="control-group">
             <%= label_tag :first_name, 'First Name' %>
-            <%= f.text_field :first_name, :value => (@user['first_name'] if @user) %>
+            <%= f.text_field :first_name %>
             <%= label_tag :last_name, 'Last Name' %>
-            <%= f.text_field :last_name, :value => (@user['last_name'] if @user) %>
+            <%= f.text_field :last_name %>
             <%= label_tag :gender, 'Gender' %>
             <select name="gender">
                 <option value="male"<%= ' selected' if @user and @user['gender'] == 'male' %>>Male</option>
@@ -18,9 +18,8 @@
             </select>
             <%= label_tag :birthdate, 'Date of birth:' %>
             <%= date_select :profile, :birthdate, :start_year => 1920, :order => [:month, :day, :year] %>
-            <%= label_tag :height_feet, 'Height'%>
-              <%= select :height, :feet, (0..10).to_a %> feet
-              <%= select :height, :inches, (0..11).to_a %> inches
+              <%= select  :height, :feet, (0..10).collect {|n| [n, n] } %> feet
+              <%= select  :height, :inches, (0..11).collect {|n| [n, n] } %> inches
             <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
             <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
             <%= f.submit "Save changes", :class => 'btn btn-primary' %>
