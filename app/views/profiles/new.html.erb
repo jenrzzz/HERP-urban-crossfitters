@@ -16,8 +16,8 @@
                 <option value="male"<%= ' selected' if @user and @user['gender'] == 'male' %>>Male</option>
                 <option value="female"<%= ' selected' if @user and @user['gender'] == 'female' %>>Female</option>
             </select>
-            <%= label_tag :birthdate, 'Date of birth' %>
-            <%= f.text_field :birthdate, :value => (@user['birthday'] if @user) %>
+            <%= label_tag :birthdate, 'Date of birth:' %>
+            <%= date_select :profile, :birthdate, :start_year => 1920, :order => [:month, :day, :year] %>
             <%= label_tag :height, 'Height'%><%= f.text_field :height %>
             <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
             <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>

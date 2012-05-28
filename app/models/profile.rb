@@ -21,12 +21,6 @@ class Profile < ActiveRecord::Base
     "" + feet.to_s + "'" + inch.to_s + "\""
   end
 
-  # converts birthday from a string to a date
-  # string formate is "MM/DD/YY" or(?) "MM/DD/YYYY" FIXME confirm format
-  def birthdate=(s)
-    self[:birthdate] = Date.strptime( s, "%m/%d/%y" )
-  end
-  
   # Facebook stuff... TODO there might be a better place for these
   def self.open_graph(token)
     Koala::Facebook::API.new token
