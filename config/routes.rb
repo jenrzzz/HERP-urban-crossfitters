@@ -3,6 +3,8 @@ Herpcs110s::Application.routes.draw do
   resources  :session
   resources  :profiles
   resource   :dashboard
+  resources   :goals
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
   
