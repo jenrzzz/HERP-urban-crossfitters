@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="span8">
+      <h1>Edit Health Record</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+      <% if flash[:error] %>
+        <ul>
+          <li><%= flash[:error] %></li>
+            <% flash[:errors].each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+        </ul>
+      <% end %>
+        <%= form_for @record, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
+        <fieldset class="control-group">
+            <%= label_tag :date_recorded, 'Date Recorded' %>
+            <%= date_select :health_record, :date_recorded %>
+            <%= label_tag :systolic_bp, 'Systolic Blood Pressure' %>
+            <%= f.text_field :systolic_bp %>
+            <%= label_tag :diastolic_bp, 'Diastolic Blood Pressure' %>
+            <%= f.text_field :diastolic_bp %>
+            <%= label_tag :weight, 'Weight' %>
+            <%= f.text_field :weight %>
+            <%= label_tag :resting_heart_rate, 'Resting Heart Rate' %>
+            <%= f.text_field :resting_heart_rate %>
+            <%= label_tag :calories_consumed, 'Consumed Calories' %>
+            <%= f.text_field :calories_consumed %>
+            <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+        </fieldset>
+        <% end %>
+    </div>
+</div>
