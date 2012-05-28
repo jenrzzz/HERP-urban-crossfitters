@@ -16,11 +16,11 @@ class ProfilesController < ApplicationController
 
   def create
     @profile = Profile.new params[:profile]
-    pic = Profile.fetch_fb_graph_user(session[:fbgraph])['picture'] if session[:fbgraph] or nil
-    @profile.picture = pic
+    pic = session[:fbgraph] ? Profile.fetch_fb_graph_user(session[:fbgraph])['picture'] : nil
+    @profile.picture = pic if pic
     if @profile.save
       current_user.profile = @profile
-      redirect_to profile_path()
+      redirect_to profile_path('me')
     else
       flash.now[:error] = 'There was a problem saving your profile changes.'
       flash.now[:errors] = @profile.errors
@@ -29,7 +29,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    if params[:id] then
+    if params[:id] and params[:id] != 'me' then
       @profile = Profile.find params[:id]
     else 
       @profile = current_user.profile
@@ -40,6 +40,7 @@ class ProfilesController < ApplicationController
   def edit
     @title = 'Edit profile'
     @profile = current_user.profile
+    flash[:error] = "You can't edit someone else's profile."
     if session[:fbaccess]['token'] then
       session[:fbgraph] ||= Profile.open_graph session[:fbaccess]['token']
       @user = Profile.fetch_fb_graph_user session[:fbgraph]

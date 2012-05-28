@@ -6,10 +6,8 @@ class Profile < ActiveRecord::Base
 
   # expects a string as follows: [feet]'[inches]"
   # converts value to height in inches
-  def height=(s)
-    # FIXME should add some checks to make sure s is a well-formatted string
-    strs = s.split(/\\|'/)
-    self[:height] = strs[0].to_i * 12 + strs[1].to_i
+  def height=(val)
+    height = (val[:feet].to_i * 12) + val[:inches].to_i
   end
 
   # converts height in inches value to a string
@@ -21,12 +19,6 @@ class Profile < ActiveRecord::Base
     "" + feet.to_s + "'" + inch.to_s + "\""
   end
 
-  # converts birthday from a string to a date
-  # string formate is "MM/DD/YY" or(?) "MM/DD/YYYY" FIXME confirm format
-  def birthdate=(s)
-    self[:birthdate] = Date.strptime( s, "%m/%d/%y" )
-  end
-  
   # Facebook stuff... TODO there might be a better place for these
   def self.open_graph(token)
     Koala::Facebook::API.new token
