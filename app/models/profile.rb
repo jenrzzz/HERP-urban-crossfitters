@@ -1,10 +1,8 @@
 class Profile < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :height, :weight, :picture, 
                   :birthdate, :description
-  # attr_accessible :title, :body
   belongs_to :user
 
-  # expects a string as follows: [feet]'[inches]"
   # converts value to height in inches
   def height=(val)
     height = (val[:feet].to_i * 12) + val[:inches].to_i
@@ -13,9 +11,13 @@ class Profile < ActiveRecord::Base
   # converts height in inches value to a string
   # string format is: [feet]'[inches]"
   def height
-    temp = self[:height]
-    feet = temp / 12
-    inch = temp % 12
+    unless self[:height]
+      return '0'
+    else
+      temp = self[:height]
+      feet = temp / 12
+      inch = temp % 12
+    end
     "" + feet.to_s + "'" + inch.to_s + "\""
   end
 

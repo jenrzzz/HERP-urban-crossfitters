@@ -41,6 +41,9 @@ class GoalsController < ApplicationController
     @goal = Goal.find_by_id params[:id]
     if @goal.update_attributes params[:goal]
       redirect_to :action => 'show', :id => @goal.id
+    else
+      flash[:error] = 'Could not save changes to the goal.'
+      redirect_to :action => 'edit', :id => params[:id]
     end
   end
 

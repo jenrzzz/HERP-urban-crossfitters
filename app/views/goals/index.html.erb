@@ -13,14 +13,15 @@
     <% @goals.each do |goal| %>
         <div class="row">
             <div class="span8">
-                <h2><%= link_to goal.name, goal_path(goal.id) %></h2>
+                <h2><%= link_to goal.name, edit_goal_path(goal.id) %></h2>
                 <p><%= goal.description %></p>
-                <p>Status: 
+                <p><strong>Status: </strong>
                     <span class="label<%= ' label-success' if goal.status == 'complete' %>">
                     <%= goal.status %>
                     </span>
                 </p>
                 <p><strong>Deadline: </strong><%= goal.deadline %></p>
+                <small style="font-size: small;"><%= link_to 'Permalink', goal_path(goal.id) %></small>
             </div>
         </div>
     <% end %>
