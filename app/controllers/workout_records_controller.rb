@@ -33,6 +33,7 @@ class WorkoutRecordsController < ApplicationController
     unless @workout_record
       flash[:error] = "The selected workout record doesn't belong to you"
       redirect_to :action => 'index'
+    end
   end
 
   # update a specific workout record
