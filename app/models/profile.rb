@@ -1,11 +1,12 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :height, :weight, :picture, 
+  attr_accessible :first_name, :last_name, :height, :weight, :picture, :gender,
                   :birthdate, :description
   belongs_to :user
 
   # converts value to height in inches
   def height=(val)
-    height = (val[:feet].to_i * 12) + val[:inches].to_i
+    self[:height] = (val[:feet].to_i * 12) + val[:inches].to_i
+    puts "------ converted #{val} to #{self[:height]} "
   end
 
   # converts height in inches value to a string

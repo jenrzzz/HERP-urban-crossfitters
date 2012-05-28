@@ -18,13 +18,14 @@ class ProfilesController < ApplicationController
     @profile = Profile.new params[:profile]
     pic = session[:fbgraph] ? Profile.fetch_fb_graph_user(session[:fbgraph])['picture'] : nil
     @profile.picture = pic if pic
+    @profile.height = params[:height]
     if @profile.save
       current_user.profile = @profile
       redirect_to profile_path('me')
     else
-      flash.now[:error] = 'There was a problem saving your profile changes.'
-      flash.now[:errors] = @profile.errors
-      render :action => "new"
+      flash[:error] = 'There was a problem saving your profile changes.'
+      flash[:errors] = @profile.errors
+      redirect_to :action => "new"
     end
   end
 
@@ -40,7 +41,9 @@ class ProfilesController < ApplicationController
   def edit
     @title = 'Edit profile'
     @profile = current_user.profile
-    flash[:error] = "You can't edit someone else's profile."
+    if params[:id] != @profile.id
+      flash.now[:notice] = "You can't edit someone else's profile."
+    end
     if session[:fbaccess]['token'] then
       session[:fbgraph] ||= Profile.open_graph session[:fbaccess]['token']
       @user = Profile.fetch_fb_graph_user session[:fbgraph]

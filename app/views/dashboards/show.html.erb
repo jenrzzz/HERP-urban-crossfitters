@@ -3,11 +3,22 @@
         <h1>Dashboard</h1>
     </div>
 </div>
-<% if flash[:notice] %>
-            <div class="alert alert-info"><%= flash[:notice] %></div>
-<% end %>
+
 <div class="row">
     <div class="span8">
+        <% if flash[:notice] %>
+            <div class="alert alert-info"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:error] %>
+            <div class="alert alert-warning"><%= flash[:error] %></div>
+            <% if flash[:errors] %>
+            <ul>
+                <% flash[:errors].each do |e| %>
+                    <li><%= e %></li>
+                <% end %>
+            </ul>
+            <% end %>
+        <% end %>
         <h3>Welcome <%= current_user.profile ? current_user.profile.first_name : current_user.username %>!</h3>
         <% if current_user.profile %>
           <%= link_to "View Profile", profile_path('me') %><br />

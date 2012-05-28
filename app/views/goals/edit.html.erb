@@ -5,6 +5,19 @@
 </div>&nbsp;
 <div class="row">
     <div class="span4">
+        <% if flash[:notice] %>
+            <div class="alert alert-info"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:error] %>
+            <div class="alert alert-warning"><%= flash[:error] %></div>
+            <% if flash[:errors] %>
+            <ul>
+                <% flash[:errors].each do |e| %>
+                    <li><%= e %></li>
+                <% end %>
+            </ul>
+            <% end %>
+        <% end %>
         <%= form_for @goal, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
         <fieldset class="control-group">
             <%= label_tag :name, 'Name' %>
