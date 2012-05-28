@@ -48,4 +48,17 @@ class ProfilesController < ApplicationController
       @user = nil
     end
   end
+  
+  def update 
+  	@title = 'Update profile'
+  	@profile = current_user.profile
+  	if @profile.update_attributes(params[:profile])
+  	  current_user.profile = @profile
+  	  redirect_to profile_path('me')
+  	else
+  	  flash.now[:error] = 'There was a problem saving your profile updates.'
+  	  flash.now[:errors] = @profile.errors
+  	  render :action => "show"
+  	end
+  end
 end

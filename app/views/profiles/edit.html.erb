@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="span8">
+      <h1>Edit Profile</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+        <%= form_for @profile, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
+          <fieldset class="control-group">
+            <%= label_tag :first_name, 'First Name' %>
+            <%= f.text_field :first_name, :value => (@user['first_name'] if @user) %>
+            <%= label_tag :last_name, 'Last Name' %>
+            <%= f.text_field :last_name, :value => (@user['last_name'] if @user) %>
+            <%= label_tag :gender, 'Gender' %>
+            <select name="gender">
+                <option value="male"<%= ' selected' if @user and @user['gender'] == 'male' %>>Male</option>
+                <option value="female"<%= ' selected' if @user and @user['gender'] == 'female' %>>Female</option>
+            </select>
+            <%= label_tag :birthdate, 'Date of birth:' %>
+            <%= date_select :profile, :birthdate, :start_year => 1920, :order => [:month, :day, :year] %>
+            <%= label_tag :height_feet, 'Height'%>
+              <%= select :height, :feet, (0..10).to_a %> feet
+              <%= select :height, :inches, (0..11).to_a %> inches
+            <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
+            <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
+            <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+        </fieldset>
+        <% end %>
+    </div>
+    <div class="span2"><%= @user ? image_tag(@user['picture']) : image_tag('profiles/user_missing.png') %></div>
+</div>
