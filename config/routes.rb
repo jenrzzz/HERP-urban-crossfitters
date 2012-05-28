@@ -1,7 +1,10 @@
 Herpcs110s::Application.routes.draw do
 
+  match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+
   resources  :session
   resources  :profiles
+  resources  :health_records
   resource   :dashboard
   resources  :goals
   

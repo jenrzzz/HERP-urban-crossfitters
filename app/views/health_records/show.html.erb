@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="span8">
+        <h1>View Health Record</h1>
+        <h2><%= link_to 'Back to Records', health_records_path %>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span6">
+      <%= link_to 'Edit Record', edit_health_record_path(@record) %>
+      <%= link_to 'Delete Record', health_record_path(@record),
+          :confirm => 'Are you sure?', :method => :delete %>
+      <%= @record.date_recorded %></br>
+      <% if @record.systolic_bp && @record.diastolic_bp %>
+          Diastolic Blood Pressure:<%= @record.systolic_bp %><br />
+          Systolic Blood Pressure:<%= @record.diastolic_bp %><br />
+      <% end %>
+      <% if @record.weight %>
+          Weight:<%= @record.weight %><br />
+      <% end %>
+      <% if @record.resting_heart_rate %>
+          Resting Heart Rate:<%= @record.resting_heart_rate %><br />
+      <% end %>
+      <% if @record.calories_consumed %>
+          Calories Consumed:<%= @record.calories_consumed %><br />
+      <% end %>
+    </div>
+</div>

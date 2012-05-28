@@ -53,3 +53,6 @@ gem 'htmlentities' # people who include html in an RSS feed body shall
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+# To display calendar
+gem 'event-calendar'
