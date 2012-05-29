@@ -1,16 +1,42 @@
-<div class="row">
+<div class="container">
+  <!-- Main hero unit for a primary marketing message or call to action -->
   <div class="hero-unit">
-    <h1>Urban Crossfitters</h1>
-    <p>Coming soon.</p>
-    <% if current_user %>
-      <% if flash[:notice] %>
-        <p class="notice"><%= flash[:notice] %></p>
-      <% end %>
-      Welcome <%= current_user.profile ? current_user.profile.first_name : current_user.username %>!
-      <%= link_to "Log out", logout_path %>
-    <% else %>
-      <%= link_to "Connect With Facebook", "/auth/facebook" %></br>
-      <%= link_to "Authenticate as Dev", "/auth/developer" %></br>
+    <!-- <h1>Urban Crossfitters</h1> -->
+    <%= image_tag src=image_path('cs110logo3.png') %>
+    <p>Welcome to HERP's web application, Urban Crossfitters. Please login or signup.</p>
+    <p><a class="btn btn-info btn-large">Signup &raquo;</a>
+    <a class="btn btn-info btn-large">Login &raquo;</a></p>
   </div>
-</div>
-<% end %>
+  <!-- Example row of columns -->
+  <div class="row-fluid">
+    <div class="span4">
+      <h2><i class="icon-user"></i>Profile</h2></br>
+      <p>View or edit your profile.</p>
+      <%= content_tag :p,link_to('View details ', profiles_path+'/me', :class => 'btn btn-info') %>
+    </div>
+    <div class="span4">
+      <h2><i class="icon-fire"></i>Workout</h2></br>
+      <p>Execute a workout or view your workout history.</p>
+      <%= content_tag :p,link_to('View details ', workout_records_path, :class => 'btn btn-info') %>
+    </div>
+    <div class="span4">
+      <h2><i class="icon-heart"></i>Health</h2></br>
+      <p>View or modify your health statistics.</p>
+      <%= content_tag :p,link_to('View details ', health_records_path, :class => 'btn btn-info') %>
+    </div>  
+  </div>
+    <div class="row-fluid">
+      <div class="span4">
+        <h2><i class="icon-calendar"></i>Journal</h2></br>
+        <p>Create, view, or edit your journal entries.</p>
+        <% #FIXME add correct journal path %>
+      <%= content_tag :p,link_to('View details ', '/', :class => 'btn btn-info') %>
+        <p><a class="btn btn-info" href="journal.html">View details &raquo;</a></p>
+      </div>
+      <div class="span4">
+        <h2><i class="icon-question-sign"></i>Goals</h2></br>
+        <p>Create goals for yourself or modify current ones.</p>
+        <p><a class="btn btn-info" href="help.html">View details &raquo;</a></p>
+     </div>
+    </div>
+  </div>
