@@ -7,10 +7,78 @@
  *
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
- *= require_tree .
+ *= require bootstrap.min
  *= require bootstrap_and_overrides
  *= require_self
 */
-
-
-
+  .row-fluid [class*="span"] {
+   padding: 10px;
+  }
+ .row-fluid .span4blue{
+   width: 31.914893614%;
+   *width: 31.8617021246383%;
+   height: 100px;
+   background: #1aa9af;
+ }
+ 
+ .row-fluid .span4blue:hover{
+   text-decoration: none;
+   opacity: 0.8;
+ }
+ 
+ .row-fluid .span4gray {
+   width: 31.914893614%;
+   *width: 31.8617021246383%;
+   height: 100px;
+   background: #7e7e7e;
+   
+ }
+ 
+ .row-fluid .span4gray:hover{
+   text-decoration: none;
+   opacity: 0.8;
+ }
+  h6 {
+   font-weight: normal;
+   text-transform: uppercase;
+  }
+  h1 {
+   font-size: 35px;
+  }
+  h2 {
+   font-size: 30px;
+  }
+  h3 {
+   font-size: 25px;
+  }
+  h4 {
+   font-size: 20px;
+  }
+  [class^="icon-"],
+  [class*=" icon-"] {
+   margin-right: 5px;
+   vertical-align: middle;
+  }
+  .nav > li > a {
+   margin-top:8px;
+  }
+  .navbar .brand:hover {
+   color: #eaeaea;
+  }
+  .navbar .brand {
+   font-size: 35px;
+   color: #1aa9af;
+   font-family: 'League Gothic', Arial, sans serif;
+  }
+  .navbar .nav > li > a {
+   color: #eaeaea;
+  }
+  .navbar .nav > li > a:hover {
+   color: #eaeaea;
+   text-decoration: underline;
+  }
+  .navbar .nav .active > a,
+  .navbar .nav .active > a:hover {
+   text-decoration: underline;
+   background-color: transparent;
+  }
