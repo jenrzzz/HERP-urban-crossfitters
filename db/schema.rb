@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120528111613) do
+ActiveRecord::Schema.define(:version => 20120529203550) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -37,11 +37,15 @@ ActiveRecord::Schema.define(:version => 20120528111613) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "exercise_types", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "exercise_workouts", :force => true do |t|
+    t.integer  "exercise_id", :null => false
+    t.integer  "workout_id",  :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
+
+  add_index "exercise_workouts", ["exercise_id"], :name => "index_exercise_workouts_on_exercise_id"
+  add_index "exercise_workouts", ["workout_id"], :name => "index_exercise_workouts_on_workout_id"
 
   create_table "exercises", :force => true do |t|
     t.integer  "repetitions"
@@ -51,8 +55,9 @@ ActiveRecord::Schema.define(:version => 20120528111613) do
     t.string   "units"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.integer  "workout_id"
     t.integer  "exercise_type_id"
+    t.text     "description"
+    t.string   "category"
   end
 
   create_table "goals", :force => true do |t|
@@ -145,17 +150,13 @@ ActiveRecord::Schema.define(:version => 20120528111613) do
     t.integer  "trainer_id"
   end
 
-  create_table "workout_types", :force => true do |t|
-    t.string   "type",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "workouts", :force => true do |t|
     t.string   "name",            :null => false
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "workout_type_id"
+    t.text     "description"
+    t.string   "category"
   end
 
 end
