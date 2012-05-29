@@ -11,7 +11,7 @@ class WorkoutRecordsController < ApplicationController
 
   # create a new workout record
   def create
-    @workout_record = WorkoutRecord.new(params[:workout_record])
+    @workout_record = WorkoutRecord.new params[:workout_record]
     if @workout_record.save
       current_user.workout_records << @workout_record
       redirect_to :action => 'show', :id => @workout_record.id
@@ -40,7 +40,7 @@ class WorkoutRecordsController < ApplicationController
   def update
     @workout_record = current_user.workout_records.find_by_id(params[:id])
     if @workout_record.update_attributes(params[:workout_record])
-      flash[:notice] = 'Edit was successfull'
+      flash[:notice] = 'Edit was successful.'
       redirect_to :action => 'show', :id => @workout_record.id
     else
       flash[:error] = "Your workout record didn't update properly"
