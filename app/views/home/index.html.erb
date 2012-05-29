@@ -4,8 +4,10 @@
     <!-- <h1>Urban Crossfitters</h1> -->
     <%= image_tag src=image_path('cs110logo3.png') %>
     <p>Welcome to HERP's web application, Urban Crossfitters. Please login or signup.</p>
-    <p><a class="btn btn-info btn-large">Signup &raquo;</a>
-    <a class="btn btn-info btn-large">Login &raquo;</a></p>
+    <%= content_tag(:p) do %>
+    <%= link_to('Signup', login_path, :class => 'btn btn-info btn-large') %>
+    <%= link_to('Login', login_path, :class => 'btn btn-info btn-large') %>
+    <% end %>
   </div>
   <!-- Example row of columns -->
   <div class="row-fluid">
@@ -31,7 +33,6 @@
         <p>Create, view, or edit your journal entries.</p>
         <% #FIXME add correct journal path %>
       <%= content_tag :p,link_to('View details ', '/', :class => 'btn btn-info') %>
-        <p><a class="btn btn-info" href="journal.html">View details &raquo;</a></p>
       </div>
       <div class="span4">
         <h2><i class="icon-question-sign"></i>Goals</h2></br>
