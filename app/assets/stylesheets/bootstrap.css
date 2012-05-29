@@ -130,11 +130,11 @@ textarea {
 }
 body {
   margin: 0;
-  font-family: 'Miso', Arial, sans serif;
-  font-size: 24px;
+  font-family: 'Miso', Arial, Helvetica, sans serif;
+  font-size: 13px;
   line-height: 18px;
-  color: #333333;
-  background-image: url('../images/bgtexture2.png') ;
+  color: #343434;
+  background-color: #b7b7b7;
 }
 a {
   color: #0088cc;
@@ -159,10 +159,6 @@ a:hover {
 [class*="span"] {
   float: left;
   margin-left: 20px;
-  padding: 5px;
-  margin: 3px 0;
-  background-color: #eeeeee;
-  border-radius: 5px 5px 5px 5px;
 }
 .container,
 .navbar-fixed-top .container,
@@ -344,12 +340,12 @@ a:hover {
 }
 p {
   margin: 0 0 9px;
-  font-family: 'Miso', Arial, sans serif;
-  font-size: 24px;
+  font-family: 'Miso', Arial, Helvetica, sans serif;
+  font-size: 13px;
   line-height: 18px;
 }
 p small {
-  font-size: 22px;
+  font-size: 11px;
   color: #999999;
 }
 .lead {
@@ -365,9 +361,9 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: 'League Gothic', Arial, sans serif;
-  font-weight: bold;
-  color: #343434;
+  font-family: 'LeagueGothic', Arial, Helvetica, sans serif;
+  font-weight: normal;
+  color: inherit;
   text-rendering: optimizelegibility;
 }
 h1 small,
@@ -553,7 +549,7 @@ code,
 pre {
   padding: 0 3px 2px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-  font-size: 23px;
+  font-size: 12px;
   color: #333333;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -569,7 +565,7 @@ pre {
   display: block;
   padding: 8.5px;
   margin: 0 0 9px;
-  font-size: 22.200000000000003px;
+  font-size: 12.025px;
   line-height: 18px;
   word-break: break-all;
   word-wrap: break-word;
@@ -597,7 +593,7 @@ pre code {
 }
 .label,
 .badge {
-  font-size: 20.304px;
+  font-size: 10.998px;
   font-weight: bold;
   line-height: 14px;
   color: #ffffff;
@@ -895,7 +891,7 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 27px;
-  font-size: 36px;
+  font-size: 19.5px;
   line-height: 36px;
   color: #333333;
   border: 0;
@@ -910,7 +906,7 @@ input,
 button,
 select,
 textarea {
-  font-size: 24px;
+  font-size: 13px;
   font-weight: normal;
   line-height: 18px;
 }
@@ -918,7 +914,7 @@ input,
 button,
 select,
 textarea {
-  font-family: 'Miso', Arial, sans serif;
+  font-family: 'Miso', Arial, Helvetica, sans serif;
 }
 label {
   display: block;
@@ -934,7 +930,7 @@ select,
   height: 18px;
   padding: 4px;
   margin-bottom: 9px;
-  font-size: 24px;
+  font-size: 13px;
   line-height: 18px;
   color: #555555;
   background-color: #ffffff;
@@ -1533,7 +1529,7 @@ legend + .control-group {
   *zoom: 1;
   padding: 4px 10px 4px;
   margin-bottom: 0;
-  font-size: 24px;
+  font-size: 13px;
   line-height: 18px;
   *line-height: 20px;
   color: #333333;
@@ -1624,7 +1620,7 @@ legend + .control-group {
 }
 .btn-large {
   padding: 9px 14px;
-  font-size: 26px;
+  font-size: 15px;
   line-height: normal;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1635,7 +1631,7 @@ legend + .control-group {
 }
 .btn-small {
   padding: 5px 9px;
-  font-size: 22px;
+  font-size: 11px;
   line-height: 16px;
 }
 .btn-small [class^="icon-"] {
@@ -1643,7 +1639,7 @@ legend + .control-group {
 }
 .btn-mini {
   padding: 2px 6px;
-  font-size: 22px;
+  font-size: 11px;
   line-height: 14px;
 }
 .btn-primary,
@@ -2829,17 +2825,17 @@ input[type="submit"].btn.btn-mini {
   font-size: 20px;
   font-weight: 200;
   line-height: 1;
-  color: #ffffff;
+  color: #1aa9af;
 }
 .navbar .navbar-text {
   margin-bottom: 0;
   line-height: 40px;
 }
 .navbar .navbar-link {
-  color: #ffffff;
+  color: #1aa9af;
 }
 .navbar .navbar-link:hover {
-  color: #1aa9af;
+  color: #b7b7b7;
 }
 .navbar .btn,
 .navbar .btn-group {
@@ -2893,7 +2889,7 @@ input[type="submit"].btn.btn-mini {
 }
 .navbar-search .search-query {
   padding: 4px 9px;
-  font-family: 'Miso', Arial, sans serif;
+  font-family: 'Miso', Arial, Helvetica, sans serif;
   font-size: 13px;
   font-weight: normal;
   line-height: 1;
@@ -2971,7 +2967,7 @@ input[type="submit"].btn.btn-mini {
   float: none;
   padding: 9px 10px 11px;
   line-height: 19px;
-  color: #ffffff;
+  color: #eaeaea;
   text-decoration: none;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -2987,12 +2983,12 @@ input[type="submit"].btn.btn-mini {
 }
 .navbar .nav > li > a:hover {
   background-color: transparent;
-  color: #1aa9af;
+  color: #b7b7b7;
   text-decoration: none;
 }
 .navbar .nav .active > a,
 .navbar .nav .active > a:hover {
-  color: #1aa9af;
+  color: #b7b7b7;
   text-decoration: none;
   background-color: #343434;
 }
@@ -3554,7 +3550,7 @@ a.thumbnail:hover {
 .hero-unit {
   padding: 60px;
   margin-bottom: 30px;
-  background-image: url('../images/bgtexture1.png');
+  background-color: #eeeeee;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -4796,14 +4792,14 @@ button.close {
     display: none;
   }
   .nav-collapse .nav .nav-header {
-    color: #eaeaea;
+    color: #b7b7b7;
     text-shadow: none;
   }
   .nav-collapse .nav > li > a,
   .nav-collapse .dropdown-menu a {
     padding: 6px 15px;
     font-weight: bold;
-    color: #ffffff;
+    color: #1aa9af;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
