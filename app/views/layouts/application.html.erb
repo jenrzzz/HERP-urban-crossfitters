@@ -35,7 +35,7 @@
 
   </head>
   <body>
-    <div class="container"><% # ONE and only one container for the page, and everything should be inside of it. %>
+    <div class="container"><%= "<!-- ONE and only one container for the page, and everything should be inside of it. -->" if ENV['debug'] %>
         <div class="navbar navbar-fixed-top">
           <div class="navbar-inner">
             <%= content_tag(:a, :data => {:toggle => 'collapse', :target => '.nav-collapse'}, :class => 'btn btn-navbar') do  %>
@@ -78,7 +78,7 @@
           <footer>
             <p>&copy; HERP SPRING 2012</p>
           </footer>
-    </div><% #END OF CONTAINER -- NOTHING BOOTSTRAP CAN GO OUTSIDE OF THIS %>
+    </div><%= "<!-- END OF CONTAINER -- NOTHING BOOTSTRAP CAN GO OUTSIDE OF THIS -->" if ENV['debug'] %>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
