@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="span8">
+        <h1>All Injuries</h1>
+    </div>
+</div>%nbsp;
+<% if not @injuries.size > 0 %>
+    <div class="row">
+        <div class="span8">
+	    <h3>You currently have no injuries.</h3>
+	</div>
+    </div>
+<% else %>
+    <% @injuries.each do |injury| %>
+        <div class="row">
+	    <div class ="span8">
+	        <h2><%= link_to injury.name, edit_injury_path(injury.id) %></h2>
+		<p><%= injury.description %></p>
+		<p><strong>Severity: </strong>
+		   <span class="label">
+		   <%= injury.severity %>
+		   </span>
+	        </p>
+		<p><strong>Start Date: </strong><%= injury.start_date %></p>
+		<% if @injury.end_date %>
+		<p><strong>End Date: </strong><%= injury.end_date %></p>
+		<% else %>
+		<p><strong>End Date: </strong><%= 'Ongoing' %></p>
+		<% end %>
+		<small style="font-size: small;"><%= link_to 'Permalink', injury_path(injury.id) %></small>
+            </div>
+	</div>
+    <% end %>
+<% end %>
+
