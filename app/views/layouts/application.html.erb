@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <meta charset="utf-8">
@@ -10,7 +9,7 @@
     <style type="text/css">
       body {
         margin: 0;
-        font-family: 'Miso', Arial, sans serif;
+        font-family: Miso, Arial, sans serif;
         font-size: 24px;
         line-height: 18px; 
         color: #333333;
@@ -36,35 +35,50 @@
 
   </head>
   <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-        <%= content_tag(:a, :data => {:toggle => 'collapse', :target => '.nav-collapse'}, :class => 'btn btn-navbar') do  %>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        <% end %>
-        <%= link_to 'URBAN CROSSFITTERS', dashboard_path, :class => 'brand' %>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li><%= link_to content_tag(:i, '', :class => 'icon-user icon-white') + 'Profile', profiles_path+'/me' %></li>
-            <li><%= link_to content_tag(:i, '', :class => 'icon-fire icon-white') + 'Workout', workout_records_path %></li>
-            <li><%= link_to content_tag(:i, '', :class => 'icon-heart icon-white') + 'Health', health_records_path %></li>
-            <% #FIXME change to calendar/journal once implemented %>
-            <li><%= link_to content_tag(:i, '', :class => 'icon-calendar icon-white') + 'Goals', goals_path %></li>
-            <% #FIXME need to declare singular resource for our help page once complete %>
-            <li><%= link_to content_tag(:i, '', :class => 'icon-question-sign icon-white') + 'Help', help_path %></li>
-            <li><%= link_to content_tag(:i, '', :class => 'icon-star icon-white') + 'About/Contact', about_us_path %></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+    <div class="container"><%= "<!-- ONE and only one container for the page, and everything should be inside of it. -->" if ENV['debug'] %>
+        <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <%= content_tag(:a, :data => {:toggle => 'collapse', :target => '.nav-collapse'}, :class => 'btn btn-navbar') do  %>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            <% end %>
+            <%= link_to 'URBAN CROSSFITTERS', dashboard_path, :class => 'brand' %>
+            <div class="nav-collapse">
+              <ul class="nav">
+                <li><%= link_to content_tag(:i, '', :class => 'icon-user icon-white') + 'Profile', profiles_path+'/me' %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-fire icon-white') + 'Workout', workout_records_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-heart icon-white') + 'Health', health_records_path %></li>
+                <% #FIXME change to calendar/journal once implemented %>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-calendar icon-white') + 'Goals', goals_path %></li>
+                <% #FIXME need to declare singular resource for our help page once complete %>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-question-sign icon-white') + 'Help', help_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-star icon-white') + 'About/Contact', about_us_path %></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
         </div>
-      </div>
-    </div>
-    <%= yield %>
-      <hr>
-      <footer>
-        <p>&copy; HERP SPRING 2012</p>
-      </footer>
+        <% # Show the notice and error flashes on every page %>
+        <% if flash[:notice] %>
+            <div class="alert alert-info"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:error] %>
+            <div class="alert alert-warning"><%= flash[:error] %>
+            <% if flash[:errors] %>
+                <ul>
+                    <% flash[:errors].each do |e| %>
+                        <li><%= e %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+            </div>
+        <% end %>
+        <%= yield %>
+          <hr>
+          <footer>
+            <p>&copy; HERP SPRING 2012</p>
+          </footer>
+    </div><%= "<!-- END OF CONTAINER -- NOTHING BOOTSTRAP CAN GO OUTSIDE OF THIS -->" if ENV['debug'] %>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

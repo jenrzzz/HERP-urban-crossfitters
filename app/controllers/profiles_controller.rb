@@ -55,6 +55,8 @@ class ProfilesController < ApplicationController
   def update 
   	@title = 'Update profile'
   	@profile = current_user.profile
+  	@profile.gender = params[:gender]
+  	@profile.height = params[:height]
   	if @profile.update_attributes(params[:profile])
   	  current_user.profile = @profile
   	  redirect_to profile_path('me')

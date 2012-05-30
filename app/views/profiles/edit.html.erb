@@ -17,8 +17,8 @@
                 <option value="female"<%= ' selected' if @user and @user['gender'] == 'female' %>>Female</option>
             </select>
             <%= label_tag :birthdate, 'Date of birth:' %>
-            <%= date_select :profile, :birthdate, :start_year => 1920, :order => [:month, :day, :year] %>
-           <%= label_tag :height, 'Height' %> <%= f.text_field :height %>
+            <%= date_select :profile, :birthdate, :start_year => 1920, :end_year => Time.now.year, :order => [:month, :day, :year] %>
+           <%= label_tag :height, 'Height' %> 
               <%= select  :height, :feet, (0..10).collect {|n| [n, n] } %> feet
               <%= select  :height, :inches, (0..11).collect {|n| [n, n] } %> inches
             <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>

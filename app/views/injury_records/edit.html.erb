@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="span8">
+      <h1>Edit Injury</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+       <%= form_for @injury, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
+       <fieldset class="control-group">
+           <%= label_tag :name, 'Name' %>
+	   <%= f.text_field :name, :value => @injury.name %>
+	   <%= label_tag :description, 'Description' %>
+	   <%= f.text_area :description, :rows => 4, :value => @injury.description %>
+           <%= label_tag :severity, 'Severity' %>
+	   <%= f.select :severity, options_for_select( (1..10).collect {|n| [n, n] } ) %>
+	   <%= label_tag :start_date, 'Start Date' %>
+	   <%= date_select :injury, :start_date, :order => [:month, :day, :year] %>
+	   <%= label_tag :end_date, 'End Date' %>
+	   <%= date_select :injury, :end_date, :order => [:month, :day, :year] %>
+	   <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+      </fieldset>
+      <% end %>
+  </div>
+</div>
