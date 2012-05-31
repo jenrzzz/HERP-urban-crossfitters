@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120529203550) do
+ActiveRecord::Schema.define(:version => 20120531194947) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -37,6 +37,12 @@ ActiveRecord::Schema.define(:version => 20120529203550) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "exercise_categories", :force => true do |t|
+    t.string   "category",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "exercise_workouts", :force => true do |t|
     t.integer  "exercise_id", :null => false
     t.integer  "workout_id",  :null => false
@@ -53,11 +59,10 @@ ActiveRecord::Schema.define(:version => 20120529203550) do
     t.integer  "rounds"
     t.integer  "distance"
     t.string   "units"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-    t.integer  "exercise_type_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.text     "description"
-    t.string   "category"
+    t.integer  "exercise_category_id"
   end
 
   create_table "goals", :force => true do |t|
@@ -137,6 +142,12 @@ ActiveRecord::Schema.define(:version => 20120529203550) do
     t.string   "username"
   end
 
+  create_table "workout_categories", :force => true do |t|
+    t.string   "category",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "workout_records", :force => true do |t|
     t.date     "date_performed",                 :null => false
     t.text     "note",           :default => ""
@@ -151,12 +162,11 @@ ActiveRecord::Schema.define(:version => 20120529203550) do
   end
 
   create_table "workouts", :force => true do |t|
-    t.string   "name",            :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.integer  "workout_type_id"
+    t.string   "name",                :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.text     "description"
-    t.string   "category"
+    t.integer  "workout_category_id"
   end
 
 end
