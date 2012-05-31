@@ -2,13 +2,19 @@ class User < ActiveRecord::Base
   attr_accessible :email, :username
   # attr_accessible :title, :body
   has_one  :profile
+
   has_many :goals
+
   has_many :personal_records
   has_many :injury_records
   has_many :workout_records
   has_many :health_records
+
   has_many :exercise_categories
   has_many :workout_categories
+
+  has_many :exercises
+  has_many :workouts
   
   #authorization
   has_many :authorizations

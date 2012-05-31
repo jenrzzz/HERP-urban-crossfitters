@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120531201846) do
+ActiveRecord::Schema.define(:version => 20120531212745) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -64,6 +64,12 @@ ActiveRecord::Schema.define(:version => 20120531201846) do
     t.datetime "updated_at",           :null => false
     t.text     "description"
     t.integer  "exercise_category_id"
+    t.integer  "user_id"
+  end
+
+  create_table "exercises_users", :id => false, :force => true do |t|
+    t.integer "exercise_id"
+    t.integer "user_id"
   end
 
   create_table "goals", :force => true do |t|
@@ -143,6 +149,11 @@ ActiveRecord::Schema.define(:version => 20120531201846) do
     t.string   "username"
   end
 
+  create_table "users_workouts", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "workout_id"
+  end
+
   create_table "workout_categories", :force => true do |t|
     t.string   "category",   :null => false
     t.datetime "created_at", :null => false
@@ -169,6 +180,12 @@ ActiveRecord::Schema.define(:version => 20120531201846) do
     t.datetime "updated_at",          :null => false
     t.text     "description"
     t.integer  "workout_category_id"
+    t.integer  "user_id"
+  end
+
+  create_table "workouts_exercises", :id => false, :force => true do |t|
+    t.integer "workout_id"
+    t.integer "user_id"
   end
 
 end

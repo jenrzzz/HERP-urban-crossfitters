@@ -1,3 +1,3 @@
 class WorkoutCategory < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :category
 end
