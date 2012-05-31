@@ -16,7 +16,7 @@
         <%= form_for @record, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
         <fieldset class="control-group">
             <%= label_tag :date_recorded, 'Date Recorded' %>
-            <%= date_select :health_record, :date_recorded %>
+            <%= date_select :health_record,  :date_recorded, :end_year => Time.now.year %>
             <%= label_tag :systolic_bp, 'Systolic Blood Pressure' %>
             <%= f.text_field :systolic_bp %>
             <%= label_tag :diastolic_bp, 'Diastolic Blood Pressure' %>
