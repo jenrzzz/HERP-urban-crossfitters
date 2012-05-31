@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   has_many :injury_records
   has_many :workout_records
   has_many :health_records
+  has_many :exercise_categories
+  has_many :workout_categories
   
   #authorization
   has_many :authorizations
