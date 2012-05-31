@@ -21,12 +21,13 @@ class GoalsController < ApplicationController
     @goal = Goal.new params[:goal]
     if @goal.save
       current_user.goals << @goal
+      redirect_to :action => 'show', :id => @goal.id
     else
       flash.now[:error] = 'There was a problem saving your new goal.'
       flash.now[:errors] = @goal.errors
       redirect_to :action => "new"
     end
-    redirect_to :action => 'show', :id => @goal.id
+    
   end
 
   # display a specific goal
