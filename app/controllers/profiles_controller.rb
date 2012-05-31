@@ -63,7 +63,8 @@ class ProfilesController < ApplicationController
   	else
   	  flash.now[:error] = 'There was a problem saving your profile updates.'
   	  flash.now[:errors] = @profile.errors
-  	  render :action => "show"
+  	  render :action => "edit"
+
   	end
   end
 end

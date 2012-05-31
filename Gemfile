@@ -58,3 +58,7 @@ gem 'htmlentities' # people who include html in an RSS feed body shall
 
 # To display calendar
 gem 'event-calendar'
+
+# Validates Dates the easy way!
+gem 'validates_timeliness', '~> 3.0.2'
+

@@ -37,4 +37,6 @@ class Profile < ActiveRecord::Base
                                         :greater_than => 0 }
   validates :height, :numericality => { :only_integer => true,
                                         :greater_than => 0 }
+  validates_date :birthdate, :on_or_before => Date.current
+  
 end
