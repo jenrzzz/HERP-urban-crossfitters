@@ -1,11 +1,11 @@
 <div class="row">
     <div class="span8">
-      <h1>Create Exercise</h1>
+      <h1>Edit Exercise</h1>
     </div>
 </div>&nbsp;
 <div class="row">
     <div class="span4">
-        <%= form_for @exercise, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
+        <%= form_for @exercise, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
         <fieldset class="control-group">
             <%= label_tag :repetitions, 'Repetitions' %>
             <%= f.text_field :repetitions %>
