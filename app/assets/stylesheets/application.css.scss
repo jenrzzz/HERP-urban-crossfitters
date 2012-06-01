@@ -8,14 +8,14 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *= require bootstrap_and_overrides
+ *= require responsiveoverride
  *= require_self
- *= require_tree .
 */
 
 /*structural elements - generally adding padding*/
 body {
   font-size: 24px;
-  background-image: url('../images/bgtexture2.png');
+  background-image: url(image_path('bgtexture2.png'));
 }
 
 footer p {
@@ -82,22 +82,11 @@ h3 {
 }
 
 #profileusername li{
-  font-family: LeagueGothic, Arial, sans serif;
+  font-family: 'LeagueGothic', Arial, sans serif;
   font-size: 35px;
   margin-bottom: 5px;
 }
 
-/*icon formatting - changed img src to images not img*/
-[class^="icon-"],
-[class*=" icon-"] {
-  margin-right: 5px;
-  vertical-align: middle;
-  background-image: url("../images/glyphicons-halflings.png");
-}
-
-.icon-white {
-  background-image: url("../images/glyphicons-halflings-white.png");
-}
 
 /*nav bar*/
 .nav > li > a {
@@ -113,7 +102,7 @@ h3 {
 
 .navbar .brand {
   font-size: 35px;
-  font-family: LeagueGothic, Arial, sans serif;
+  font-family: 'LeagueGothic', Arial, sans serif;
   text-transform: uppercase;
 }
 
@@ -141,7 +130,7 @@ h3 {
 /*hero unit index.html header thing*/
 .hero-unit {
   padding: 40px;
-  background-image: url('../images/bgtexture1.png');
+  background-image: url(image_path('bgtexture1.png'));
 }
 
 .hero-unit p {

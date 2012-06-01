@@ -8,7 +8,7 @@ gem 'rails', '3.2.3'
 gem 'sqlite3'
 
 # rails bootstrap
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'bootstrap-sass'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,7 +18,7 @@ group :assets do
   gem 'less'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platform => :ruby
-
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem 'uglifier', '>= 1.0.3'
 end
 
