@@ -19,24 +19,13 @@ class ExercisesController < ApplicationController
   def create
     # create new exercise
     @exercise = Exercise.new params[:exercise]
-    # see if the category is already defined in the standard exercises
-    @category = ExerciseCategory.select_official_categories.where(:category => params[:exercise_category][:category])
-    # unless no standard categories were found, that one has already been defined
-    unless @category == []
-      flash[:error] = 'This category has already been defined'
-      redirect_to :action => 'new'
-      return
-    end
-    # next try finding if user has a custom category already defined by that name
-    @category = ExerciseCategory.find_by_category(params[:exercise_category][:category])
-    # unless it is defined, make a new category
-    unless @category
-      @category = ExerciseCategory.new(params[:exercise_category])
-    end
+    @category = ExerciseCategory.find_or_new_by_category(params[:exercise_category][:category])
     # attempt to save category
     if @category.save
-      # associate with current user
-      current_user.exercise_categories << @category
+      # associate with current user if it isn't associated with a user already
+      unless @category.user_id
+        current_user.exercise_categories << @category
+      end
       # attempt to save exercise
       if @exercise.save
         # associate category with exercise
@@ -77,17 +66,20 @@ class ExercisesController < ApplicationController
   # update a specific exercise
   def update
     @exercise = current_user.exercises.find_by_id(params[:id])
-    if params[:category_id]
-      @category = ExerciseCategory.find_by_id(params[:category_id])
+    if params[:exercise_category]
+      @category = ExerciseCategory.find_or_new_by_category(params[:exercise_category][:category])
       if @category.save
-        @exercise.category = @category
+        unless @category.user_id
+          current_user.exercise_categories << @category
+        end
+        @exercise.exercise_category = @category
         flash[:notice] = 'Edit was successful'
         unless params[:exercise]
           redirect_to :action => 'show', :id => @exercise.id
         end
       else
-        flash[:error] << "Category wasn't updated properly"
-        flash[:errors] << @category.errors[:base]
+        flash[:error] = "Category wasn't updated properly"
+        flash[:errors] = @category.errors[:base]
         unless params[:exercise]
           redirect_to :action => 'show', :id => @exercise.id
         end

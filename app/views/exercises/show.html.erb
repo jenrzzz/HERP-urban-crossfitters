@@ -6,10 +6,14 @@
 </div>&nbsp;
 <div class="row">
     <div class="span6">
-      <%= link_to 'Edit Exercise', edit_exercise_path(@exercise) %>
-      <%= link_to 'Delete Exercise', exercise_path(@exercise),
-          :confirm => 'Are you sure?', :method => :delete %>
-      <%= @exercise.exercise_category.category %></br>
+      <% unless @exercise.user_id == 1 %>
+        <%= link_to 'Edit Exercise', edit_exercise_path(@exercise) %>
+        <%= link_to 'Delete Exercise', exercise_path(@exercise),
+            :confirm => 'Are you sure?', :method => :delete %>
+      <% end %>
+      <% if @exercise.exercise_category %>
+        <%= @exercise.exercise_category.category %></br>
+      <% end %>
       <% if @exercise.repetitions %>
           Repetitions:<%= @exercise.repetitions %><br />
       <% end %>
