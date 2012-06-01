@@ -12,40 +12,17 @@
  *= require_tree .
 */
 
-.container:before,
-.container:after {
-  display: inline;
-  content: "";
-}
-
-.nav > li > a {
-    display: inline;
-    margin-top: 8px;
-}
-
-.navbar .nav > li > a {
-    color: #EAEAEA;
-    float: right;
-    line-height: 19px;
-    padding: 9px 10px 11px;
-    text-decoration: none;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
 /*structural elements - generally adding padding*/
 body {
-  margin: 0;
-  font-family: Miso, Arial, sans serif;
   font-size: 24px;
-  line-height: 18px;
-  color: #343434;
-  background-color: #b7b7b7;
   background-image: url('../images/bgtexture2.png');
 }
 
+footer p {
+  margin-left: 10px;
+}
+
 [class*="span"] {
-  float: left;
-  margin-left: 20px;
   padding: 5px;
   margin: 3px 0;
   background-color: #eeeeee;
@@ -53,50 +30,33 @@ body {
 }
 
 .row-fluid [class*="span"] {
-  display: block;
-  width: 100%;
-  min-height: 28px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  box-sizing: border-box;
-  float: left;
-  margin-left: 2.127659574%;
-  *margin-left: 2.0744680846382977%;
   padding: 10px;
 }
 
 /*workout page cells*/
-.row-fluid .span4blue{
-  width: 31.914893614%;
-  *width: 31.8617021246383%;
+.row-fluid .blue .span4{
   height: 100px;
   background: #1aa9af;
 }
 
-.row-fluid .span4blue:hover{
+.row-fluid .blue .span4:hover{
   text-decoration: none;
   opacity: 0.8;
 }
 
-.row-fluid .span4gray {
-  width: 31.914893614%;
-  *width: 31.8617021246383%;
+.row-fluid .gray .span4 {
   height: 100px;
   background: #7e7e7e; 
 }
 
-.row-fluid .span4gray:hover{
+.row-fluid .gray .span4:hover{
   text-decoration: none;
   opacity: 0.8;
 }
 
 /*paragraph formatting - mostly font sizing*/
 p {
-  margin: 0 0 9px;
-  font-family: 'Miso', Arial, sans serif;
   font-size: 24px;
-  line-height: 18px;
 }
 
 h1,
@@ -105,31 +65,24 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0;
-  font-family: LeagueGothic, Arial, sans serif;
-  font-weight: normal;
   color: #343434;
-  text-rendering: optimizelegibility;
   text-transform: uppercase;
 }
 
 h1 {
   font-size: 35px;
-  line-height: 36px;
 }
 
 h2 {
   font-size: 30px;
-  line-height: 36px;
 }
 
 h3 {
   font-size: 25px;
-  line-height: 27px;
 }
 
 #profileusername li{
-  font-family: LeagueGothic;
+  font-family: LeagueGothic, Arial, sans serif;
   font-size: 35px;
   margin-bottom: 5px;
 }
@@ -137,15 +90,9 @@ h3 {
 /*icon formatting - changed img src to images not img*/
 [class^="icon-"],
 [class*=" icon-"] {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
   margin-right: 5px;
-  *margin-right: .3em;
-  line-height: 14px;
   vertical-align: middle;
   background-image: url("../images/glyphicons-halflings.png");
-  background-repeat: no-repeat;
 }
 
 .icon-white {
@@ -154,7 +101,6 @@ h3 {
 
 /*nav bar*/
 .nav > li > a {
-  display: inline;
   margin-top:8px;
 }
 
@@ -162,19 +108,11 @@ h3 {
   color: #eaeaea;
 }
 .navbar .brand:hover {
-  text-decoration: none;
   color: #eaeaea;
 }
 
 .navbar .brand {
-  float: left;
-  display: block;
-  padding: 8px 20px 12px;
-  margin-left: -20px;
   font-size: 35px;
-  font-weight: 200;
-  line-height: 1;
-  color: #1aa9af;
   font-family: LeagueGothic, Arial, sans serif;
   text-transform: uppercase;
 }
@@ -185,8 +123,12 @@ h3 {
 .navbar .navbar-link:hover {
   color: #1aa9af;
 }
+
+.navbar .nav > li > a {
+  float: center;
+}
+
 .navbar .nav > li > a:hover {
-  background-color: transparent;
   color: #eaeaea;
   text-decoration: underline;
 }
@@ -194,24 +136,16 @@ h3 {
 .navbar .nav .active > a:hover {
   color: #1aa9af;
   text-decoration: underline;
-  background-color: transparent;
 }
 
 /*hero unit index.html header thing*/
 .hero-unit {
   padding: 40px;
-  margin-bottom: 30px;
   background-image: url('../images/bgtexture1.png');
-  -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
 }
 
 .hero-unit p {
   font-size: 22px;
-  font-weight: 200;
-  line-height: 27px;
-  color: #eaeaea;
 }
 
 /*button font size*/
