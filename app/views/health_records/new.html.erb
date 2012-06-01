@@ -5,14 +5,6 @@
 </div>&nbsp;
 <div class="row">
     <div class="span4">
-      <% if flash[:error] %>
-        <ul>
-          <li><%= flash[:error] %></li>
-            <% flash[:errors].each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-        </ul>
-      <% end %>
         <%= form_for @record, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
         <fieldset class="control-group">
             <%= label_tag :date_recorded, 'Date Recorded' %>
