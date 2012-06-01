@@ -12,7 +12,7 @@ Workout.delete_all
 Exercise.delete_all
 
 #admin info
-User.create!(email: 'admin@test.test', username: 'admin')
+admin = User.create!(email: 'admin@test.test', username: 'admin')
 
 #loop gives error at girls.id etc.
 
