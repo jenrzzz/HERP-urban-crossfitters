@@ -11,12 +11,11 @@ WorkoutCategory.delete_all
 Workout.delete_all
 Exercise.delete_all
 
-#admin info
-admin = User.create!(email: 'admin@test.test', username: 'admin')
+admin = User.create(:email => "admin@test.test", :username => "admin")
 
-#loop gives error at girls.id etc.
+#loop gives error at girl.id etc.
 
-#["girl", "hero", "olympic"].each do |category|
+#["girl", "hero", "wOD", "benchmark"].each do |category|
 #	category = WorkoutCategory.create(:category => category.capitalize)
 #	category.user_id = admin.id
 #	category.save
@@ -30,24 +29,26 @@ hero = WorkoutCategory.create(:category => "Hero")
 hero.user_id = admin.id
 hero.save
 
-olympic = WorkoutCategory.create(:category => "Olympic")
-olympic.user_id = admin.id
-olympic.save
+wOD = WorkoutCategory.create(:category => "WOD")
+wOD.user_id = admin.id
+wOD.save
 
-#any more categories?
+benchmark = WorkoutCategory.create(:category => "Benchmark")
+benchmark.user_id = admin.id
+benchmark.save
 
 angie = Workout.create(:name => "Angie", :description => "For Time
 Complete all reps of each exercise before moving to the next.")
-angieWorkout = angie.exercises.create
-([
-	{:repetitions => 100, :description => "Pull-ups", :user_id => admin.id},
-	{:repetitions => 100, :description => "Push-ups", :user_id => admin.id},
-	{:repetitions => 100, :description => "Sit-ups", :user_id => admin.id},
-	{:repetitions => 100, :description => "Squats", :user_id => admin.id}
-])
+#angieWorkout = angie.exercises.create
+#([
+#	{:repetitions => 100, :description => "Pull-ups", :user_id => admin.id},
+#	{:repetitions => 100, :description => "Push-ups", :user_id => admin.id},
+#	{:repetitions => 100, :description => "Sit-ups", :user_id => admin.id},
+#	{:repetitions => 100, :description => "Squats", :user_id => admin.id}
+#])
 
 #loop
-angie.workout_category_id = girls.id
+angie.workout_category_id = girl.id
 angie.user_id = admin.id
 angie.save
 
