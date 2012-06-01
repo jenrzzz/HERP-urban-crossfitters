@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :username
-  # attr_accessible :title, :body
+
   has_one  :profile
 
   has_many :goals
