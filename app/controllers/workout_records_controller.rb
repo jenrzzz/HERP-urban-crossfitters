@@ -7,6 +7,7 @@ class WorkoutRecordsController < ApplicationController
   # return an HTML form to add new workout record
   def new
     @workout_record = WorkoutRecord.new
+    @workout = Workout.new
   end
 
   # create a new workout record

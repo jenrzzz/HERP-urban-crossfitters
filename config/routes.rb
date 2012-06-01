@@ -9,6 +9,10 @@ Herpcs110s::Application.routes.draw do
   resource  :dashboard
   resources :goals
   resources :injury_records
+
+  resources :exercises
+
+  resources :workouts
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
