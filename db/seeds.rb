@@ -8,7 +8,7 @@
 
 #ISSUE: use create! & save! instead of create & save?
 
-[User, WorkoutCategory, Workout, Exercise, ExerciseWorkout].each(&:delete_all)
+[User, WorkoutCategory, Workout, ExerciseCategory, Exercise, ExerciseWorkout].each(&:delete_all)
 
 admin = User.create(:email => "admin@test.test", :username => "admin")
 
@@ -23,9 +23,23 @@ benchmark = WorkoutCategory.create(:category => "Benchmark")
 #add to app/models/workout_category.rb - valid category?
 #olympic = WorkoutCategory.create(:category => "Olympic Lifts")
 
-[girl, hero, wod, benchmark].each do |category| #add custom/olympic
-	category.user_id = admin.id
-	category.save
+[girl, hero, wod, benchmark].each do |workoutCategory| #add custom/olympic
+	workoutCategory.user_id = admin.id
+	workoutCategory.save
+end
+
+pullups = ExerciseCategory.create(:category => "Pull-ups")
+pushups = ExerciseCategory.create(:category => "Push-ups")
+situps = ExerciseCategory.create(:category => "Sit-ups")
+squats = ExerciseCategory.create(:category => "Squats")
+handstand_pushups = ExerciseCategory.create(:category => "Handstand Push-ups")
+ring_dips = ExerciseCategory.create(:category => "Ring Dips")
+running = ExerciseCategory.create(:category => "Running")
+back_extensions = ExerciseCategory.create(:category => "Back Extensions")
+
+[pullups, pushups, situps, squats, handstand_pushups, ring_dips, back_extensions].each do |exerciseCategory|
+	exerciseCategory.user_id = admin.id
+	exerciseCategory.save
 end
 
 #GIRLS------------------------------------------------------------------------
@@ -34,16 +48,20 @@ angie.workout_category_id = girl.id
 angie.user_id = admin.id
 angie.save
 
-exercise = angie.exercises.create(:repetitions => 100, :description => "Pull-ups")
+exercise = angie.exercises.create(:repetitions => 100)
+exercise.exercise_category_id = pullups.id
 exercise.user_id = admin.id
 exercise.save
-exercise = angie.exercises.create(:repetitions => 100, :description => "Push-ups")
+exercise = angie.exercises.create(:repetitions => 100)
+exercise.exercise_category_id = pushups.id
 exercise.user_id = admin.id
 exercise.save
-exercise = angie.exercises.create(:repetitions => 100, :description => "Sit-ups")
+exercise = angie.exercises.create(:repetitions => 100)
+exercise.exercise_category_id = situps.id
 exercise.user_id = admin.id
 exercise.save
-exercise = angie.exercises.create(:repetitions => 100, :description => "Squats")
+exercise = angie.exercises.create(:repetitions => 100)
+exercise.exercise_category_id = squats.id
 exercise.user_id = admin.id
 exercise.save
 
@@ -57,16 +75,20 @@ barbara = Workout.create(:name => "Barbara", :description => "5 rounds, time eac
 barbara.workout_category_id = girl.id
 barbara.user_id = admin.id
 barbara.save
-exercise = barbara.exercises.create(:repetitions => 20, :rounds => 5, :description => "Pull-ups")
+exercise = barbara.exercises.create(:repetitions => 20, :rounds => 5)
+exercise.exercise_category_id = pullups.id
 exercise.user_id = admin.id
 exercise.save
-exercise = barbara.exercises.create(:repetitions => 30, :rounds => 5, :description => "Push-ups")
+exercise = barbara.exercises.create(:repetitions => 30, :rounds => 5)
+exercise.exercise_category_id = pushups.id
 exercise.user_id = admin.id
 exercise.save
-exercise = barbara.exercises.create(:repetitions => 40, :rounds => 5, :description => "Sit-ups")
+exercise = barbara.exercises.create(:repetitions => 40, :rounds => 5)
+exercise.exercise_category_id = situps.id
 exercise.user_id = admin.id
 exercise.save
-exercise = barbara.exercises.create(:repetitions => 50, :rounds => 5, :description => "Squats")
+exercise = barbara.exercises.create(:repetitions => 50, :rounds => 5)
+exercise.exercise_category_id = squats.id
 exercise.user_id = admin.id
 exercise.save
 #HEROES-----------------------------------------------------------------------
@@ -77,13 +99,16 @@ jt.save
 
 #ISSUE: How to input 21-15-9 reps?
 
-exercise = jt.exercises.create(:repetitions => 21, :description => "Handstand push-ups")
+exercise = jt.exercises.create(:repetitions => 21)
+exercise.exercise_category_id = handstand_pushups.id
 exercise.user_id = admin.id
 exercise.save
-exercise = jt.exercises.create(:repetitions => 21, :description => "Ring dips")
+exercise = jt.exercises.create(:repetitions => 21)
+exercise.exercise_category_id = ring_dips.id
 exercise.user_id = admin.id
 exercise.save
-exercise = jt.exercises.create(:repetitions => 21, :description => "Push-ups")
+exercise = jt.exercises.create(:repetitions => 21)
+exercise.exercise_category_id = pushups.id
 exercise.user_id = admin.id
 exercise.save
 
@@ -92,13 +117,16 @@ michael = Workout.create(:name => "Michael", :description => "3 rounds for time.
 michael.workout_category_id = hero.id
 michael.user_id = admin.id
 michael.save
-exercise = michael.exercises.create(:distance => 800, :units => "meters", :description => "Run")
+exercise = michael.exercises.create(:distance => 800, :units => "meters")
+exercise.exercise_category_id = running.id
 exercise.user_id = admin.id
 exercise.save
-exercise = michael.exercises.create(:repetitions => 50, :description => "Back Extensions")
+exercise = michael.exercises.create(:repetitions => 50)
+exercise.exercise_category_id = back_extensions.id
 exercise.user_id = admin.id
 exercise.save
-exercise = michael.exercises.create(:repetitions => 50, :description => "Sit-ups")
+exercise = michael.exercises.create(:repetitions => 50)
+exercise.exercise_category_id = situps.id
 exercise.user_id = admin.id
 exercise.save
 #WODS-------------------------------------------------------------------------
