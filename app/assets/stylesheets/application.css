@@ -12,6 +12,26 @@
  *= require_tree .
 */
 
+.container:before,
+.container:after {
+  display: inline;
+  content: "";
+}
+
+.nav > li > a {
+    display: inline;
+    margin-top: 8px;
+}
+
+.navbar .nav > li > a {
+    color: #EAEAEA;
+    float: right;
+    line-height: 19px;
+    padding: 9px 10px 11px;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
 /*structural elements - generally adding padding*/
 body {
   margin: 0;
@@ -108,6 +128,12 @@ h3 {
   line-height: 27px;
 }
 
+#profileusername li{
+  font-family: LeagueGothic;
+  font-size: 35px;
+  margin-bottom: 5px;
+}
+
 /*icon formatting - changed img src to images not img*/
 [class^="icon-"],
 [class*=" icon-"] {
@@ -128,7 +154,7 @@ h3 {
 
 /*nav bar*/
 .nav > li > a {
-  display: block;
+  display: inline;
   margin-top:8px;
 }
 
