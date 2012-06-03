@@ -93,7 +93,7 @@ class WorkoutsController < ApplicationController
   def update
     @workout = Workout.find(params[:id])
     if params[:add_exercise]
-      # rebuild the ingredient attributes that doesn't have an id
+      # rebuild the exercise attributes that don't have an id
       unless params[:workout][:exercises_attributes].blank?
         for attribute in params[:workout][:exercises_attributes]
           @workout.exercises.build(attribute.last.except(:_destroy)) unless attribute.last.has_key?(:id)
@@ -117,6 +117,9 @@ class WorkoutsController < ApplicationController
         flash[:notice] = "Successfully updated workout."
         redirect_to @workout and return
       end
+    end
+    @workout.exercises.each do |e|
+      e.exercise_category = ExerciseCategory.new
     end
     render :action => 'edit'
   end
