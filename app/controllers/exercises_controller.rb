@@ -25,11 +25,10 @@ class ExercisesController < ApplicationController
         category = ExerciseCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
       end
       unless category
-        @exercise.exercise_category = ExerciseCategory.new(:category => params[:create_category])
-        current_user.exercise_categories << @exercise.exercise_category
-        @categories << @exercise.exercise_category
+        category = ExerciseCategory.new(:category => params[:create_category])
+        current_user.exercise_categories << category
+        @categories << category
       end
-        @exercise.exercise_category = category
     else
       # attempt to save exercise
       if @exercise.save
