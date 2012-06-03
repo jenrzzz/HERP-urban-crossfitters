@@ -7,7 +7,7 @@ class InjuryRecordsController < ApplicationController
     else
       @name = current_user.username
     end
-      @title = "Recorded injuries for #{name}"
+      @title = "Recorded injuries for #{@name}"
   end
 
   def new
