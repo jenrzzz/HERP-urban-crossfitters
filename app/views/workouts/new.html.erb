@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="span8">
+      <h1>Create Workout</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+        <%= form_for @workout, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
+        <fieldset class="control-group">
+            <%= label_tag :name, 'Name' %>
+            <%= f.text_field :name %>
+            <%= label_tag :description, 'Description' %>
+            <%= f.text_field :description %>
+            <%= f.fields_for "workout_category" do |wc| %>
+              <%= label_tag :category, 'Category' %>
+              <%= wc.select :category, @categories.collect{|c| [c.category, c.category]} + [['Other','Other']] %>
+              <%= text_field_tag :create_category %>
+            <% end %>
+            <h2>Add Exercises</h2>
+            <%= f.fields_for :exercises do |e| %>
+              <%= e.label :repetitions %>
+              <%= e.text_field :repetitions %>
+              <%= e.label :weight %>
+              <%= e.text_field :weight %>
+              <%= e.label :rounds %>
+              <%= e.text_field :rounds %>
+              <%= e.label :distance %>
+              <%= e.text_field :distance %>
+              <%= e.label :units %>
+              <%= e.text_field :units %>
+              <%= e.label :description %>
+              <%= e.text_field :description %>
+              <%= e.check_box :_destroy %>
+              <%= e.label :_destroy, 'delete' %>
+              <%= e.fields_for "exercise_category" do |ec| %>
+                <%= label_tag :category, 'Category' %>
+                <%= ec.select :category, @exerciseCategories.collect{|c| [c.category, c.category]} + [['Other','Other']] %>
+                <%= text_field_tag :create_exercise_category %>
+              <% end %>
+            <% end -%>
+            <%= f.submit 'Create Workout Category', :name => 'create_workout_category' %>
+            <%= f.submit 'Create Exercise Category', :name => 'add_exercise_category' %>
+            <%= f.submit 'Add Exercise', :name => 'add_exercise' %>
+            <%= f.submit 'Delete checked ingredients', :name => 'remove_exercise' %>
+            <%= f.submit "Create Workout", :class => 'btn btn-primary' %>
+        </fieldset>
+        <% end %>
+    </div>
+</div>
+<% #FIXME JS doesn't belong here, just testing swapping between select
+   # and text field for category input %>
+<script>
+
+document.getElementById('workout_category_category').onchange = function() {
+    console.log("changed");
+    if(this.selectedIndex != this.options.length - 1) {
+        this.name = 'workout_category[category]'
+        this.id = 'workout_category_category'
+        box = document.getElementById('test')
+        box.name = 'test'
+        return;
+    }
+    this.id = 'supertest'
+    this.name = 'test'
+    box = document.getElementById('test').name = 'exercise_category[category]'
+};
+</script>

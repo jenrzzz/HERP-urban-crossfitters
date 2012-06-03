@@ -13,37 +13,20 @@
             <%= f.text_field :weight %>
             <%= label_tag :rounds, 'Rounds' %>
             <%= f.text_field :rounds %>
-            <%= label_tag :distance, 'distance' %>
+            <%= label_tag :distance, 'Distance' %>
             <%= f.text_field :distance %>
-            <%= label_tag :units, 'units' %>
+            <%= label_tag :units, 'Units' %>
             <%= f.text_field :units %>
-            <%= label_tag :description, 'description' %>
+            <%= label_tag :description, 'Description' %>
             <%= f.text_area :description %>
-            <%= fields_for "exercise_category" do |ec| %>
+            <%= f.fields_for "exercise_category" do |ec| %>
               <%= label_tag :category, 'Category' %>
               <%= ec.select :category, @categories.collect{|c| [c.category, c.category]} + [['Other','Other']] %>
-              <%= ec.text_field :category, :id => 'test', :name => 'test' %>
+              <%= text_field_tag :create_category %>
             <% end %>
+            <%= f.submit 'Create New Category', :name => 'create_exercise_category' %>
             <%= f.submit "Create Exercise", :class => 'btn btn-primary' %>
         </fieldset>
         <% end %>
     </div>
 </div>
-<% #FIXME JS doesn't belong here, just testing swapping between select
-   # and text field for category input %>
-<script>
-
-document.getElementById('exercise_category_category').onchange = function() {
-    console.log("changed");
-    if(this.selectedIndex != this.options.length - 1) {
-        this.name = 'exercise_category[category]'
-        this.id = 'exercise_category_category'
-        box = document.getElementById('test')
-        box.name = 'test'
-        return;
-    }
-    this.id = 'supertest'
-    this.name = 'test'
-    box = document.getElementById('test').name = 'exercise_category[category]'
-};
-</script>

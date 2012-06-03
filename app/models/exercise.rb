@@ -1,8 +1,9 @@
 class Exercise < ActiveRecord::Base
-  attr_accessible :repetitions, :weight, :rounds, :distance, :units, :description
+  attr_accessible :repetitions, :weight, :rounds, :distance, :units, :description, :exercise_category_attributes
   belongs_to :exercise_category
   has_many :exercises_workouts
   has_many :workouts, :through => :exercise_workouts
+  accepts_nested_attributes_for :exercise_category
 
   def self.select_official_exercises
     Exercise.where(:user_id => 1)
