@@ -1,9 +1,11 @@
 class Workout < ActiveRecord::Base
-  attr_accessible :name, :description
+  attr_accessible :name, :description, :workout_category_attributes, :exercises_attributes
 
   belongs_to  :workout_category
   has_many :exercise_workouts
   has_many :exercises, :through => :exercise_workouts
+  accepts_nested_attributes_for :exercises
+  accepts_nested_attributes_for :workout_category
 
   def self.select_official_workouts
     Workout.where(:user_id => 1)
@@ -12,7 +14,4 @@ class Workout < ActiveRecord::Base
   def self.select_custom_workouts(user_id)
     User.find_by_id(user_id).workouts
   end
-
-  validates_presence_of :workout_category_id
-  validates_presence_of :user_id
 end

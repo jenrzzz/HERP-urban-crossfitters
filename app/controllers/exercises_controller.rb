@@ -12,41 +12,38 @@ class ExercisesController < ApplicationController
   # return an HTML form to add new exercise
   def new
     @exercise = Exercise.new
-    @category = ExerciseCategory.new
+    @exercise.exercise_category = ExerciseCategory.new
   end
 
   # create a new exercise
   def create
     # create new exercise
     @exercise = Exercise.new params[:exercise]
-    @category = ExerciseCategory.find_or_new_by_category(params[:exercise_category][:category])
-    # attempt to save category
-    if @category.save
-      # associate with current user if it isn't associated with a user already
-      unless @category.user_id
-        current_user.exercise_categories << @category
+    if params[:create_exercise_category]
+      category = ExerciseCategory.select_official_categories.where(:category => params[:create_category]).first
+      unless category
+        category = ExerciseCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
       end
+      unless category
+        @exercise.exercise_category = ExerciseCategory.new(:category => params[:create_category])
+        current_user.exercise_categories << @exercise.exercise_category
+        @categories << @exercise.exercise_category
+      end
+        @exercise.exercise_category = category
+    else
       # attempt to save exercise
       if @exercise.save
-        # associate category with exercise
-        @exercise.exercise_category = @category
         # associate exercise with user
         current_user.exercises << @exercise
         # display the exercise
         redirect_to :action => 'show', :id => @exercise.id
         return
       else
-        flash[:error] = 'There was a problem saving your exercise'
-        flash[:errors] = @exercise.errors
-        redirect_to :action => 'new'
-        return
+        flash.now[:error] = 'There was a problem saving your exercise'
+        flash.now[:errors] = @exercise.errors
       end
-    else
-      flash[:error] = 'There was a problem with your exercise category'
-      flash[:errors] = @category.errors[:base]
-      redirect_to :action => 'new'
-      return
     end
+    render :action => 'new'
   end
 
   # display a specific exercise
@@ -66,35 +63,30 @@ class ExercisesController < ApplicationController
   # update a specific exercise
   def update
     @exercise = current_user.exercises.find_by_id(params[:id])
-    if params[:exercise_category]
-      @category = ExerciseCategory.find_or_new_by_category(params[:exercise_category][:category])
-      if @category.save
-        unless @category.user_id
-          current_user.exercise_categories << @category
-        end
-        @exercise.exercise_category = @category
-        flash[:notice] = 'Edit was successful'
-        unless params[:exercise]
-          redirect_to :action => 'show', :id => @exercise.id
-        end
-      else
-        flash[:error] = "Category wasn't updated properly"
-        flash[:errors] = @category.errors[:base]
-        unless params[:exercise]
-          redirect_to :action => 'show', :id => @exercise.id
-        end
+    if params[:create_exercise_category]
+      category = ExerciseCategory.select_official_categories.where(:category => params[:create_category]).first
+      unless category
+        category = ExerciseCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
       end
-    end
-    if params[:exercise]
+      unless category
+        @exercise.exercise_category = ExerciseCategory.new(:category => params[:create_category])
+        current_user.exercise_categories << @exercise.exercise_category
+        @categories << @exercise.exercise_category
+      end
+        @exercise.exercise_category = category
+    else
       if @exercise.update_attributes(params[:exercise])
         flash[:notice] = 'Edit was successful'
         redirect_to :action => 'show', :id => @exercise.id
+        return
       else
-        flash[:error] << "Your exercise didn't update properly"
-        flash[:errors] << @exercise.errors[:base]
+        flash[:error] = "Your exercise didn't update properly"
+        flash[:errors] = @exercise.errors
         redirect_to :action => 'edit', :id => @exercise.id
+        return
       end
     end
+    render :action => 'edit'
   end
 
   # delete a specific exercise

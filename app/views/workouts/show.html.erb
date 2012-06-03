@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="span8">
+        <h1>View Workouts</h1>
+        <h2><%= link_to 'Back to Workouts', workouts_path %>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span6">
+      <% unless @workout.user_id == 1 %>
+        <%= link_to 'Edit Workout', edit_workout_path(@workout) %>
+        <%= link_to 'Delete Workout', workout_path(@workout),
+            :confirm => 'Are you sure?', :method => :delete %>
+      <% end %>
+      <% if @workout.workout_category %>
+        <%= @workout.workout_category.category %></br>
+      <% end %>
+      <% if @workout.name %>
+          Name:<%= @workout.name %><br />
+      <% end %>
+      <% if @workout.description %>
+          Description:<%= @workout.description%><br />
+      <% end %>
+      <% @workout.exercises.each do |e| %>
+
+      <% if e.exercise_category %>
+        <%= e.exercise_category.category %>
+      <% end %>
+      <% if e.repetitions %>
+          Repetitions:<%= e.repetitions %>
+      <% end %>
+      <% if e.weight %>
+          Weight:<%= e.weight%> <%= e.units %>
+      <% end %>
+      <% if e.distance %>
+           Distance:<%= e.distance %> <%= e.units %>
+      <% end %>
+      <% if e.rounds %>
+          Rounds:<%= e.rounds %><br />
+      <% end %>
+      <% end %>
+    </div>
+</div>
