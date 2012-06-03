@@ -1,11 +1,11 @@
 <div class="row">
     <div class="span8">
-      <h1>Create Workout</h1>
+      <h1>Edit Workout</h1>
     </div>
 </div>&nbsp;
 <div class="row">
     <div class="span4">
-        <%= form_for @workout, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
+        <%= form_for @workout, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
         <fieldset class="control-group">
             <%= label_tag :name, 'Name' %>
             <%= f.text_field :name %>
@@ -31,7 +31,7 @@
               <%= e.label :description %>
               <%= e.text_field :description %>
               <%= e.check_box :_destroy %>
-              <%= e.label :_destroy, 'delete' %>
+              <%= e.label :_destroy, 'Mark for deletion' %>
               <%= e.fields_for "exercise_category" do |ec| %>
                 <%= label_tag :category, 'Category' %>
                 <%= ec.select :category, @exerciseCategories.collect{|c| [c.category, c.category]} + [['Other','Other']] %>
@@ -41,8 +41,8 @@
             <%= f.submit 'Create Workout Category', :name => 'create_workout_category' %>
             <%= f.submit 'Create Exercise Category', :name => 'add_exercise_category' %>
             <%= f.submit 'Add Exercise', :name => 'add_exercise' %>
-            <%= f.submit 'Delete checked ingredients', :name => 'remove_exercise' %>
-            <%= f.submit "Create Workout", :class => 'btn btn-primary' %>
+            <%= f.submit 'Delete checked exercises', :name => 'remove_exercise' %>
+            <%= f.submit "Edit Workout", :class => 'btn btn-primary' %>
         </fieldset>
         <% end %>
     </div>
