@@ -41,6 +41,12 @@ gem 'feedzirra', :git => 'https://github.com/pauldix/feedzirra'
 gem 'htmlentities' # people who include html in an RSS feed body shall
                    # be sent back to magic kindergarten
 
+# To display calendar
+gem 'event-calendar', :require => 'event_calendar'
+
+# Validates Dates the easy way!
+gem 'validates_timeliness', '~> 3.0.2'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -55,10 +61,4 @@ gem 'htmlentities' # people who include html in an RSS feed body shall
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
-
-# To display calendar
-gem 'event-calendar'
-
-# Validates Dates the easy way!
-gem 'validates_timeliness', '~> 3.0.2'
 

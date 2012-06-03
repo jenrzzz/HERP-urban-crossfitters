@@ -183,9 +183,4 @@ ActiveRecord::Schema.define(:version => 20120531212745) do
     t.integer  "user_id"
   end
 
-  create_table "workouts_exercises", :id => false, :force => true do |t|
-    t.integer "workout_id"
-    t.integer "user_id"
-  end
-
 end
