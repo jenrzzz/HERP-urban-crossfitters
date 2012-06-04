@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="span8">
+      <h1>Create Workout Record</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+        <%= form_for @workout_record, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
+        <fieldset class="control-group">
+            <%= date_select :workout_record, :date_performed, :start_year => 1980, :end_year => Time.now.year, :order => [:month, :day, :year] %>
+            <%= label_tag :note, 'Note' %>
+            <%= f.text_area :note %>
+            <%= label_tag :points, 'Points' %>
+            <%= f.text_field :points %>
+            <%= label_tag :time, 'Time' %>
+              <%= select :time, :hours, (0..24).collect {|n| [n, n] }, :selected => @workout_record.time[:hours] %> hours
+              <%= select :time, :minutes, (0..59).collect {|n| [n, n] }, :selected => @workout_record.time[:minutes] %> minutes
+              <%= select :time, :seconds, (0..59).collect {|n| [n, n] }, :selected => @workout_record.time[:seconds] %> seconds
+            <%= label_tag :rounds, 'Rounds' %>
+            <%= f.text_field :rounds %>
+            <%= f.select :workout_id, @workouts.collect{|w| [w.name, w.id]} %>
+            <%= f.submit "Edit Workout Record", :class => 'btn btn-primary' %>
+        </fieldset>
+        <% end %>
+    </div>
+</div>

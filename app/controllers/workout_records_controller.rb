@@ -1,18 +1,21 @@
 class WorkoutRecordsController < ApplicationController
+  before_filter :set_up_workouts_select
+
   # display list of all workout records
   def index
-    @workout_records = current_user.workout_records
+    @workout_records = current_user.workout_records.find(:all, :order => 'date_performed')
   end
 
   # return an HTML form to add new workout record
   def new
     @workout_record = WorkoutRecord.new
-    @workout = Workout.new
+    @workout_record.workout = Workout.new
   end
 
   # create a new workout record
   def create
     @workout_record = WorkoutRecord.new params[:workout_record]
+    @workout_record.time = params[:time]
     if @workout_record.save
       current_user.workout_records << @workout_record
       redirect_to :action => 'show', :id => @workout_record.id
@@ -55,5 +58,11 @@ class WorkoutRecordsController < ApplicationController
     @workout_record = current_user.workout_records.find_by_id(params[:id])
     @workout_record.destroy
     redirect_to :action => 'index'
+  end
+
+  private
+  def set_up_workouts_select
+    @workouts = Workout.select_official_workouts
+    @workouts += Workout.select_custom_workouts(current_user.id)
   end
 end

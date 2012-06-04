@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="span8">
+        <h1>Workouts</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span6">
+        <%= link_to "Add Workout Record", new_workout_record_path %><br />
+        <% @workout_records.each do |wr| %>
+          <%= link_to "#{wr.date_performed}", workout_record_path(wr) %><br />
+        <% end %>
+    </div>
+</div>
