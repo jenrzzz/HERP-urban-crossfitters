@@ -3,11 +3,11 @@
         <h1>All Injuries</h1>
     </div>
 </div>
-<% if @injury_record %>
+<% if @injury_records %>
     <% @injury_records.each do |injury| %>
         <div class="row">
 	    <div class ="span8">
-	        <h2><%= link_to injury.name, edit_injury_path(injury.id) %></h2>
+	        <h2><%= link_to injury.name, edit_injury_record_path(injury) %></h2>
 		<p><%= injury.description %></p>
 		<p><strong>Severity: </strong>
 		   <span class="label">
@@ -20,7 +20,7 @@
 		<% else %>
 		<p><strong>End Date: </strong><%= 'Ongoing' %></p>
 		<% end %>
-		<small style="font-size: small;"><%= link_to 'Permalink', injury_path(injury.id) %></small>
+		<small style="font-size: small;"><%= link_to 'Permalink', injury_record_path(injury) %></small>
             </div>
 	</div>
     <% end %>

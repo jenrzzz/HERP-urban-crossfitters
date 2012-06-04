@@ -20,12 +20,13 @@ class InjuryRecordsController < ApplicationController
     @injury = InjuryRecord.new params[:injury_record]
     if @injury.save
       current_user.injury_records << @injury
+      redirect_to :action => 'show', :id => @injury.id
     else
-      flash.now[:error] = 'There was a problem saving your new injury.'
-      flash.now[:errors] = @injury.errors
+      flash[:error] = 'There was a problem saving your new injury.'
+      flash[:errors] = @injury.errors
       redirect_to :action => 'new'
+      return
     end
-    redirect_to :action => 'show', :id => @injury.id
   end
 
   # display a specific injury
