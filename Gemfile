@@ -48,7 +48,7 @@ gem 'event-calendar', :require => 'event_calendar'
 gem 'validates_timeliness', '~> 3.0.2'
 
 # Rmagick needed for Gruff to make pretty graphs as image files
-gem 'rmagick'
+gem 'rmagick', :require => false
 
 #Gruff for graphs
 gem 'gruff'
