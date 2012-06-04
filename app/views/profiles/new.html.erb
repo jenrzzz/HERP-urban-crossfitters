@@ -32,7 +32,6 @@
             <%= label_tag :height, 'Height' %>
               <%= select :height, :feet, (0..10).collect {|n| [n, n] } %> feet
               <%= select :height, :inches, (0..11).collect {|n| [n, n] } %> inches
-            <%= label_tag :weight, 'Weight'%><%= f.text_field :weight %>
             <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
             <%= f.submit "Save changes", :class => 'btn btn-primary' %>
         </fieldset>

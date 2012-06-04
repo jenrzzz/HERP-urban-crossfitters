@@ -1,5 +1,5 @@
 class Profile < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :height, :weight, :picture, :gender,
+  attr_accessible :first_name, :last_name, :height, :picture, :gender,
                   :birthdate, :description
   belongs_to :user
 

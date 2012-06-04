@@ -2,12 +2,9 @@ Herpcs110s::Application.routes.draw do
 
   resources :session
   resources :profiles
-  resources :goals
-  resources :health_records
-  resources :workout_records
-  resources :exercises
-  resources :workouts
-  resources :injury_records
+  
+  resources :health_records, :workout_records, :injury_records
+  resources :exercises, :workouts, :goals, :events
   resource  :dashboard
 
   # The priority is based upon order of creation:
@@ -19,7 +16,7 @@ Herpcs110s::Application.routes.draw do
 
   # #FIXME temporary routes until help and about are completed properly
   match '/help', :to => 'home#index', :as => :help
-  match '/about', :to => 'home#index', :as => :about_us
+  match '/about', :to => 'about#index', :as => :about_us
   
   #Creates authentication for omni-auth
   match '/auth/:provider/callback' => 'sessions#create'

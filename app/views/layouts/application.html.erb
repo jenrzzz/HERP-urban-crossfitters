@@ -11,7 +11,7 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
+    <%= javascript_include_tag :application %>
     <!-- Le fav and touch icons -->
     <%= favicon_link_tag('favicon.ico') %>
     <%= favicon_link_tag('apple-touch-icon-144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :size => '144x144', :type => '/image/png') %>
@@ -23,6 +23,7 @@
   </head>
   <body>
     <div class="container"><%= "<!-- ONE and only one container for the page, and everything should be inside of it. -->" if ENV['debug'] %>
+    <div id="fb-root"></div>
         <div class="navbar navbar-fixed-top">
           <div class="navbar-inner">
             <%= content_tag(:a, :data => {:toggle => 'collapse', :target => '.nav-collapse'}, :class => 'btn btn-navbar') do  %>
@@ -59,9 +60,5 @@
             <p>&copy; HERP SPRING 2012</p>
           </footer>
     </div><%= "<!-- END OF CONTAINER -- NOTHING BOOTSTRAP CAN GO OUTSIDE OF THIS -->" if ENV['debug'] %>
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application" %>
   </body>
 </html>
