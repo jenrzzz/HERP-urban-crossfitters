@@ -9,9 +9,9 @@
 #ISSUE: use create! & save! instead of create & save?
 #ISSUE: use local variables? @admin, @workout, @exercise
 
-[User, WorkoutCategory, Workout, ExerciseCategory, Exercise, ExerciseWorkout].each(&:delete_all)
+[WorkoutCategory, Workout, ExerciseCategory, Exercise, ExerciseWorkout].each(&:delete_all)
 
-admin = User.create(:email => "admin@test.test", :username => "admin")
+admin = User.find_or_create_by_id(:email => "admin@test.test", :username => "admin")
 
 girl = WorkoutCategory.create(:category => "Girl")
 hero = WorkoutCategory.create(:category => "Hero")
