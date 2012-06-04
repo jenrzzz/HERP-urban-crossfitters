@@ -11,7 +11,7 @@
             <%= f.text_field :name %>
             <%= label_tag :description, 'Description' %>
             <%= f.text_field :description %>
-            <%= f.fields_for "workout_category" do |wc| %>
+            <%= f.fields_for :workout_category do |wc| %>
               <%= label_tag :category, 'Category' %>
               <%= wc.select :category, @categories.collect{|c| [c.category, c.category]} + [['Other','Other']] %>
               <%= text_field_tag :create_category %>
@@ -47,21 +47,3 @@
         <% end %>
     </div>
 </div>
-<% #FIXME JS doesn't belong here, just testing swapping between select
-   # and text field for category input %>
-<script>
-
-document.getElementById('workout_category_category').onchange = function() {
-    console.log("changed");
-    if(this.selectedIndex != this.options.length - 1) {
-        this.name = 'workout_category[category]'
-        this.id = 'workout_category_category'
-        box = document.getElementById('test')
-        box.name = 'test'
-        return;
-    }
-    this.id = 'supertest'
-    this.name = 'test'
-    box = document.getElementById('test').name = 'exercise_category[category]'
-};
-</script>

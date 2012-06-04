@@ -31,11 +31,10 @@ class WorkoutsController < ApplicationController
         category = WorkoutCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
       end
       unless category
-        @workout.workout_category = WorkoutCategory.new(:category => params[:create_category])
-        current_user.workout_categories << @workout.workout_category
-        @categories << @workout.workout_category
+        category = WorkoutCategory.new(:category => params[:create_category])
+        current_user.workout_categories << category
+        @categories << category
       end
-        @workout.workout_category = category
     elsif params[:add_exercise]
       @workout.exercises.build
     elsif params[:remove_exercise]
@@ -70,7 +69,9 @@ class WorkoutsController < ApplicationController
       return
       end
     end
-    @workout.exercises.each do |e| e.exercise_category = ExerciseCategory.new end
+    @workout.exercises.each do |e|
+      e.exercise_category = ExerciseCategory.new
+    end
     render :action => 'new'
   end
 
@@ -81,14 +82,54 @@ class WorkoutsController < ApplicationController
 
   # return a form to edit a workout
   def edit
+    @workout = current_user.workouts.find_by_id(params[:id])
+    unless @workout
+      flash[:error] = "You can't edit workouts that don't belong to you"
+      redirect_to :action => 'index'
+    end
   end
 
   # update a specific workout
   def update
+    @workout = Workout.find(params[:id])
+    if params[:add_exercise]
+      # rebuild the exercise attributes that don't have an id
+      unless params[:workout][:exercises_attributes].blank?
+        for attribute in params[:workout][:exercises_attributes]
+          @workout.exercises.build(attribute.last.except(:_destroy)) unless attribute.last.has_key?(:id)
+        end
+      end
+      # add one more empty ingredient attribute
+      @workout.exercises.build
+    elsif params[:remove_exercise]
+      # collect all marked for delete exercise ids
+      removed_exercises = params[:workout][:exercises_attributes].collect { |i, att| att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
+      # physically delete the exercises from database
+      Exercise.delete(removed_exercises)
+      flash[:notice] = "Exercises removed."
+      for attribute in params[:workout][:exercises_attributes]
+        # rebuild exercises attributes that doesn't have an id and its _destroy attribute is not 1
+        @workouts.exercises.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
+      end
+    else
+      # save goes like usual
+      if @workout.update_attributes(params[:workout])
+        flash[:notice] = "Successfully updated workout."
+        redirect_to @workout and return
+      end
+    end
+    @workout.exercises.each do |e|
+      e.exercise_category = ExerciseCategory.new
+    end
+    render :action => 'edit'
   end
 
   # delete a specific workout
   def destroy
+    @workout = Workout.find(params[:id])
+    @workout.destroy
+    flash[:notice] = 'Successfully deleted workout'
+    redirect_to :action => 'index'
   end
 
   private
