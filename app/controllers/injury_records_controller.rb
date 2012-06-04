@@ -20,12 +20,13 @@ class InjuryRecordsController < ApplicationController
     @injury = InjuryRecord.new params[:injury_record]
     if @injury.save
       current_user.injury_records << @injury
+      redirect_to :action => 'show', :id => @injury.id
     else
-      flash.now[:error] = 'There was a problem saving your new injury.'
-      flash.now[:errors] = @injury.errors
+      flash[:error] = 'There was a problem saving your new injury.'
+      flash[:errors] = @injury.errors
       redirect_to :action => 'new'
+      return
     end
-    redirect_to :action => 'show', :id => @injury.id
   end
 
   # display a specific injury
@@ -33,6 +34,11 @@ class InjuryRecordsController < ApplicationController
     @injury = InjuryRecord.find_by_id params[:id]
     @title = "Injury #{@injury.name}"
   end
+
+	def edit
+		@injury = InjuryRecord.find_by_id params[:id]
+		@title = "Editing injury #{@injury.name}"
+	end
 
   # update a specific injury
   def update
@@ -45,9 +51,9 @@ class InjuryRecordsController < ApplicationController
     end
   end
 
-    # delete a specific injury
-    def destroy
-      @injury = current_user.injury_records.lookup_by_params[:id]
-      @record.destroy
-    end
+	# delete a specific injury
+	def destroy
+		@injury = current_user.injury_records.lookup_by_params[:id]
+		@record.destroy
+	end
 end

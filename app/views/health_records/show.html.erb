@@ -6,22 +6,24 @@
 </div>&nbsp;
 <div class="row">
     <div class="span6">
-      <%= link_to 'Edit Record', edit_health_record_path(@record) %>
-      <%= link_to 'Delete Record', health_record_path(@record),
-          :confirm => 'Are you sure?', :method => :delete %>
-      <%= @record.date_recorded %></br>
+      <h3><%= @record.date_recorded %></h3></br></br>
       <% if @record.systolic_bp && @record.diastolic_bp %>
-          Diastolic Blood Pressure:<%= @record.systolic_bp %><br />
-          Systolic Blood Pressure:<%= @record.diastolic_bp %><br />
+          <b>Diastolic Blood Pressure: </b><%= @record.systolic_bp %><br />
+          <b>Systolic Blood Pressure: </b><%= @record.diastolic_bp %><br />
       <% end %>
       <% if @record.weight %>
-          Weight:<%= @record.weight %><br />
+          <b>Weight: </b><%= @record.weight %><br />
       <% end %>
       <% if @record.resting_heart_rate %>
-          Resting Heart Rate:<%= @record.resting_heart_rate %><br />
+          <b>Resting Heart Rate: </b><%= @record.resting_heart_rate %><br />
       <% end %>
       <% if @record.calories_consumed %>
-          Calories Consumed:<%= @record.calories_consumed %><br />
+          <b>Calories Consumed: </b><%= @record.calories_consumed %><br />
       <% end %>
+    </div>
+    <div class="span6">
+      <button class="btn"><%= link_to 'Edit Record', edit_health_record_path(@record) %></button></br>
+      <button class="btn"><%= link_to 'Delete Record', health_record_path(@record),
+          :confirm => 'Are you sure?', :method => :delete %></button>
     </div>
 </div>

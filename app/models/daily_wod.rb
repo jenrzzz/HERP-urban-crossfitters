@@ -1,3 +1,3 @@
-class DailyWOD < ActiveRecord::Base
+class DailyWod < ActiveRecord::Base
   attr_accessible :date, :title, :description
 end

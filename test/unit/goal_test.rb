@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class GoalTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class GoalTest < Test::Unit::TestCase
+
+	should validate_presence_of :name
+	should validate_presence_of :description
+	
 end

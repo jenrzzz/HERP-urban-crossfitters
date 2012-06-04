@@ -1,19 +1,5 @@
 Herpcs110s::Application.routes.draw do
 
-  get "events/index"
-
-  get "events/show"
-
-  get "events/new"
-
-  get "events/edit"
-
-  get "events/create"
-
-  get "events/update"
-
-  get "events/destroy"
-
   resources :session
   resources :profiles
   
@@ -30,7 +16,7 @@ Herpcs110s::Application.routes.draw do
 
   # #FIXME temporary routes until help and about are completed properly
   match '/help', :to => 'home#index', :as => :help
-  match '/about', :to => 'home#index', :as => :about_us
+  match '/about', :to => 'about#index', :as => :about_us
   
   #Creates authentication for omni-auth
   match '/auth/:provider/callback' => 'sessions#create'

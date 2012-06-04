@@ -10,7 +10,7 @@ class Profile < ActiveRecord::Base
 
   # converts height in inches value to a string
   # string format is: [feet]'[inches]"
-  def height
+  def height_str
     unless self[:height]
       return '0'
     else
@@ -31,9 +31,7 @@ class Profile < ActiveRecord::Base
     picture = graph.get_object 'me', :fields => 'picture,birthday'
     user.merge! picture
   end
-
-  validates :weight, :numericality => { :only_integer => true,
-                                        :greater_than => 0 }
+  
   validates :height, :numericality => { :only_integer => true,
                                         :greater_than => 0 }
   validates_date :birthdate, :on_or_before => Date.current

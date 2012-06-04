@@ -13,9 +13,9 @@
             <%= label_tag :points, 'Points' %>
             <%= f.text_field :points %>
             <%= label_tag :time, 'Time' %>
-              <%= select :time, :hours, (0..24).collect {|n| [n, n] }, :selected => @workout_record.time[:hours] %> hours
-              <%= select :time, :minutes, (0..59).collect {|n| [n, n] }, :selected => @workout_record.time[:minutes] %> minutes
-              <%= select :time, :seconds, (0..59).collect {|n| [n, n] }, :selected => @workout_record.time[:seconds] %> seconds
+              <%= select :time, :hours, (0..24).collect {|n| [n, n] }, :selected => @workout_record.time ? @workout_record.time[:hours] : 0 %> hours
+              <%= select :time, :minutes, (0..59).collect {|n| [n, n] }, :selected => @workout_record.time ? @workout_record.time[:minutes] : 0 %> minutes
+              <%= select :time, :seconds, (0..59).collect {|n| [n, n] }, :selected => @workout_record.time ? @workout_record.time[:seconds] : 0 %> seconds
             <%= label_tag :rounds, 'Rounds' %>
             <%= f.text_field :rounds %>
             <%= f.select :workout_id, @workouts.collect{|w| [w.name, w.id]} %>

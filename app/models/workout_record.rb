@@ -15,7 +15,11 @@ class WorkoutRecord < ActiveRecord::Base
     m = (self[:time] / 60) % 60
     s = (self[:time] % 60)
     str = "#{h}h:#{m}m:#{s}s"
-    {:hours => h.to_i, :minutes => m, :seconds => s, :string => str}
+    if self[:time] != 0
+      {:hours => h.to_i, :minutes => m, :seconds => s, :string => str}
+    else
+      nil
+    end
   end
 
   validate :at_least_one_metric
