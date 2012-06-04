@@ -1,3 +1,3 @@
 class DailyWod < ActiveRecord::Base
-  attr_accessible :date, :title, :description
+  attr_accessible :date, :title, :description, :link
 end
