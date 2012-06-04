@@ -35,6 +35,11 @@ class InjuryRecordsController < ApplicationController
     @title = "Injury #{@injury.name}"
   end
 
+	def edit
+		@injury = InjuryRecord.find_by_id params[:id]
+		@title = "Editing injury #{@injury.name}"
+	end
+
   # update a specific injury
   def update
     @injury = InjuryRecord.find_by_id params[:id]
@@ -46,9 +51,9 @@ class InjuryRecordsController < ApplicationController
     end
   end
 
-    # delete a specific injury
-    def destroy
-      @injury = current_user.injury_records.lookup_by_params[:id]
-      @record.destroy
-    end
+	# delete a specific injury
+	def destroy
+		@injury = current_user.injury_records.lookup_by_params[:id]
+		@record.destroy
+	end
 end
