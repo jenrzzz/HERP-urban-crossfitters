@@ -48,6 +48,10 @@ class ExercisesController < ApplicationController
   # display a specific exercise
   def show
     @exercise = Exercise.find_by_id(params[:id])
+    unless (@exercise.user_id == current_user.id || @exercise.user_id == 1)
+      flash[:error] = "You are not permitted to view this exercise"
+      redirect_to :action => 'index'
+    end
   end
 
   # return a form to edit a exercise
@@ -78,10 +82,8 @@ class ExercisesController < ApplicationController
         redirect_to :action => 'show', :id => @exercise.id
         return
       else
-        flash[:error] = "Your exercise didn't update properly"
-        flash[:errors] = @exercise.errors
-        redirect_to :action => 'edit', :id => @exercise.id
-        return
+        flash.now[:error] = "Your exercise didn't update properly"
+        flash.now[:errors] = @exercise.errors
       end
     end
     render :action => 'edit'
@@ -92,7 +94,7 @@ class ExercisesController < ApplicationController
     @exercise = current_user.exercises.find_by_id(params[:id])
     category_id = @exercise.exercise_category.id
     @exercise.destroy
-    unless Exercise.where(:exercise_category_id => @exercise.exercise_category.id)
+    unless Exercise.where(:exercise_category_id => @exercise.exercise_category.id).first
       ExerciseCategory.find_by_id(category_id).destroy
     end
     flash[:notice] = 'Exercise deleted'

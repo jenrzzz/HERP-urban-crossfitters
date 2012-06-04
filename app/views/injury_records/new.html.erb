@@ -7,16 +7,16 @@
     <div class="span8">
         <%= form_for @injury, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
         <fieldset class="control-group">
-	    <%= label_tag :name, 'Name; %>
+	    <%= label_tag :name, 'Name' %>
 	    <%= f.text_field :name %>
 	    <%= label_tag :description, 'Description' %>
 	    <%= f.text_area :description, :rows => 4 %>
 	    <%= label_tag :severity, 'Severity' %>
 	    <%= f.select :severity, options_for_select( (1..10).collect {|n| [n, n] } ) %>
 	    <%= label_tag :start_date, 'Start Date' %>
-	    <%= date_select :injury, :start_date, :order => [:month, :day, :year] %>
+	    <%= date_select :injury_record, :start_date, :order => [:month, :day, :year] %>
 	    <%= label_tag :end_date, 'End Date' %>
-	    <%= date_select :injury, :end_date, :order => [:month, :day, :year] %>
+	    <%= date_select :injury_record, :end_date, :order => [:month, :day, :year] %>
 	    <%= f.submit "Save changes", :class => 'btn btn-primary' %>
 	</fieldset>
 	<% end %>
