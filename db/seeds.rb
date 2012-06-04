@@ -6,9 +6,6 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-#ISSUE: use create! & save! instead of create & save?
-#ISSUE: use local variables? @admin, @workout, @exercise
-
 [WorkoutCategory, Workout, ExerciseCategory, Exercise, ExerciseWorkout].each(&:delete_all)
 
 admin = User.find_or_create_by_id(:email => "admin@test.test", :username => "admin")
@@ -18,13 +15,6 @@ hero = WorkoutCategory.create(:category => "Hero")
 wod = WorkoutCategory.create(:category => "WOD")
 benchmark = WorkoutCategory.create(:category => "Benchmark")
 
-#need to seed custom workout category? all user defined
-#custom = WorkoutCategory.create(:category => "Custom")
-
-#add to app/models/workout_category.rb - valid category?
-#olympic = WorkoutCategory.create(:category => "Olympic Lifts")
-
-#add custom/olympic
 WorkoutCategory.all.each do |workoutCategory|
 	workoutCategory.user_id = admin.id
 	workoutCategory.save
