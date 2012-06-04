@@ -50,6 +50,11 @@ gem 'validates_timeliness', '~> 3.0.2'
 # [10] guy loves HighCharts.... duuuuuuude
 gem 'lazy_high_charts', :git => 'https://github.com/michelson/lazy_high_charts'
 
+# Shoulda is a ruby testing framework
+group :test do
+    gem 'shoulda'
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

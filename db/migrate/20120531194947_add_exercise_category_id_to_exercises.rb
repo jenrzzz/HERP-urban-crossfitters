@@ -7,6 +7,6 @@ class AddExerciseCategoryIdToExercises < ActiveRecord::Migration
   def down
     remove_column :exercises, :exercise_category_id
     add_column :exercises, :category, :string
-    add_column :exercises, :exercise_type_id, :integea
+    add_column :exercises, :exercise_type_id, :integer
   end
 end
