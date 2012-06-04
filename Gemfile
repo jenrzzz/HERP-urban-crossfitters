@@ -50,6 +50,9 @@ gem 'validates_timeliness', '~> 3.0.2'
 # [10] guy loves HighCharts.... duuuuuuude
 gem 'lazy_high_charts', :git => 'https://github.com/michelson/lazy_high_charts'
 
+# Cron to run wods:fetch_latest rake tasks
+gem 'whenever'
+
 # Shoulda is a ruby testing framework
 group :test do
     gem 'shoulda'
