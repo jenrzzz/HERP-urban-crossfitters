@@ -24,7 +24,9 @@ class Exercise < ActiveRecord::Base
   end
 
   def needs_units
-    if( self.distance && !self.units || self.weight && !self.units)
+    if (self.weight && (self.units).blank?)
+      self.errors[:base] << 'Please specify the units for the exercise'
+    elsif (self.distance && (self.units).blank?)
       self.errors[:base] << 'Please specify the units for the exercise'
     end
   end

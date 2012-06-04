@@ -72,14 +72,20 @@ class ExerciseTest < Test::Unit::TestCase
 		
 		test_exercise3 = Exercise.new
 		test_exercise3[:distance] = 10
+                test_exercise3.needs_units
 		assert_equal ['Please specify the units for the exercise'], test_exercise3.errors[:base]
 		test_exercise3[:units] = 'inches'
+                test_exercise3.errors.clear()
+                test_exercise3.needs_units
 		assert_equal [], test_exercise3.errors[:base]
 		
   	test_exercise3 = Exercise.new
 		test_exercise3[:weight] = 10
+                test_exercise3.needs_units
 		assert_equal ['Please specify the units for the exercise'], test_exercise3.errors[:base]
 		test_exercise3[:units] = 'pounds'
+                test_exercise3.errors.clear()
+                test_exercise3.needs_units
 		assert_equal [], test_exercise3.errors[:base]
 		end
 

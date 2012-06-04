@@ -30,7 +30,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
-    if params[:id] and params[:id] != 'me' then
+    if params[:id] && params[:id] != 'me' then
       @profile = Profile.find params[:id]
     else 
       @profile = current_user.profile
@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
   def edit
     @title = 'Edit profile'
     @profile = current_user.profile
-    if params[:id] != @profile.id
+    if params[:id] != 'me' && params[:id] != @profile.id
       flash.now[:notice] = "You can't edit someone else's profile."
     end
     if session[:fbaccess]['token'] then
