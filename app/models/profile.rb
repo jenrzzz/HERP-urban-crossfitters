@@ -10,7 +10,7 @@ class Profile < ActiveRecord::Base
 
   # converts height in inches value to a string
   # string format is: [feet]'[inches]"
-  def height
+  def height_str
     unless self[:height]
       return '0'
     else
