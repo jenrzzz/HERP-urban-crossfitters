@@ -19,7 +19,7 @@ namespace :wods do
     end
 
     # Insert a new record into daily_wods
-    wod = DailyWOD.new
+    wod = DailyWod.new
     wod.title = latest.title
     wod.description = wod_info_nodes.join "\n"
     wod.date = latest.published.to_date
@@ -28,7 +28,7 @@ namespace :wods do
 
   desc 'Print today\'s WOD to console.'
   task :print_latest => :environment do
-    wod = DailyWOD.find_by_date Time.now.to_date
+    wod = DailyWod.find_by_date Time.now.to_date
     puts "Title: #{wod.title}"
     puts "Date: #{wod.date}"
     puts "Desc: #{wod.description}"
