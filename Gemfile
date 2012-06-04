@@ -47,11 +47,8 @@ gem 'event-calendar', :require => 'event_calendar'
 # Validates Dates the easy way!
 gem 'validates_timeliness', '~> 3.0.2'
 
-# Rmagick needed for Gruff to make pretty graphs as image files
-gem 'rmagick', :require => false
-
-#Gruff for graphs
-gem 'gruff'
+# [10] guy loves HighCharts.... duuuuuuude
+gem 'lazy_high_charts', :git => 'https://github.com/michelson/lazy_high_charts'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

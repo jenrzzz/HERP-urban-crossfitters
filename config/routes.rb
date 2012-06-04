@@ -1,19 +1,5 @@
 Herpcs110s::Application.routes.draw do
 
-  get "events/index"
-
-  get "events/show"
-
-  get "events/new"
-
-  get "events/edit"
-
-  get "events/create"
-
-  get "events/update"
-
-  get "events/destroy"
-
   resources :session
   resources :profiles
   
