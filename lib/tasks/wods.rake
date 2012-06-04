@@ -21,7 +21,7 @@ namespace :wods do
     # Insert a new record into daily_wods
     wod = DailyWod.new
     wod.title = latest.title
-    wod.link = latest.link
+    wod.link = latest.url
     wod.description = wod_info_nodes.join "\n"
     wod.date = latest.published.to_date
     wod.save

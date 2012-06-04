@@ -24,7 +24,8 @@
 <div class="row">
     <div class="span6">
       <h3>Daily WOD for <%= @wod.date.strftime '%B %e, %Y' %></h3>
-      <p><strong><%= @wod.title %></strong></p>
+      <p><a href="<%= @wod.link or '#' %>"><strong><%= @wod.title %></strong></a></p>
       <p><pre><%= @wod.description %></pre></p>
+      <p><%= link_to "Do Workout", new_workout_path %></p>
     </div>
 </div>
