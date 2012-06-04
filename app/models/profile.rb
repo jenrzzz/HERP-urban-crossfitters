@@ -31,9 +31,7 @@ class Profile < ActiveRecord::Base
     picture = graph.get_object 'me', :fields => 'picture,birthday'
     user.merge! picture
   end
-
-  validates :weight, :numericality => { :only_integer => true,
-                                        :greater_than => 0 }
+  
   validates :height, :numericality => { :only_integer => true,
                                         :greater_than => 0 }
   validates_date :birthdate, :on_or_before => Date.current
