@@ -7,10 +7,11 @@ class InjuryRecord < ActiveRecord::Base
   validates_presence_of :start_date
   validates_presence_of :severity
 
-  validates :severity_within_bounds
+  validate :severity_within_bounds
 
   def severity_within_bounds
     unless self.severity > 0 && self.severity < 11
       self.errors[:base] << 'Severity must be between 1 and 10 (inclusive)'
     end
+  end
 end
