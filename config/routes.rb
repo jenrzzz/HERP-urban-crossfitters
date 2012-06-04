@@ -1,13 +1,24 @@
 Herpcs110s::Application.routes.draw do
 
+  get "events/index"
+
+  get "events/show"
+
+  get "events/new"
+
+  get "events/edit"
+
+  get "events/create"
+
+  get "events/update"
+
+  get "events/destroy"
+
   resources :session
   resources :profiles
-  resources :goals
-  resources :health_records
-  resources :workout_records
-  resources :exercises
-  resources :workouts
-  resources :injury_records
+  
+  resources :health_records, :workout_records, :injury_records
+  resources :exercises, :workouts, :goals, :events
   resource  :dashboard
 
   # The priority is based upon order of creation:
