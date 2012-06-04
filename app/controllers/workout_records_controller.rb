@@ -43,6 +43,7 @@ class WorkoutRecordsController < ApplicationController
   # update a specific workout record
   def update
     @workout_record = current_user.workout_records.find_by_id(params[:id])
+    @workout_record.time = params[:time]
     if @workout_record.update_attributes(params[:workout_record])
       flash[:notice] = 'Edit was successful.'
       redirect_to :action => 'show', :id => @workout_record.id
