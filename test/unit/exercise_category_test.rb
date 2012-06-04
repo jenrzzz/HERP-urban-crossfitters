@@ -1,7 +1,13 @@
 require 'test_helper'
-#https://github.com/larssg/recipes/tree/9e5e47357a25e19f0d3acc65d1715f8a21af468e
+
 class ExerciseCategoryTest < Test::Unit::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+ 	
+ 	should validate_presence_of :category
+ 	
+ 	should "test categories" do
+ 		new_exercise_category = ExerciseCategory.new
+ 		new_exercise_category[:category] = 'sleeping'
+		assert_equal 'sleeping', new_exercise_category[:category]
+ 	end
+ 	
 end

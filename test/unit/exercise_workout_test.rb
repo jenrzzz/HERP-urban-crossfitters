@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class ExerciseWorkoutTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class ExerciseWorkoutTest < Test::Unit::TestCase
+
+	should belong_to :workout
+	should belong_to :exercise
+
 end

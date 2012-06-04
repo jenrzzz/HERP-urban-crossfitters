@@ -18,6 +18,8 @@ class ProfileTest < Test::Unit::TestCase
   	assert_equal 'Male', new_profile[:gender]
   	assert_equal Time.parse("6/10"), new_profile[:birthdate]
   	assert_equal 'The quick brown fox jumped over the lazy dog', new_profile[:description]
+  	assert_equal "5'5\"", new_profile.height_str
+  	
   end
 
   #Use Shoulda as a testing platform to check for the properties of user and height
