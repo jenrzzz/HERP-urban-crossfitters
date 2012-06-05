@@ -663,7 +663,7 @@ griff4.exercise_category_id = running.id
 griff4.user_id = admin.id
 griff4.save
 
-ryan = Workout.create(:name => "ryan", :description => "5 rounds for time.")
+ryan = Workout.create(:name => "Ryan", :description => "5 rounds for time.")
 ryan.workout_category_id = hero.id
 ryan.user_id = admin.id
 ryan.save
