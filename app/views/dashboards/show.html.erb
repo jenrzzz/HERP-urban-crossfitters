@@ -9,12 +9,10 @@
         <h3>Welcome <%= current_user.profile ? current_user.profile.first_name : current_user.username %>!</h3>
         <% if current_user.profile %>
           <p><%= link_to "View Profile", profile_path('me') %></p>
-          <p><%= link_to "Edit Profile", edit_profile_path('me') %></p>
         <% else %>
           <p><%= link_to "Create Profile", new_profile_path %></p>
         <% end %>
-        <p><%= link_to "Add Goal", new_goal_path %></p>
-        <p><%= link_to "View Goals", goals_path %></p>
+        <p><%= link_to "View Calendar", '/calendar' %></p>
         <p><%= link_to "View Injuries", injury_records_path %></p>
         <p><%= link_to "Add Injury", new_injury_record_path %></p>
         <p><%= link_to "View Health Records", health_records_path %></p>
