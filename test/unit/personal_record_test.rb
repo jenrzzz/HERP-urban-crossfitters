@@ -1,7 +1,9 @@
 require 'test_helper'
 
-class PersonalRecordTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class PersonalRecordTest < Test::Unit::TestCase
+
+	should belong_to :user
+	should have_one :workout_record
+	
+	
 end
