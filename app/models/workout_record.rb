@@ -11,6 +11,9 @@ class WorkoutRecord < ActiveRecord::Base
   after_create  :build_workout_event
   after_update  :update_workout_event
   
+  after_create  :check_personal_record
+  after_update  :check_personal_record
+
   def time=(val)
     self[:time] = (val[:hours].to_i * 3600) + (val[:minutes].to_i * 60) + (val[:seconds].to_i)
   end
@@ -21,7 +24,7 @@ class WorkoutRecord < ActiveRecord::Base
     s = (self[:time] % 60)
     str = "#{h}h:#{m}m:#{s}s"
     if self[:time] != 0
-      {:hours => h.to_i, :minutes => m, :seconds => s, :string => str}
+      {:insecs => self[:time], :hours => h.to_i, :minutes => m, :seconds => s, :string => str}
     else
       nil
     end
@@ -54,6 +57,42 @@ class WorkoutRecord < ActiveRecord::Base
       else
         build_workout_event
       end
+    end
+  end
+
+  def check_personal_record
+    pr = PersonalRecord.get_record_for(self.user_id, self.workout_id)
+    if pr
+      wr = WorkoutRecord.find_by_id(pr.workout_record_id)
+      newpr = false
+      if self.time
+        if wr.time
+          if self.time[:insecs] > wr.time[:insecs]
+            newpr = true
+          end
+        end
+      elsif self.rounds
+        if wr.rounds
+          if self.rounds > wr.rounds
+            newpr = true
+          end
+        end
+      elsif self.points
+        if wr.points
+          if self.points > wr.points
+            newpr = true
+          end
+        end
+      end
+      if newpr
+        pr.workout_record = self
+        pr.save
+      end
+    else
+      pr = PersonalRecord.new
+      pr.workout_record = self
+      pr.workout = self.workout
+      pr.save
     end
   end
 end

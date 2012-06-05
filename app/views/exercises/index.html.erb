@@ -8,20 +8,20 @@
         <%= link_to "Add Exercise", new_exercise_path %></br>
         <h2>Standard Exercises</h2>
         <% if @officialExercises %>
-          <% @officialExercises.each do |e| %>
-            <% if e.exercise_category %>
-              <%= link_to "#{e.exercise_category.category}", exercise_path(e) %>
-              </br>
-            <% end %>
+          <% @officialExercises.group_by(&:exercise_category).sort.each do |c,es| %>
+            <br /><h3><%= c.category %></h3><br />
+              <% es.each do |e| %>
+                <%= link_to "#{e.id}", exercise_path(e) %><br />
+              <% end %>
           <% end %>
         <% end %>
         <% if @customExercises %>
           <h2>Custom Exercises</h2>
-          <% @customExercises.each do |e| %>
-            <% if e.exercise_category %>
-              <%= link_to "#{e.exercise_category.category}", exercise_path(e) %>
-              </br>
-            <% end %>
+          <% @customExercises.group_by(&:exercise_category).sort.each do |c,es| %>
+            <br /><h3><%= c.category %></h3><br />
+              <% es.each do |e| %>
+                <%= link_to "#{e.id}", exercise_path(e) %><br />
+              <% end %>
           <% end %>
         <% else %>
           <p>You have no custom exercise at this time</p>

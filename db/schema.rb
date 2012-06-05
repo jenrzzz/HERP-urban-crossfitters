@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20120605194626) do
     t.datetime "updated_at",        :null => false
     t.integer  "user_id"
     t.integer  "workout_record_id"
+    t.integer  "workout_id"
   end
 
   create_table "profiles", :force => true do |t|

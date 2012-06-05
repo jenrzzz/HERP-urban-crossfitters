@@ -5,23 +5,23 @@
 </div>&nbsp;
 <div class="row">
     <div class="span6">
-        <%= link_to "Add Workout", new_workout_path %></br>
+        <%= link_to "Add Workout", new_workout_path %><br />
         <h2>Standard Workouts</h2>
         <% if @officialWorkouts %>
-          <% @officialWorkouts.each do |w| %>
-            <% if w.workout_category %>
-              <%= link_to "#{w.workout_category.category}", workout_path(w) %>
-              </br>
-            <% end %>
+          <% @officialWorkouts.group_by(&:workout_category).sort.each do |c,ws| %>
+            <br /><h3><%= c.category %></h3><br />
+              <% ws.each do |w| %>
+                <%= link_to "#{w.name}", workout_path(w) %><br />
+              <% end %>
           <% end %>
         <% end %>
         <h2>Custom Workouts</h2>
         <% if @customWorkouts %>
-          <% @customWorkouts.each do |w| %>
-            <% if w.workout_category %>
-              <%= link_to "#{w.workout_category.category}", workout_path(w) %>
-              </br>
-            <% end %>
+          <% @customWorkouts.group_by(&:workout_category).sort.each do |c,ws| %>
+            <br /><h3><%= c.category %></h3><br />
+              <% ws.each do |w| %>
+                <%= link_to "#{w.name}", workout_path(w) %><br />
+              <% end %>
           <% end %>
         <% else %>
           <p>You have no custom workouts at this time</p>
