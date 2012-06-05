@@ -1666,5 +1666,6 @@ filthyFifty9.exercise_category_id = burpee.id
 filthyFifty9.user_id = admin.id
 filthyFifty9.save
 filthyFifty10 = filthyFifty.exercises.create(:repetitions => 50)
+filthyFifty10.exercise_category_id = double_under.id
 filthyFifty10.user_id = admin.id
 filthyFifty10.save
