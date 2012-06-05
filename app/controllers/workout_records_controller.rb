@@ -18,6 +18,7 @@ class WorkoutRecordsController < ApplicationController
     @workout_record.time = params[:time]
     if @workout_record.save
       current_user.workout_records << @workout_record
+      current_user.events << @workout_record.event
       redirect_to :action => 'show', :id => @workout_record.id
     else
       flash[:error] = 'There was a problem saving your workout record'
