@@ -6,19 +6,32 @@
 <div class="row">
     <div class="span4">
        <%= form_for @injury, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
-       <fieldset class="control-group">
+         <fieldset class="control-group">
            <%= label_tag :name, 'Name' %>
-	   <%= f.text_field :name, :value => @injury.name %>
-	   <%= label_tag :description, 'Description' %>
-	   <%= f.text_area :description, :rows => 4, :value => @injury.description %>
-           <%= label_tag :severity, 'Severity' %>
-	   <%= f.select :severity, options_for_select( (1..10).collect {|n| [n, n] } ) %>
-	   <%= label_tag :start_date, 'Start Date' %>
-	   <%= date_select :injury, :start_date, :order => [:month, :day, :year] %>
-	   <%= label_tag :end_date, 'End Date' %>
-	   <%= date_select :injury, :end_date, :order => [:month, :day, :year] %>
-	   <%= f.submit "Save changes", :class => 'btn btn-primary' %>
-      </fieldset>
+      	   <%= f.text_field :name, :value => @injury.name %>
+      	   <%= label_tag :description, 'Description' %>
+      	   <%= f.text_area :description, :rows => 4, :value => @injury.description %>
+                 <%= label_tag :severity, 'Severity' %>
+      	   <%= f.select :severity, options_for_select( (1..10).collect {|n| [n, n] } ) %>
+      	   <%= label_tag :start_date, 'Start Date' %>
+      	   <%= date_select :injury_record, :start_date, :order => [:month, :day, :year] %>
+      	   <p><label>End Date</label></p>
+      	   <label for="injury_ongoing" style="display: inline-block!important">Injury is ongoing</label>
+           <input type="checkbox" name="injury_record[ongoing]" id="injury_ongoing_checkbox" style="display: inline-block" <%= 'checked ' if @injury.ongoing %>/><br />
+           <%= date_select :injury_record, :end_date, { :order => [:month, :day, :year] }, :class => 'end_date_select' %><br />
+      	   <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+          </fieldset>
       <% end %>
   </div>
 </div>
+
+<script type="application/javascript">
+  $(document).ready(function() {
+      $('#injury_ongoing_checkbox').on('click', function(event) {
+          $('.end_date_select').toggle();
+      });
+      if($('#injury_ongoing_checkbox').is(':checked')) {
+          $('.end_date_select').hide();
+      }
+  });
+</script>
