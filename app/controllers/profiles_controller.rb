@@ -35,6 +35,10 @@ class ProfilesController < ApplicationController
     else 
       @profile = current_user.profile
     end
+    unless @profile
+      redirect_to :action => 'new'
+      return
+    end
     @title = "#{@profile.first_name} #{@profile.last_name}"
   end
 

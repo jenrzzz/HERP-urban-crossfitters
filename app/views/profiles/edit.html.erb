@@ -13,8 +13,8 @@
             <%= f.text_field :last_name %>
             <%= label_tag :gender, 'Gender' %>
             <select name="gender">
-                <option value="male"<%= ' selected' if @user and @user['gender'] == 'male' %>>Male</option>
-                <option value="female"<%= ' selected' if @user and @user['gender'] == 'female' %>>Female</option>
+                <option value="Male"<%= ' selected' if @user and @user['gender'] == 'Male' %>>Male</option>
+                <option value="Female"<%= ' selected' if @user and @user['gender'] == 'Female' %>>Female</option>
             </select>
             <%= label_tag :birthdate, 'Date of birth:' %>
             <%= date_select :profile, :birthdate, :start_year => 1920, :end_year => Time.now.year, :order => [:month, :day, :year] %>
