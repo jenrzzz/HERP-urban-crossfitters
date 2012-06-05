@@ -40,7 +40,7 @@ class InjuryRecord < ActiveRecord::Base
     if self.start_date
       if self.event
         if self.ongoing
-          end_at = self.start_date + 100
+          end_at = nil
         else
           end_at = self.end_date or self.event.end_at
         end
