@@ -4,8 +4,8 @@ class ExercisesController < ApplicationController
 
   # display list of all exercises
   def index
-    @officialExercises = Exercise.select_official_exercises
-    @customExercises = current_user.exercises
+    @officialExercises = Exercise.select_official_exercises.ordered
+    @customExercises = current_user.exercises.ordered
     @exercises = @officialExercises + @customExercises
   end
 
@@ -103,14 +103,14 @@ class ExercisesController < ApplicationController
 
   private
     def set_up_exercises
-      @officialExercises = Exercise.select_official_exercises
-      @customExercises = current_user.exercises
+      @officialExercises = Exercise.select_official_exercises.ordered
+      @customExercises = current_user.exercises.ordered
       @exercises = @officialExercises + @customExercises
     end
 
     def set_up_categories
-      @officialCategories = ExerciseCategory.select_official_categories
-      @customCategories = current_user.exercise_categories
+      @officialCategories = ExerciseCategory.select_official_categories.ordered
+      @customCategories = current_user.exercise_categories.ordered
       @categories = @officialCategories + @customCategories
       @names = []
       @categories.each do |c|

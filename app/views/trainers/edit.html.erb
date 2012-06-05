@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="span8">
+      <h1>Edit Trainer</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span4">
+        <%= form_for @trainer, :html => { :class => 'form-vertical' }, :url => { :action => "update" } do |f| %>
+        <fieldset class="control-group">
+            <%= label_tag :name, 'Name' %>
+            <%= f.text_field :name, :value => @trainer.name %>
+            <%= label_tag :description, 'Description' %>
+            <%= f.text_area :description, :rows => 4, :value => @trainer.description %>
+            <%= f.submit "Save changes", :class => 'btn btn-primary' %>
+        </fieldset>
+        <% end %>
+    </div>
+</div>

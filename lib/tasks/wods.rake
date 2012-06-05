@@ -27,7 +27,7 @@ namespace :wods do
     wod.save
   end
 
-  desc 'Print today\'s WOD to console.'
+  desc "Print today's WOD to console."
   task :print_latest => :environment do
     wod = DailyWod.find_by_date Time.now.to_date
     puts "Title: #{wod.title}"

@@ -8,7 +8,14 @@
 
 [WorkoutCategory, Workout, ExerciseCategory, Exercise, ExerciseWorkout].each(&:delete_all)
 
+# Create an admin user who will own all "official" exercises and workouts
 admin = User.find_or_create_by_id(:email => "admin@test.test", :username => "admin")
+
+# Initialize calendar colors
+EventColor.create :name => 'green', :hex_value => '#7BD148'
+EventColor.create :name => 'blue', :hex_value => '#4986E7'
+EventColor.create :name => 'red', :hex_value => '#F83A22'
+EventColor.create :name => 'pink', :hex_value => '#CD74E6'
 
 girl = WorkoutCategory.create(:category => "Girl")
 hero = WorkoutCategory.create(:category => "Hero")

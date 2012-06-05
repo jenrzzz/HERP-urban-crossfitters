@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604225657) do
+ActiveRecord::Schema.define(:version => 20120605194626) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -30,13 +30,21 @@ ActiveRecord::Schema.define(:version => 20120604225657) do
     t.string   "link"
   end
 
+  create_table "event_colors", :force => true do |t|
+    t.string "name"
+    t.string "hex_value"
+  end
+
   create_table "events", :force => true do |t|
     t.string   "name"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "user_id"
+    t.integer  "schedulable_id"
+    t.string   "schedulable_type"
+    t.integer  "event_color_id"
   end
 
   create_table "exercise_categories", :force => true do |t|
@@ -106,6 +114,7 @@ ActiveRecord::Schema.define(:version => 20120604225657) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "user_id"
+    t.boolean  "ongoing"
   end
 
   create_table "personal_records", :force => true do |t|
@@ -113,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20120604225657) do
     t.datetime "updated_at",        :null => false
     t.integer  "user_id"
     t.integer  "workout_record_id"
+    t.integer  "workout_id"
   end
 
   create_table "profiles", :force => true do |t|
@@ -139,9 +149,11 @@ ActiveRecord::Schema.define(:version => 20120604225657) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "trainers", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "name",        :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "description"
+    t.integer  "user_id"
   end
 
   create_table "users", :force => true do |t|
@@ -183,11 +195,6 @@ ActiveRecord::Schema.define(:version => 20120604225657) do
     t.text     "description"
     t.integer  "workout_category_id"
     t.integer  "user_id"
-  end
-
-  create_table "workouts_exercises", :id => false, :force => true do |t|
-    t.integer "workout_id"
-    t.integer "user_id"
   end
 
 end

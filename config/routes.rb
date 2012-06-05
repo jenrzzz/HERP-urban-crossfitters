@@ -4,7 +4,7 @@ Herpcs110s::Application.routes.draw do
   resources :profiles
   
   resources :health_records, :workout_records, :injury_records
-  resources :exercises, :workouts, :goals, :events
+  resources :exercises, :workouts, :goals, :events, :trainers, :personal_records
   resource  :dashboard
 
   # The priority is based upon order of creation:

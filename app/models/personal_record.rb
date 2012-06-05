@@ -1,8 +1,13 @@
 class PersonalRecord < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :user
-  has_one    :workout_record
+  belongs_to :workout_record
+  belongs_to :workout
 
+
+  def self.get_all_records_for(user_id)
+    PersonalRecord.find(:all, :group => :workout_id)
+  end
   def self.get_record_for(user_id, workout_id)
     records = WorkoutRecord.where(:user_id => user_id, :workout_id => workout_id)
     if records

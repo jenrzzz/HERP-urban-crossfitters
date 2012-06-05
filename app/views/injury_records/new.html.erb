@@ -15,10 +15,20 @@
 	    <%= f.select :severity, options_for_select( (1..10).collect {|n| [n, n] } ) %>
 	    <%= label_tag :start_date, 'Start Date' %>
 	    <%= date_select :injury_record, :start_date, :order => [:month, :day, :year] %>
-	    <%= label_tag :end_date, 'End Date' %>
-	    <%= date_select :injury_record, :end_date, :order => [:month, :day, :year] %>
+	    <p><label>End Date</label></p>
+	    <label for="injury_ongoing" style="display: inline-block!important">Injury is ongoing</label>
+      <input type="checkbox" name="injury_record[ongoing]" id="injury_ongoing_checkbox" style="display: inline-block" checked /><br />
+      <%= date_select :injury_record, :end_date, { :order => [:month, :day, :year] }, :class => 'end_date_select' %><br />
 	    <%= f.submit "Save changes", :class => 'btn btn-primary' %>
 	</fieldset>
 	<% end %>
     </div>
 </div>
+<script type="application/javascript">
+  $(document).ready(function() {
+      $('.end_date_select').hide();
+      $('#injury_ongoing_checkbox').on('click', function(event) {
+          $('.end_date_select').toggle();
+      });
+  });
+</script>

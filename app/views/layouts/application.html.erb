@@ -52,7 +52,14 @@
             <div class="alert alert-info"><%= flash[:notice] %></div>
         <% end %>
         <% if flash[:error] %>
-            <div class="alert alert-warning"><%= flash.to_yaml %>
+            <div class="alert alert-warning">
+              <h3><%= flash[:error] %></h3>
+              <% if flash[:errors] %>
+                <ul>
+                <% flash[:errors].each do |k,e| %>
+                  <li><%= k %> <%= e %></li>
+                <% end %>
+              <% end %>
             </div>
         <% end %>
         <%= yield %>

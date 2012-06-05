@@ -1,6 +1,11 @@
 class Workout < ActiveRecord::Base
   attr_accessible :name, :description, :workout_category_attributes, :exercises_attributes
 
+  # order exercises by their categories in ascending order
+  scope :ordered, :include => :workout_category, :order => 'workout_categories.category ASC'
+  scope :name_ordered, :order => 'name ASC'
+  scope :categorized, :include => :workout_category, :group => 'workout_categories.category'
+
   belongs_to  :workout_category
   has_many :exercise_workouts
   has_many :exercises, :through => :exercise_workouts
