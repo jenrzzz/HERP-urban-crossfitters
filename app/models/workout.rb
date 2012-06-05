@@ -3,6 +3,7 @@ class Workout < ActiveRecord::Base
 
   # order exercises by their categories in ascending order
   scope :ordered, :include => :workout_category, :order => 'workout_categories.category ASC'
+  scope :name_ordered, :order => 'name ASC'
 
   belongs_to  :workout_category
   has_many :exercise_workouts

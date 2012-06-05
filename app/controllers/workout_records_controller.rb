@@ -66,7 +66,7 @@ class WorkoutRecordsController < ApplicationController
 
   private
   def set_up_workouts_select
-    @workouts = Workout.select_official_workouts
-    @workouts += Workout.select_custom_workouts(current_user.id)
+    @workouts = Workout.select_official_workouts.name_ordered
+    @workouts += Workout.select_custom_workouts(current_user.id).name_ordered
   end
 end
