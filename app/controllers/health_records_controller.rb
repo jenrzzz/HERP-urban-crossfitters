@@ -17,7 +17,7 @@ class HealthRecordsController < ApplicationController
       redirect_to :action => 'show', :id => @record.id
     else
       flash[:error] = 'There was a problem saving your health record'
-      flash[:errors] = @record.errors[:base]
+      flash[:errors] = @record.errors
       redirect_to :action => 'new'
     end
   end
