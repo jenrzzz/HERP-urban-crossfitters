@@ -4,8 +4,8 @@ class WorkoutsController < ApplicationController
 
   # display list of all workout
   def index
-    @officialWorkouts = Workout.select_official_workouts
-    @customWorkouts = current_user.workouts
+    @officialWorkouts = Workout.select_official_workouts.ordered
+    @customWorkouts = current_user.workouts.ordered
     @workouts = @officialWorkouts + @customWorkouts
   end
 
@@ -141,21 +141,21 @@ class WorkoutsController < ApplicationController
 
   private
     def set_up_workouts
-      @officialWorkouts = Workout.select_official_workouts
-      @customWorkouts = current_user.workouts
+      @officialWorkouts = Workout.select_official_workouts.ordered
+      @customWorkouts = current_user.workouts.ordered
       @workouts = @officialWorkouts + @customWorkouts
     end
 
     def set_up_categories
-      @officialCategories = WorkoutCategory.select_official_categories
-      @customCategories = current_user.workout_categories
+      @officialCategories = WorkoutCategory.select_official_categories.ordered
+      @customCategories = current_user.workout_categories.ordered
       @categories = @officialCategories + @customCategories
       @names = []
       @categories.each do |c|
         @names << c.category
       end
-      @officialExerciseCategories = ExerciseCategory.select_official_categories
-      @customExerciseCategories = current_user.exercise_categories
+      @officialExerciseCategories = ExerciseCategory.select_official_categories.ordered
+      @customExerciseCategories = current_user.exercise_categories.ordered
       @exerciseCategories = @officialExerciseCategories + @customExerciseCategories
       @exerciseNames = []
       @exerciseCategories.each do |c|

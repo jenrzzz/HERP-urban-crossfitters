@@ -1,6 +1,9 @@
 class WorkoutCategory < ActiveRecord::Base
   attr_accessible :category
 
+  # order categories in ascending order
+  scope :ordered, :order => 'category ASC'
+
   validates_presence_of :category
   validate :valid_category
 
