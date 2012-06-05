@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120604225657) do
+ActiveRecord::Schema.define(:version => 20120605055156) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -34,9 +34,11 @@ ActiveRecord::Schema.define(:version => 20120604225657) do
     t.string   "name"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "user_id"
+    t.integer  "schedulable_id"
+    t.string   "schedulable_type"
   end
 
   create_table "exercise_categories", :force => true do |t|
