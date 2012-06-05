@@ -17,10 +17,11 @@ class InjuryRecordsController < ApplicationController
 
   #create a new injury record
   def create
-    if 'on'.casecmp(params[:injury_record][:ongoing]).zero?
+    if params[:injury_record][:ongoing]
       params[:injury_record].delete 'end_date(1i)'
       params[:injury_record].delete 'end_date(2i)'
       params[:injury_record].delete 'end_date(3i)'
+      params[:injury_record][:end_date] = nil
     end
     @injury = InjuryRecord.new params[:injury_record]
     if @injury.save
@@ -60,7 +61,7 @@ class InjuryRecordsController < ApplicationController
     else
       params[:injury_record][:ongoing] = false
     end
-    if @injury.update_attributes! params[:injury_record]
+    if @injury.update_attributes params[:injury_record]
       redirect_to :action => 'show', :id => @injury.id
     else
       flash[:error] = 'Could not save changes to the injury.'

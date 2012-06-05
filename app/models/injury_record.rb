@@ -29,8 +29,8 @@ class InjuryRecord < ActiveRecord::Base
   private
   def build_injury_event
     if self.start_date
-      self.event = Event.create( :name => self.name, :start_at => self.start_date,
-                                 :end_at => (self[:end_date] or (self.start_date + 100)),
+      self.event = Event.create!( :name => self.name, :start_at => self.start_date,
+                                 :end_at => self.end_date,
                                  :user => self.user, :event_color => EventColor.red )
     end
     true
@@ -44,7 +44,7 @@ class InjuryRecord < ActiveRecord::Base
         else
           end_at = self.end_date or self.event.end_at
         end
-        self.event.update_attributes( :name => self.name, :start_at => self.start_date,
+        self.event.update_attributes!( :name => self.name, :start_at => self.start_date,
                                       :end_at => end_at )
       else
         build_injury_event
