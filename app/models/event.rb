@@ -3,7 +3,7 @@ class Event < ActiveRecord::Base
 
     has_event_calendar
 
-    has_one         :event_color
+    belongs_to      :event_color
     belongs_to      :user
     belongs_to      :schedulable, :polymorphic => true
 
