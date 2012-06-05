@@ -10,19 +10,12 @@ class InjuryRecord < ActiveRecord::Base
   validates_presence_of :severity
 
   validate :severity_within_bounds
-  validate :ongoing_no_end
   after_create  :build_injury_event
   after_update  :update_injury_event
 
   def severity_within_bounds
     unless self.severity > 0 && self.severity < 11
       self.errors[:base] << 'Severity must be between 1 and 10 (inclusive)'
-    end
-  end
-
-  def ongoing_no_end
-    if self.ongoing && self.end_date
-      self.errors[:base] << 'No end date should be set for ongoing injuries.'
     end
   end
 
@@ -39,13 +32,8 @@ class InjuryRecord < ActiveRecord::Base
   def update_injury_event
     if self.start_date
       if self.event
-        if self.ongoing
-          end_at = nil
-        else
-          end_at = self.end_date or self.event.end_at
-        end
         self.event.update_attributes!( :name => self.name, :start_at => self.start_date,
-                                      :end_at => end_at )
+                                       :end_at => self.end_date )
       else
         build_injury_event
       end

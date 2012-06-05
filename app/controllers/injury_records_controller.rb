@@ -18,10 +18,7 @@ class InjuryRecordsController < ApplicationController
   #create a new injury record
   def create
     if params[:injury_record][:ongoing]
-      params[:injury_record].delete 'end_date(1i)'
-      params[:injury_record].delete 'end_date(2i)'
-      params[:injury_record].delete 'end_date(3i)'
-      params[:injury_record][:end_date] = nil
+      params[:injury_record][:end_date] = Date.today
     end
     @injury = InjuryRecord.new params[:injury_record]
     if @injury.save
@@ -52,12 +49,7 @@ class InjuryRecordsController < ApplicationController
     @injury = InjuryRecord.find_by_id params[:id]
     
     if params[:injury_record][:ongoing]
-      params[:injury_record].delete 'end_date(1i)'
-      params[:injury_record].delete 'end_date(2i)'
-      params[:injury_record].delete 'end_date(3i)'
-      if @injury.end_date
-        params[:injury_record][:end_date] = nil
-      end
+      params[:injury_record][:end_date] = Date.today
     else
       params[:injury_record][:ongoing] = false
     end
