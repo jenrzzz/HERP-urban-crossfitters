@@ -34,7 +34,7 @@ class InjuryRecord < ActiveRecord::Base
     if self.start_date
       if self.event
         self.event.update_attributes( :name => self.name, :start_at => self.start_date,
-                                    :end_at => (self.end_date or (self.start_date + 7)) )
+                                      :end_at => (self.end_date or nil ))
       else
         build_injury_event
       end
