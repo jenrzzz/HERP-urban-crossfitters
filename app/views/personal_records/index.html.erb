@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="span8">
+        <h1>Your Personal Records</h1>
+    </div>
+</div>&nbsp;
+<div class="row">
+</div>
+<% if @personal_records %>
+    <% @personal_records.each do |p| %>
+        <div class="row">
+            <div class="span8">
+                <h2><%= link_to p.workout_record.workout.name, personal_record_path(p.id) %></h2>
+            </div>
+        </div>
+    <% end %>
+<% else %>
+    <div class="row">
+        <div class="span8">
+            <h3>You currently have no personal records.</h3>
+        </div>
+    </div>
+<% end %>
