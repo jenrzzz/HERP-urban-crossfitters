@@ -3,15 +3,15 @@ class InjuryRecordsController < ApplicationController
   def index
     @injury_records = current_user.injury_records
     if current_user.profile
-      @name = current_user.profile.first_name
+      name = current_user.profile.first_name
     else
-      @name = current_user.username
+      name = current_user.username
     end
-      @title = "Recorded injuries for #{@name}"
+      @title = "Recorded Injuries For #{name}"
   end
 
   def new
-    @title = 'Add an injury'
+    @title = 'Add Injury'
     @injury = InjuryRecord.new
   end
 
@@ -36,13 +36,13 @@ class InjuryRecordsController < ApplicationController
   # display a specific injury
   def show
     @injury = InjuryRecord.find_by_id params[:id]
-    @title = "Injury #{@injury.name}"
+    @title = "Injury - #{@injury.name}"
   end
 
-	def edit
-		@injury = InjuryRecord.find_by_id params[:id]
-		@title = "Editing injury #{@injury.name}"
-	end
+  def edit
+    @injury = InjuryRecord.find_by_id params[:id]
+    @title = "Edit Injury - #{@injury.name}"
+  end
 
   # update a specific injury
   def update

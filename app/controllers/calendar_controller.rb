@@ -11,7 +11,7 @@ class CalendarController < ApplicationController
     else
       name = current_user.username
     end
-    @title = "#{name}'s calendar for #{@shown_month.strftime '%B %Y'}"
+    @title = "#{name}'s Calendar For #{@shown_month.strftime '%B %Y'}"
     @event_strips = current_user.events.event_strips_for_month(@shown_month)
   end
   

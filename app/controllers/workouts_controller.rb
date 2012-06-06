@@ -4,6 +4,7 @@ class WorkoutsController < ApplicationController
 
   # display list of all workout
   def index
+    @title = 'Workouts'
     @officialWorkouts = Workout.select_official_workouts.ordered
     @customWorkouts = current_user.workouts.ordered
     @workouts = @officialWorkouts + @customWorkouts
@@ -11,6 +12,7 @@ class WorkoutsController < ApplicationController
 
   # return an HTML form to add new workout
   def new
+    @title = 'Add Workout'
     @workout = current_user.workouts.build 
     @workout.exercises.build
     current_user.exercises << @workout.exercises
@@ -81,6 +83,7 @@ class WorkoutsController < ApplicationController
   # display a specific workout
   def show
    @workout = Workout.find_by_id(params[:id]) 
+   @title = "Workout - #{@workout.name}"
    # FIXME add the check for if it belongs to official or user
   end
 
@@ -91,6 +94,7 @@ class WorkoutsController < ApplicationController
       flash[:error] = "You can't edit workouts that don't belong to you"
       redirect_to :action => 'index'
     end
+    @title = "Edit Workout"
   end
 
   # update a specific workout
