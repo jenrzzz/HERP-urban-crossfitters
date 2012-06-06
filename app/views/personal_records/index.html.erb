@@ -9,7 +9,9 @@
     <% @personal_records.each do |p| %>
         <div class="row">
             <div class="span8">
+              <% if p.workout_record.workout %>
                 <h2><%= link_to p.workout_record.workout.name, personal_record_path(p.id) %></h2>
+              <% end %>
             </div>
         </div>
     <% end %>
