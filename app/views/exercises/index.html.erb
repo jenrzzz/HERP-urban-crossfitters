@@ -10,18 +10,60 @@
         <% if @officialExercises %>
           <% @officialExercises.group_by(&:exercise_category).sort.each do |c,es| %>
             <br /><h3><%= c.category %></h3><br />
-              <% es.each do |e| %>
-                <%= link_to "#{e.id}", exercise_path(e) %><br />
+            <ul>
+            <% es.each do |e| %>
+              <li><%= link_to "#{e.id}", exercise_path(e) %><br />
+              <% if e.exercise_category %>
+                <%= e.exercise_category.category %></br>
               <% end %>
+              <% if e.repetitions %>
+                Repetitions: <%= e.repetitions %><br />
+              <% end %>
+              <% if e.weight %>
+                Weight: <%= e.weight%> <%= e.units %><br />
+              <% end %>
+              <% if e.distance %>
+                Distance: <%= e.distance %> <%= e.units %><br />
+              <% end %>
+              <% if e.rounds %>
+                Rounds: <%= e.rounds %><br />
+              <% end %>
+              <% if e.description %>
+                Description: <%= e.description %><br />
+              <% end %>
+              <br /></li>
+            <% end %>
+            </ul>
           <% end %>
         <% end %>
         <% if @customExercises %>
           <h2>Custom Exercises</h2>
           <% @customExercises.group_by(&:exercise_category).sort.each do |c,es| %>
             <br /><h3><%= c.category %></h3><br />
-              <% es.each do |e| %>
-                <%= link_to "#{e.id}", exercise_path(e) %><br />
+            <ul>
+            <% es.each do |e| %>
+              <li><%= link_to "#{e.id}", exercise_path(e) %><br />
+              <% if e.exercise_category %>
+                <%= e.exercise_category.category %></br>
               <% end %>
+              <% if e.repetitions %>
+                Repetitions: <%= e.repetitions %><br />
+              <% end %>
+              <% if e.weight %>
+                Weight: <%= e.weight%> <%= e.units %><br />
+              <% end %>
+              <% if e.distance %>
+                Distance: <%= e.distance %> <%= e.units %><br />
+              <% end %>
+              <% if e.rounds %>
+                Rounds: <%= e.rounds %><br />
+              <% end %>
+              <% if e.description %>
+                Description: <%= e.description %><br />
+              <% end %>
+              <br /></li>
+            <% end %>
+            </ul>
           <% end %>
         <% else %>
           <p>You have no custom exercise at this time</p>
