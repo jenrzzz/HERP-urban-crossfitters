@@ -193,11 +193,11 @@ fran = Workout.create(:name => "Fran", :description => "21-15-9 reps, for time."
 fran.workout_category_id = girl.id
 fran.user_id = admin.id
 fran.save
-fran1 = fran.exercises.create(:weight => 95, :units => "pounds")
+fran1 = fran.exercises.create(:weight => 95, :rounds => 3, :units => "pounds")
 fran1.exercise_category_id = thruster.id
 fran1.user_id = admin.id
 fran1.save
-fran2 = fran.exercises.create
+fran2 = fran.exercises.create(:rounds => 3)
 fran2.exercise_category_id = pullup.id
 fran2.user_id = admin.id
 fran2.save
@@ -211,7 +211,7 @@ grace1.exercise_category_id = clean_and_jerk.id
 grace1.user_id = admin.id
 grace1.save
 
-helen = Workout.create(:name => "Helen", :description => "3 reps for time.")
+helen = Workout.create(:name => "Helen", :description => "3 rounds for time.")
 helen.workout_category_id = girl.id
 helen.user_id = admin.id
 helen.save
@@ -219,7 +219,7 @@ helen1 = helen.exercises.create(:distance => 400, :units => "meters")
 helen1.exercise_category_id = running.id
 helen1.user_id = admin.id
 helen1.save
-helen2 = helen.exercises.create(:repetitions => 21, :weight => 1.5, :units => "pood")
+helen2 = helen.exercises.create(:repetitions => 21, :description => "1.5 pood")
 helen2.exercise_category_id = kbswing.id
 helen2.user_id = admin.id
 helen2.save
@@ -241,7 +241,7 @@ jackie = Workout.create(:name => "Jackie", :description => "For time.")
 jackie.workout_category_id = girl.id
 jackie.user_id = admin.id
 jackie.save
-jackie1 = jackie.exercises.create(:distance => 30, :units => "meters")
+jackie1 = jackie.exercises.create(:distance => 1000, :units => "meters")
 jackie1.exercise_category_id = row.id
 jackie1.user_id = admin.id
 jackie1.save
@@ -267,15 +267,15 @@ linda = Workout.create(:name => "Linda", :description => "10/9/8/7/6/5/4/3/2/1 r
 linda.workout_category_id = girl.id
 linda.user_id = admin.id
 linda.save
-linda1 = linda.exercises.create(:description => "1.5x body weight")
+linda1 = linda.exercises.create(:rounds => 10, :description => "1.5x body weight")
 linda1.exercise_category_id = deadlift.id
 linda1.user_id = admin.id
 linda1.save
-linda2 = linda.exercises.create(:description => "1x body weight")
+linda2 = linda.exercises.create(:rounds => 10, :description => "1x body weight")
 linda2.exercise_category_id = bench.id
 linda2.user_id = admin.id
 linda2.save
-linda3 = linda.exercises.create(:description => ".75x body weight")
+linda3 = linda.exercises.create(:rounds => 10, :description => ".75x body weight")
 linda3.exercise_category_id = clean.id
 linda3.user_id = admin.id
 linda3.save
@@ -361,16 +361,16 @@ lynne = Workout.create(:name => "Lynne", :description => "5 rounds for max reps.
 lynne.workout_category_id = girl.id
 lynne.user_id = admin.id
 lynne.save
-lynne1 = lynne.exercises.create(:description => "1x body weight")
+lynne1 = lynne.exercises.create(:rounds => 5, :description => "1x body weight")
 lynne1.exercise_category_id = bench.id
 lynne1.user_id = admin.id
 lynne1.save
-lynne2 = lynne.exercises.create
+lynne2 = lynne.exercises.create(:rounds => 5)
 lynne2.exercise_category_id = pullup.id
 lynne2.user_id = admin.id
 lynne2.save
 
-nicole = Workout.create(:name => "Nicole", :description => "As many rounds as possible in 20 minutes. Note number of pull-ups completed for each round. ")
+nicole = Workout.create(:name => "Nicole", :description => "As many rounds as possible in 20 minutes.")
 nicole.workout_category_id = girl.id
 nicole.user_id = admin.id
 nicole.save
@@ -378,7 +378,7 @@ nicole1 = nicole.exercises.create(:distance => 400, :units => "meters")
 nicole1.exercise_category_id = running.id
 nicole1.user_id = admin.id
 nicole1.save
-nicole2 = nicole.exercises.create
+nicole2 = nicole.exercises.create(:description => "Note number of pull-ups completed for each round.")
 nicole2.exercise_category_id = pullup.id
 nicole2.user_id = admin.id
 nicole2.save
@@ -387,11 +387,11 @@ amanda = Workout.create(:name => "Amanda", :description => "9, 7 and 5 reps, for
 amanda.workout_category_id = girl.id
 amanda.user_id = admin.id
 amanda.save
-amanda1 = amanda.exercises.create
+amanda1 = amanda.exercises.create(:rounds => 3)
 amanda1.exercise_category_id = musculeup.id
 amanda1.user_id = admin.id
 amanda1.save
-amanda2 = amanda.exercises.create(:weight => 135, :units => "pounds")
+amanda2 = amanda.exercises.create(:weight => 135, :rounds => 3, :units => "pounds")
 amanda2.exercise_category_id = snatch.id
 amanda2.user_id = admin.id
 amanda2.save
@@ -1374,11 +1374,11 @@ fracturedFran = Workout.create(:name => "Fractured Fran", :description => "5 rou
 fracturedFran.workout_category_id = wod.id
 fracturedFran.user_id = admin.id
 fracturedFran.save
-fracturedFran1 = fracturedFran.exercises.create(:repetitions => 9, :weight => 95, :units => "pounds")
+fracturedFran1 = fracturedFran.exercises.create(:repetitions => 9, :weight => 95, :rounds => 5, :units => "pounds")
 fracturedFran1.exercise_category_id = thruster.id
 fracturedFran1.user_id = admin.id
 fracturedFran1.save
-fracturedFran2 = fracturedFran.exercises.create(:repetitions => 9)
+fracturedFran2 = fracturedFran.exercises.create(:repetitions => 9, :rounds => 5)
 fracturedFran2.exercise_category_id = pullup.id
 fracturedFran2.user_id = admin.id
 fracturedFran2.save
@@ -1387,7 +1387,7 @@ gwen = Workout.create(:name => "Gwen", :description => "15-12-9 reps. Touch and 
 gwen.workout_category_id = wod.id
 gwen.user_id = admin.id
 gwen.save
-gwen1 = gwen.exercises.create
+gwen1 = gwen.exercises.create(:rounds => 3)
 gwen1.exercise_category_id = clean_and_jerk.id
 gwen1.user_id = admin.id
 gwen1.save
@@ -1396,15 +1396,15 @@ jonesworthy = Workout.create(:name => "Jonesworthy", :description => "The workou
 jonesworthy.workout_category_id = wod.id
 jonesworthy.user_id = admin.id
 jonesworthy.save
-jonesworthy1 = jonesworthy.exercises.create
+jonesworthy1 = jonesworthy.exercises.create(:rounds => 6)
 jonesworthy1.exercise_category_id = squat.id
 jonesworthy1.user_id = admin.id
 jonesworthy1.save
-jonesworthy2 = jonesworthy.exercises.create
+jonesworthy2 = jonesworthy.exercises.create(:rounds => 6)
 jonesworthy2.exercise_category_id = kbswing.id
 jonesworthy2.user_id = admin.id
 jonesworthy2.save
-jonesworthy3 = jonesworthy.exercises.create
+jonesworthy3 = jonesworthy.exercises.create(:rounds => 6)
 jonesworthy3.exercise_category_id = pullup.id
 jonesworthy3.user_id = admin.id
 jonesworthy3.save
@@ -1413,15 +1413,15 @@ maggie = Workout.create(:name => "Maggie", :description => "5 rounds for time.")
 maggie.workout_category_id = wod.id
 maggie.user_id = admin.id
 maggie.save
-maggie1 = maggie.exercises.create(:repetitions => 20)
+maggie1 = maggie.exercises.create(:repetitions => 20, :rounds => 5)
 maggie1.exercise_category_id = handstand_pushup.id
 maggie1.user_id = admin.id
 maggie1.save
-maggie2 = maggie.exercises.create(:repetitions => 40)
+maggie2 = maggie.exercises.create(:repetitions => 40, :rounds => 5)
 maggie2.exercise_category_id = pullup.id
 maggie2.user_id = admin.id
 maggie2.save
-maggie3 = maggie.exercises.create(:repetitions => 60, :description => "alternating legs")
+maggie3 = maggie.exercises.create(:repetitions => 60, :rounds => 5, :description => "alternating legs")
 maggie3.exercise_category_id = one_legged_squat.id
 maggie3.user_id = admin.id
 maggie3.save
@@ -1430,15 +1430,15 @@ nastyGirls = Workout.create(:name => "Nasty Girls", :description => "3 rounds fo
 nastyGirls.workout_category_id = wod.id
 nastyGirls.user_id = admin.id
 nastyGirls.save
-nastyGirls1 = nastyGirls.exercises.create(:repetitions => 50)
+nastyGirls1 = nastyGirls.exercises.create(:repetitions => 50, :rounds => 3)
 nastyGirls1.exercise_category_id = air_squat.id
 nastyGirls1.user_id = admin.id
 nastyGirls1.save
-nastyGirls2 = nastyGirls.exercises.create(:repetitions => 7)
+nastyGirls2 = nastyGirls.exercises.create(:repetitions => 7, :rounds => 3)
 nastyGirls2.exercise_category_id = musculeup.id
 nastyGirls2.user_id = admin.id
 nastyGirls2.save
-nastyGirls3 = nastyGirls.exercises.create(:repetitions => 10, :weight => 135, :units => "pounds")
+nastyGirls3 = nastyGirls.exercises.create(:repetitions => 10, :weight => 135, :rounds => 3, :units => "pounds")
 nastyGirls3.exercise_category_id = hang_power_clean.id
 nastyGirls3.user_id = admin.id
 nastyGirls3.save
@@ -1488,19 +1488,19 @@ upsideDownAngie = Workout.create(:name => "Upside-Down Angie", :description => "
 upsideDownAngie.workout_category_id = wod.id
 upsideDownAngie.user_id = admin.id
 upsideDownAngie.save
-upsideDownAngie1 = upsideDownAngie.exercises.create
+upsideDownAngie1 = upsideDownAngie.exercises.create(:rounds => 4)
 upsideDownAngie1.exercise_category_id = pullup.id
 upsideDownAngie1.user_id = admin.id
 upsideDownAngie1.save
-upsideDownAngie2 = upsideDownAngie.exercises.create
+upsideDownAngie2 = upsideDownAngie.exercises.create(:rounds => 4)
 upsideDownAngie2.exercise_category_id = pushup.id
 upsideDownAngie2.user_id = admin.id
 upsideDownAngie2.save
-upsideDownAngie3 = upsideDownAngie.exercises.create
+upsideDownAngie3 = upsideDownAngie.exercises.create(:rounds => 4)
 upsideDownAngie3.exercise_category_id = situp.id
 upsideDownAngie3.user_id = admin.id
 upsideDownAngie3.save
-upsideDownAngie4 = upsideDownAngie.exercises.create
+upsideDownAngie4 = upsideDownAngie.exercises.create(:rounds => 4)
 upsideDownAngie4.exercise_category_id = squat.id
 upsideDownAngie4.user_id = admin.id
 upsideDownAngie4.save
@@ -1509,11 +1509,11 @@ badKarma = Workout.create(:name => "Bad Karma", :description => "For time. 50 Ba
 badKarma.workout_category_id = wod.id
 badKarma.user_id = admin.id
 badKarma.save
-badKarma1 = badKarma.exercises.create
+badKarma1 = badKarma.exercises.create(:rounds => 5)
 badKarma1.exercise_category_id = kbswing.id
 badKarma1.user_id = admin.id
 badKarma1.save
-badKarma2 = badKarma.exercises.create
+badKarma2 = badKarma.exercises.create(:rounds => 5)
 badKarma2.exercise_category_id = barbell_curl.id
 badKarma2.user_id = admin.id
 badKarma2.save
@@ -1523,15 +1523,15 @@ crossfitTotal = Workout.create(:name => "Crossfit Total", :description => "The C
 crossfitTotal.workout_category_id = benchmark.id
 crossfitTotal.user_id = admin.id
 crossfitTotal.save
-crossfitTotal1 = crossfitTotal.exercises.create
+crossfitTotal1 = crossfitTotal.exercises.create(:rounds => 3)
 crossfitTotal1.exercise_category_id = squat.id
 crossfitTotal1.user_id = admin.id
 crossfitTotal1.save
-crossfitTotal2 = crossfitTotal.exercises.create
+crossfitTotal2 = crossfitTotal.exercises.create(:rounds => 3)
 crossfitTotal2.exercise_category_id = press.id
 crossfitTotal2.user_id = admin.id
 crossfitTotal2.save
-crossfitTotal3 = crossfitTotal.exercises.create
+crossfitTotal3 = crossfitTotal.exercises.create(:rounds => 3)
 crossfitTotal3.exercise_category_id = deadlift.id
 crossfitTotal3.user_id = admin.id
 crossfitTotal3.save
@@ -1590,19 +1590,19 @@ tabataSomethingElse = Workout.create(:name => "Tabata Something Else", :descript
 tabataSomethingElse.workout_category_id = benchmark.id
 tabataSomethingElse.user_id = admin.id
 tabataSomethingElse.save
-tabataSomethingElse1 = tabataSomethingElse.exercises.create
+tabataSomethingElse1 = tabataSomethingElse.exercises.create(:rounds => 8)
 tabataSomethingElse1.exercise_category_id = pullup.id
 tabataSomethingElse1.user_id = admin.id
 tabataSomethingElse1.save
-tabataSomethingElse2 = tabataSomethingElse.exercises.create
+tabataSomethingElse2 = tabataSomethingElse.exercises.create(:rounds => 8)
 tabataSomethingElse2.exercise_category_id = pushup.id
 tabataSomethingElse2.user_id = admin.id
 tabataSomethingElse2.save
-tabataSomethingElse3 = tabataSomethingElse.exercises.create
+tabataSomethingElse3 = tabataSomethingElse.exercises.create(:rounds => 8)
 tabataSomethingElse3.exercise_category_id = situp.id
 tabataSomethingElse3.user_id = admin.id
 tabataSomethingElse3.save
-tabataSomethingElse4 = tabataSomethingElse.exercises.create
+tabataSomethingElse4 = tabataSomethingElse.exercises.create(:rounds => 8)
 tabataSomethingElse4.exercise_category_id = squat.id
 tabataSomethingElse4.user_id = admin.id
 tabataSomethingElse4.save
@@ -1611,23 +1611,23 @@ tabataThis = Workout.create(:name => "Tabata This", :description => "32 interval
 tabataThis.workout_category_id = benchmark.id
 tabataThis.user_id = admin.id
 tabataThis.save
-tabataThis1 = tabataThis.exercises.create
+tabataThis1 = tabataThis.exercises.create(:rounds => 8)
 tabataThis1.exercise_category_id = squat.id
 tabataThis1.user_id = admin.id
 tabataThis1.save
-tabataThis2 = tabataThis.exercises.create
+tabataThis2 = tabataThis.exercises.create(:rounds => 8)
 tabataThis2.exercise_category_id = row.id
 tabataThis2.user_id = admin.id
 tabataThis2.save
-tabataThis3 = tabataThis.exercises.create
+tabataThis3 = tabataThis.exercises.create(:rounds => 8)
 tabataThis3.exercise_category_id = pullup.id
 tabataThis3.user_id = admin.id
 tabataThis3.save
-tabataThis4 = tabataThis.exercises.create
+tabataThis4 = tabataThis.exercises.create(:rounds => 8)
 tabataThis4.exercise_category_id = situp.id
 tabataThis4.user_id = admin.id
 tabataThis4.save
-tabataThis5 = tabataThis.exercises.create
+tabataThis5 = tabataThis.exercises.create(:rounds => 8)
 tabataThis5.exercise_category_id = pushup.id
 tabataThis5.user_id = admin.id
 tabataThis5.save
