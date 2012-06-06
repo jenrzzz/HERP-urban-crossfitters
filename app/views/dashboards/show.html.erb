@@ -30,7 +30,7 @@
       <h3>Daily WOD for <%= @wod.date.strftime '%B %e, %Y' %></h3>
       <p><a href="<%= @wod.link or '#' %>"><strong><%= @wod.title %></strong></a></p>
       <p><pre><%= @wod.description %></pre></p>
-      <p><%= link_to "Do Workout", new_workout_path %></p>
+      <p><%= link_to "Do Workout", new_workout_record_path + '?show_daily=true' %></p>
     </div>
 </div>
 <% end %>
