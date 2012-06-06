@@ -3,12 +3,12 @@
     <h1>All Injuries</h1>
   </div>
 </div>
-<% if @injury_records %>
     <div class="row">
-          <div class="span8">
-            <%= link_to "Add Injury", new_injury_record_path, :class => "btn btn-primary" %><br />
-          </div>
+      <div class="span8">
+        <%= link_to "Add Injury", new_injury_record_path, :class => "btn btn-primary" %><br />
+      </div>
     </div>
+<% if @injury_records %>
     <% @injury_records.each do |injury| %>
         <div class="row">
 	    <div class ="span8">
@@ -34,11 +34,6 @@
         <div class="span8">
 	    <h3>You currently have no injuries.</h3>
 	</div>
-    </div>
-    <div class="row">
-      <div class="span8">
-        <%= link_to "Add Injury", new_injury_record_path, :class => "btn btn-primary" %><br />
-      </div>
     </div>
 <% end %>
 

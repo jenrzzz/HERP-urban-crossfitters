@@ -1,11 +1,13 @@
 class TrainersController < ApplicationController
   # display list of all trainers associated with user
   def index
+    @title = 'Your Trainers'
     @trainers = current_user.trainers
   end
 
   # return an HTML form to add new trainer
   def new
+    @title = 'Add Trainer'
     @trainer = Trainer.new
   end
 
@@ -25,6 +27,7 @@ class TrainersController < ApplicationController
   # show the trainer
   def show
     @trainer = current_user.trainers.find_by_id(params[:id])
+    @title = "Trainer - #{@trainer.name}"
     unless @trainer
       flash[:error] = 'You are not permitted to access this trainer'
       redirect_to :action => 'index'

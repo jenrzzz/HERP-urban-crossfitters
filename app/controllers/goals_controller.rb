@@ -7,12 +7,12 @@ class GoalsController < ApplicationController
     else
       name = current_user.username
     end
-      @title = "All goals for #{name}"
+      @title = "Goals For #{name}"
   end
 
   # return an HTML form to add new goal
   def new
-    @title = 'Add a goal'
+    @title = 'Add Goal'
     @goal = Goal.new
   end
 
@@ -24,23 +24,22 @@ class GoalsController < ApplicationController
       current_user.events << @goal.event
       redirect_to :action => 'show', :id => @goal.id
     else
-      flash.now[:error] = 'There was a problem saving your new goal.'
-      flash.now[:errors] = @goal.errors
+      flash[:error] = 'There was a problem saving your new goal.'
+      flash[:errors] = @goal.errors
       redirect_to :action => "new"
     end
-    
   end
 
   # display a specific goal
   def show
     @goal = Goal.find_by_id params[:id]
-    @title = "Goal #{@goal.name}"
+    @title = "Goal - #{@goal.name}"
   end
 
   # return a form to edit a goal
   def edit
     @goal = Goal.find_by_id params[:id]
-    @title = "Editing #{@goal.name}"
+    @title = "Edit #{@goal.name}"
   end
 
   # update a specific goal

@@ -14,11 +14,6 @@
             <h3>You currently have no goals.</h3>
         </div>
     </div>
-    <div class="row">
-      <div class="span8">
-        <%= link_to "Add Goal", new_goal_path, :class => "btn btn-primary" %><br />
-      </div>
-    </div>
 <% else %>
     <% @goals.each do |goal| %>
         <div class="row">
@@ -35,9 +30,4 @@
             </div>
         </div>
     <% end %>
-    <div class="row">
-      <div class="span8">
-        <%= link_to "Add Goal", new_goal_path, :class => "btn btn-primary" %><br />
-      </div>
-    </div>
 <% end %>

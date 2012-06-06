@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   def new
-    @title = 'Create a profile'
+    @title = 'Create Profile'
     if current_user.profile then
       flash[:notice] = 'You have already created a profile.'
       redirect_to :controller => 'profiles', :action => 'edit'
@@ -35,11 +35,15 @@ class ProfilesController < ApplicationController
     else 
       @profile = current_user.profile
     end
-    @title = "#{@profile.first_name} #{@profile.last_name}"
+    unless @profile
+      redirect_to :action => 'new'
+      return
+    end
+    @title = "Profile - #{@profile.first_name} #{@profile.last_name}"
   end
 
   def edit
-    @title = 'Edit profile'
+    @title = 'Edit Profile'
     @profile = current_user.profile
     if params[:id] != 'me' && params[:id] != @profile.id
       flash.now[:notice] = "You can't edit someone else's profile."
@@ -53,7 +57,6 @@ class ProfilesController < ApplicationController
   end
   
   def update 
-  	@title = 'Update profile'
   	@profile = current_user.profile
   	@profile.gender = params[:gender]
   	@profile.height = params[:height]

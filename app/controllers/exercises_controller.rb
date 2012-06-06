@@ -4,6 +4,7 @@ class ExercisesController < ApplicationController
 
   # display list of all exercises
   def index
+    @title = 'Exercises'
     @officialExercises = Exercise.select_official_exercises.ordered
     @customExercises = current_user.exercises.ordered
     @exercises = @officialExercises + @customExercises
@@ -11,6 +12,7 @@ class ExercisesController < ApplicationController
 
   # return an HTML form to add new exercise
   def new
+    @title = 'Add Exercise'
     @exercise = Exercise.new
     @exercise.exercise_category = ExerciseCategory.new
   end
@@ -42,12 +44,14 @@ class ExercisesController < ApplicationController
         flash.now[:errors] = @exercise.errors
       end
     end
+    @title = 'New Exercise'
     render :action => 'new'
   end
 
   # display a specific exercise
   def show
     @exercise = Exercise.find_by_id(params[:id])
+    @title = "Exercise - #{@exercise.exercise_category.category}"
     unless (@exercise.user_id == current_user.id || @exercise.user_id == 1)
       flash[:error] = "You are not permitted to view this exercise"
       redirect_to :action => 'index'
@@ -61,6 +65,7 @@ class ExercisesController < ApplicationController
       flash[:error] = "You can't edit exercises that don't belong to you"
       redirect_to :action => 'index'
     end
+    @title = 'Edit Exercise'
   end
 
   # update a specific exercise

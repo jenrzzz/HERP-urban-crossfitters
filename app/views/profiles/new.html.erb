@@ -25,7 +25,7 @@
             <%= label_tag :last_name, 'Last Name' %>
             <%= f.text_field :last_name, :value => (@user['last_name'] if @user) %>
             <%= label_tag :gender, 'Gender' %>
-            <%= f.select :gender, options_for_select({ :male => 'Male', :female => 'Female' }, 
+            <%= f.select :gender, options_for_select({ :Male => 'Male', :Female => 'Female' }, 
                                     (@user['gender'] if @user)), :include_blank => 'Select One' %>
             <%= label_tag :birthdate, 'Date of birth:' %>
             <%= date_select :profile, :birthdate, :start_year => 1920, :end_year => Time.now.year, :order => [:month, :day, :year] %>

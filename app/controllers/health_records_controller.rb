@@ -2,10 +2,12 @@ class HealthRecordsController < ApplicationController
   # display list of all health records for a user
   def index
     @records = current_user.health_records
+    @title = 'Health Records'
   end
 
   # return an HTML form to add a health record
   def new
+    @title = 'New Health Record'
     @record = HealthRecord.new
   end
 
@@ -24,6 +26,7 @@ class HealthRecordsController < ApplicationController
 
   # display a specific health record
   def show
+    @title = 'View Health Record'
     # only select from records that are associated with current user
     @record = current_user.health_records.find_by_id(params[:id])
     unless @record
@@ -34,6 +37,7 @@ class HealthRecordsController < ApplicationController
 
   # return a form to edit a health record
   def edit
+    @title = 'Edit Health Record'
     # only select from records that are associated with current user
     @record = current_user.health_records.find_by_id(params[:id])
     unless @record

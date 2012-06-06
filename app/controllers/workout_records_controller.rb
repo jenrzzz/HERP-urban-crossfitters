@@ -3,11 +3,13 @@ class WorkoutRecordsController < ApplicationController
 
   # display list of all workout records
   def index
+    @title = 'Workout Records'
     @workout_records = current_user.workout_records.find(:all, :order => 'date_performed')
   end
 
   # return an HTML form to add new workout record
   def new
+    @title = 'Add Workout Record'
     @workout_record = WorkoutRecord.new
     @workout_record.workout = Workout.new
   end
@@ -31,6 +33,7 @@ class WorkoutRecordsController < ApplicationController
   # display a specific workout record
   def show
     @workout_record = WorkoutRecord.find_by_id(params[:id])
+    @title = "Workout Record For #{@workout_record.workout.name}"
   end
 
   # return a form to edit a workout record
@@ -40,6 +43,7 @@ class WorkoutRecordsController < ApplicationController
       flash[:error] = "The selected workout record doesn't belong to you"
       redirect_to :action => 'index'
     end
+    @title = 'Edit Workout Record'
   end
 
   # update a specific workout record

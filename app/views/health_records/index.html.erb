@@ -1,14 +1,25 @@
 <div class="row">
-    <div class="span8">
-        <h1>Your Health Records</h1>
-    </div>
-</div>&nbsp;
-<div class="row">
-    <div class="span6">
-        <%= link_to "Add Health Record", new_health_record_path %></br>
-        <% @records.reverse.each do |record| %>
-            <%= link_to "#{record.date_recorded}", health_record_path(record) %>
-            </br>
-        <%end%>
-    </div>
+  <div class="span6">
+    <h1>Your Health Records</h1>
+  </div>
 </div>
+    <div class="row">
+      <div class="span6">
+        <%= link_to "Add Health Record", new_health_record_path, :class => "btn btn-primary" %></br>
+      </div>
+    </div>
+<% if @records %>
+    <% @records.reverse.each do |record| %>
+        <div class="row">
+	    <div class ="span6">
+               <%= link_to "#{record.date_recorded}", health_record_path(record) %>
+            </div>
+	</div>
+    <% end %>
+<% else %>
+    <div class="row">
+        <div class="span6">
+	    <h3>You currently have no health records.</h3>
+	</div>
+    </div>
+<% end %>

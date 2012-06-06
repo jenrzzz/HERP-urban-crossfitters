@@ -1,2 +1,54 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
+<div class="row">
+    <div class="span8">
+        <h1>View Event</h1>
+        <h2><%= link_to 'Back to Events', events_path %>
+    </div>
+</div>&nbsp;
+<div class="row">
+    <div class="span6">
+      <% sch = @event.schedulable %>
+      <% if sch.is_a?(InjuryRecord) %>
+        <h2><%= link_to sch.name, edit_injury_record_path(sch) %></h2>
+	<p><%= sch.description %></p>
+	<p><strong>Severity: </strong>
+	    <span class="label">
+	    <%= sch.severity %>
+            </span>
+	</p>
+	<p><strong>Injury Date: </strong><%= sch.start_date %></p
+	<% if sch.end_date %>>
+	<p><strong>Recovery Date: </strong><%= sch.end_date %></p>
+	<% else %>
+	<p><strong>Recovery Date: </strong><%= 'Ongoing' %></p>
+	<% end %>
+      <% elsif sch.is_a?(WorkoutRecord) %>
+        <%= link_to 'Edit Record', edit_workout_record_path(sch) %>
+        <%= link_to 'Delete Record', workout_record_path(sch),
+              :confirm => 'Are you sure?', :method => :delete %><br />
+        <% if sch.date_performed %>
+          <%= sch.date_performed %></br>
+        <% end %>
+        <% if sch.note %>
+            Note:<%= sch.note %><br />
+        <% end %>
+        <% if sch.points %>
+            Points:<%= sch.points%><br />
+        <% end %>
+        <% if sch.time %>
+             Time:<%= sch.time[:string] %><br />
+        <% end %>
+        <% if sch.rounds %>
+            Rounds:<%= sch.rounds %><br />
+        <% end %>
+      <% elsif sch.is_a?(Goal) %>
+        <h2><%= link_to sch.name, edit_goal_path(sch.id) %></h2>
+        <p><%= sch.description %></p>
+        <p><strong>Status: </strong> 
+            <span class="label<%= ' label-success' if sch.status == 'Complete' %>">
+            <%= sch.status %>
+            </span>
+        </p>
+        <p><strong>Deadline: </strong><%= sch.deadline %></p>
+      <% end %>
+    </div>
+</div>
