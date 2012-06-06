@@ -82,9 +82,16 @@ class WorkoutsController < ApplicationController
 
   # display a specific workout
   def show
-   @workout = Workout.find_by_id(params[:id]) 
-   @title = "Workout - #{@workout.name}"
-   # FIXME add the check for if it belongs to official or user
+    @workout = Workout.select_official_workouts.find_by_id(params[:id])
+     unless @workout
+       @workout = current_user.workouts.find_by_id(params[:id])
+     end
+     unless @workout
+      flash[:error] = "You do not have permission to view this workout"
+      redirect_to :action => 'index'
+      return
+    end
+    @title = "Workout - #{@workout.name}"
   end
 
   # return a form to edit a workout
