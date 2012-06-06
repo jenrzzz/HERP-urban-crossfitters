@@ -1,3 +1,6 @@
+# ApplicationController handles the require_login
+# filter for pages that require authentication and
+# defines current_user.
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -5,13 +8,18 @@ class ApplicationController < ActionController::Base
  
   private
  
+  # Filter to require users to login before accessing
+  # this page.
   def require_login
     unless logged_in?
       flash[:error] = "You must be logged in to access this section"
       redirect_to "/login" # halts request cycle
     end
   end
- 
+
+
+  # Returns true if user is currently logged in.
+  # --
   # The logged_in? method simply returns true if the user is logged
   # in and false otherwise. It does this by "booleanizing" the
   # current_user method we created previously using a double ! operator.

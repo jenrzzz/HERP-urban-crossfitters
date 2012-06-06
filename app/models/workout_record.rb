@@ -1,3 +1,6 @@
+# Stores information for a particular workout session.
+# Automatically creates a corresponding Event with the
+# build_workout_event and update_workout_event hooks.
 class WorkoutRecord < ActiveRecord::Base
   attr_accessible :date_performed, :note, :points, :time, :rounds, :workout_id 
 
@@ -14,10 +17,14 @@ class WorkoutRecord < ActiveRecord::Base
   after_create  :check_personal_record
   after_update  :check_personal_record
 
+  # Takes a hash of hours, minutes, and seconds and converts to seconds.
   def time=(val)
     self[:time] = (val[:hours].to_i * 3600) + (val[:minutes].to_i * 60) + (val[:seconds].to_i)
   end
 
+  # Returns a hash containing :hours, :minutes, and :seconds representing the time,
+  # and also :string, which contains a string representation of the time, and :insecs,
+  # which contains the time in seconds.
   def time
     h = self[:time] / 3600
     m = (self[:time] / 60) % 60
@@ -34,6 +41,7 @@ class WorkoutRecord < ActiveRecord::Base
   validates_presence_of :workout_id, :message => 'A workout record must be associated with a workout'
   validates_presence_of :date_performed, :message => 'A workout record must have a date for when it was entered'
 
+  # Ensures that at least one workout metrics was provided.
   def at_least_one_metric
     unless(self.points || self.time || self.rounds)
       self.errors[:base] << 'At least one metric must be entered'

@@ -1,3 +1,5 @@
+# Handles CRUD for workouts, custom and built-in.
+# Built-in predefined workouts are referred to as "official".
 class WorkoutsController < ApplicationController
   before_filter :set_up_workouts
   before_filter :set_up_categories

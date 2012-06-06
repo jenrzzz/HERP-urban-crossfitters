@@ -1,3 +1,4 @@
+# Stores data for built-in and custom workouts.
 class Workout < ActiveRecord::Base
   attr_accessible :name, :description, :workout_category_attributes, :exercises_attributes
 
@@ -12,10 +13,12 @@ class Workout < ActiveRecord::Base
   accepts_nested_attributes_for :exercises
   accepts_nested_attributes_for :workout_category
 
+  # Returns all official workouts
   def self.select_official_workouts
     Workout.where(:user_id => 1)
   end
 
+  # Returns all custom workouts for user_id
   def self.select_custom_workouts(user_id)
     User.find_by_id(user_id).workouts
   end

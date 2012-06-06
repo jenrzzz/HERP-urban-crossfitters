@@ -1,3 +1,4 @@
+# Stores a category for workouts
 class WorkoutCategory < ActiveRecord::Base
   attr_accessible :category
 
@@ -8,12 +9,12 @@ class WorkoutCategory < ActiveRecord::Base
   # user can create any type of custom category
   # validate :valid_category
 
+  # Validates if the category is allowed.
   def valid_category
-    self.category == 'Girl' || self.category == 'Hero' ||
-    self.category == 'WOD' || self.category == 'Benchmark' ||
-    self.category == 'Custom'
+    ['Girl', 'Hero', 'WOD', 'Benchmark', 'Custom'].include? self.category
   end
 
+  # Finds +category+ or creates a new one if it was not found.
   def self.find_or_new_by_category(category)
     # see if the category is already defined in the standard workouts
     c = WorkoutCategory.select_official_categories.where(:category => category).first
@@ -27,6 +28,8 @@ class WorkoutCategory < ActiveRecord::Base
     end
     c
   end
+  
+  # Returns all built-in official categories.
   def self.select_official_categories
     WorkoutCategory.where(:user_id => 1)
   end

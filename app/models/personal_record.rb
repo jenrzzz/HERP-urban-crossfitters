@@ -1,3 +1,5 @@
+# Calculates and stores personal bests for
+# different workouts.
 class PersonalRecord < ActiveRecord::Base
   # attr_accessible :title, :body
   belongs_to :user

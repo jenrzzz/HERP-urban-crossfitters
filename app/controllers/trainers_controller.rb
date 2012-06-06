@@ -1,3 +1,4 @@
+# Handles CRUD for trainer info.
 class TrainersController < ApplicationController
   # display list of all trainers associated with user
   def index

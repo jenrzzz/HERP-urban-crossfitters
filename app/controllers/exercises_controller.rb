@@ -1,3 +1,6 @@
+# ExerciseController handles CRUD for Exercises,
+# both custom and built-in. Built-in predefined exercises
+# are referred to as "official".
 class ExercisesController < ApplicationController
   before_filter :set_up_exercises
   before_filter :set_up_categories

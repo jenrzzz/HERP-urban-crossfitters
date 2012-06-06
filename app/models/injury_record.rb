@@ -1,3 +1,6 @@
+# Records injury-related information.
+# Attaches an Event to this record with the 
+# build_injury_event and update_injury_event hooks.
 class InjuryRecord < ActiveRecord::Base
   attr_accessible :name, :description, :start_date, :end_date, :severity, :ongoing
   
@@ -13,8 +16,9 @@ class InjuryRecord < ActiveRecord::Base
   after_create  :build_injury_event
   after_update  :update_injury_event
 
+  # Ensures that the provided severity value is between 1 and 10 inclusive.
   def severity_within_bounds
-    unless self.severity > 0 && self.severity < 11
+    if not (1..10).include? self[:severity]
       self.errors[:base] << 'Severity must be between 1 and 10 (inclusive)'
     end
   end

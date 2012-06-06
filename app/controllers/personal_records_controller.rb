@@ -1,3 +1,4 @@
+# Shows all-time records for each workout for each user.
 class PersonalRecordsController < ApplicationController
   # display list of all personal records associated with user
   def index

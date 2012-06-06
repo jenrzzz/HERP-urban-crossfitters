@@ -1,9 +1,15 @@
+# EventsController handles index and show for
+# Events and acts somewhat as glue to allow viewing
+# of corresponding records for event strips in the calendar.
 class EventsController < ApplicationController
+  
+  # Shows all of the current user's events
   def index
     @title = 'Events'
     @events = current_user.events.ordered
   end
 
+  # View an individual event.
   def show
     @event = current_user.events.find params[:id]
     @title = "Event - #{@event.name}"

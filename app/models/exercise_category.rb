@@ -1,3 +1,4 @@
+# Model for a category of exercises.
 class ExerciseCategory < ActiveRecord::Base
   attr_accessible :category
 
@@ -6,10 +7,12 @@ class ExerciseCategory < ActiveRecord::Base
 
   validates_presence_of :category, :message => 'An exercise category must be specified'
 
+  # Returns all official pre-defined categories.
   def self.select_official_categories
     ExerciseCategory.where(:user_id => 1)
   end
 
+  # Finds a pre-defined category and creates it if it doesn't exist.
   def self.find_or_new_by_category(category)
     # see if the category is already defined in the standard exercises
     c = ExerciseCategory.select_official_categories.where(:category => category).first

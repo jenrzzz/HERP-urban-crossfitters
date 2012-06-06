@@ -1,3 +1,4 @@
+# Handles CRUD for HealthRecords.
 class HealthRecordsController < ApplicationController
   # display list of all health records for a user
   def index

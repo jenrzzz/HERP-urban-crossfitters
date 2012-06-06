@@ -1,3 +1,5 @@
+# Records health-related metrics: blood pressure, weight, heart rate,
+# and calories consumed over time.
 class HealthRecord < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :date_recorded, :systolic_bp, :diastolic_bp, :weight,
@@ -34,12 +36,16 @@ class HealthRecord < ActiveRecord::Base
 
   validates_date :date_recorded, :on_or_before => Date.current
 
+  # Validation to ensure that at least one metric was provided
   def at_least_one_health_metric
     unless (self.systolic_bp || self.diastolic_bp || self.weight ||
             self.resting_heart_rate || self.calories_consumed)
       self.errors[:base] << 'At least one metric must be entered'
     end
   end
+
+  # Ensures that both systolic and diastolic readings were provided if defining
+  # blood pressure.
   def systolic_and_diastolic_present_together
     unless (self.systolic_bp && self.diastolic_bp ||
             !self.systolic_bp && !self.diastolic_bp)

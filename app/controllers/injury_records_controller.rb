@@ -1,5 +1,6 @@
+# Handles CRUD for InjuryRecords.
 class InjuryRecordsController < ApplicationController
-#display list of all injuries
+  # display list of all injuries
   def index
     @injury_records = current_user.injury_records
     if current_user.profile
@@ -15,7 +16,7 @@ class InjuryRecordsController < ApplicationController
     @injury = InjuryRecord.new
   end
 
-  #create a new injury record
+  # create a new injury record
   def create
     if params[:injury_record][:ongoing]
       params[:injury_record][:end_date] = Date.today
@@ -39,6 +40,7 @@ class InjuryRecordsController < ApplicationController
     @title = "Injury - #{@injury.name}"
   end
 
+  # Edit the injury by id
   def edit
     @injury = InjuryRecord.find_by_id params[:id]
     @title = "Edit Injury - #{@injury.name}"

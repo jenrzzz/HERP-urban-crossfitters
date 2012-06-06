@@ -1,3 +1,4 @@
+# Handles CRUD for workout records.
 class WorkoutRecordsController < ApplicationController
   before_filter :set_up_workouts_select
 

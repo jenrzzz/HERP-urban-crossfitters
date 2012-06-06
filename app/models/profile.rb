@@ -1,3 +1,5 @@
+# Stores profile biographical information and
+# hooks in with the Facebook graph.
 class Profile < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :height, :picture, :gender,
                   :birthdate, :description
@@ -8,6 +10,7 @@ class Profile < ActiveRecord::Base
     self[:height] = (val[:feet].to_i * 12) + val[:inches].to_i
   end
 
+  # Returns a hash of feet and inches representing the height.
   def height
     {:feet => self[:height] / 12, :inches => self[:height] % 12}
   end
@@ -25,11 +28,13 @@ class Profile < ActiveRecord::Base
     "" + feet.to_s + "'" + inch.to_s + "\""
   end
 
-  # Facebook stuff... TODO there might be a better place for these
+  # Creates a new Graph API connection through Koala
+  # with the provided token.
   def self.open_graph(token)
     Koala::Facebook::API.new token
   end
 
+  # Gets a User object from the Graph
   def self.fetch_fb_graph_user(graph)
     user = graph.get_object 'me'
     picture = graph.get_object 'me', :fields => 'picture,birthday'

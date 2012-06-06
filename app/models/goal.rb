@@ -1,3 +1,6 @@
+# Models a Goal, which stores a name, description, status, and deadline.
+# Goal is schedulable and automatically creates an Event with the
+# build_goal_event and update_goal_event hooks.
 class Goal < ActiveRecord::Base
   attr_accessible :name, :description, :status, :deadline
   has_one     :event, :as => :schedulable, :dependent => :destroy
@@ -10,6 +13,7 @@ class Goal < ActiveRecord::Base
   
   validates_presence_of :name, :message => 'You must give your goal a name'
 
+  # Returns true if the status is valid.
   def check_status?
     if self.status
       ['incomplete', 'complete'].include? self.status.downcase
@@ -18,11 +22,13 @@ class Goal < ActiveRecord::Base
     end
   end
 
+  # Returns true if this goal was marked completed.
   def complete?
       self.status == 'Complete' if self.status or false
   end
 
   private
+  # Hook to create a new Event whenever this Goal is created.
   def build_goal_event
     if self.deadline
       self.event = Event.create( :name => self.name, :start_at => self.deadline, 
@@ -32,6 +38,7 @@ class Goal < ActiveRecord::Base
     true
   end
 
+  # Hook to modify the attached Event when this Goal is modified.
   def update_goal_event
     if self.deadline
       if self.event

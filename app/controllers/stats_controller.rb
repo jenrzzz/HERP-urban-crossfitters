@@ -1,4 +1,8 @@
+# Renders graphs for the current user with LazyHighCharts.
 class StatsController < ApplicationController
+  
+  # Render graphs for WorkoutRecords points and times, HealthRecords blood pressure,
+  # and HealthRecords weight and resting heart rate.
   def index
     @title = "Stats for #{current_user.profile ? current_user.profile.first_name : current_user.username}"
     @workout_metrics = LazyHighCharts::HighChart.new('graph') do |f|

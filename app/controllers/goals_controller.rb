@@ -1,5 +1,8 @@
+# GoalsController handles CRUD for Goals and
+# doesn't really do anything interesting.
 class GoalsController < ApplicationController
-# display list of all goals
+
+  # display list of all goals
   def index
     @goals = current_user.goals
     if current_user.profile
