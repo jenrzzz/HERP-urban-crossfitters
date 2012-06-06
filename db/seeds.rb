@@ -717,15 +717,15 @@ dt = Workout.create(:name => "DT", :description => "5 rounds for time.")
 dt.workout_category_id = hero.id
 dt.user_id = admin.id
 dt.save
-dt1 = dt.exercises.create(:repetitions => 12, :weight => 155, :units => "pounds")
+dt1 = dt.exercises.create(:repetitions => 12, :weight => 155, :rounds => 5, :units => "pounds")
 dt1.exercise_category_id = deadlift.id
 dt1.user_id = admin.id
 dt1.save
-dt2 = dt.exercises.create(:repetitions => 9, :weight => 155, :units => "pounds")
+dt2 = dt.exercises.create(:repetitions => 9, :weight => 155, :rounds => 5, :units => "pounds")
 dt2.exercise_category_id = power_clean.id
 dt2.user_id = admin.id
 dt2.save
-dt3 = dt.exercises.create(:repetitions => 6, :weight => 155, :units => "pounds")
+dt3 = dt.exercises.create(:repetitions => 6, :weight => 155, :rounds => 5, :units => "pounds")
 dt3.exercise_category_id = push_jerk.id
 dt3.user_id = admin.id
 dt3.save
@@ -842,19 +842,19 @@ stephen = Workout.create(:name => "Stephen", :description => "30-25-20-15-10-5 r
 stephen.workout_category_id = hero.id
 stephen.user_id = admin.id
 stephen.save
-stephen1 = stephen.exercises.create
+stephen1 = stephen.exercises.create(:rounds => 6)
 stephen1.exercise_category_id = gluteham_situp.id
 stephen1.user_id = admin.id
 stephen1.save
-stephen2 = stephen.exercises.create
+stephen2 = stephen.exercises.create(:rounds => 6)
 stephen2.exercise_category_id = back_extension.id
 stephen2.user_id = admin.id
 stephen2.save
-stephen3 = stephen.exercises.create
+stephen3 = stephen.exercises.create(:rounds => 6)
 stephen3.exercise_category_id = knees_to_elbows.id
 stephen3.user_id = admin.id
 stephen3.save
-stephen4 = stephen.exercises.create
+stephen4 = stephen.exercises.create(:rounds => 6)
 stephen4.exercise_category_id = stiff_legged_deadlift.id
 stephen4.user_id = admin.id
 stephen4.save
@@ -922,7 +922,7 @@ paul2 = paul.exercises.create(:repetitions => 35, :rounds => 5)
 paul2.exercise_category_id = knees_to_elbows.id
 paul2.user_id = admin.id
 paul2.save
-paul3 = paul.exercises.create(:distance => 20, :weight => 185, :units => "yards, pounds")
+paul3 = paul.exercises.create(:weight => 185, :rounds => 5, :units => "pounds", :description => "20 yards")
 paul3.exercise_category_id = overhead_walk.id
 paul3.user_id = admin.id
 paul3.save
@@ -931,15 +931,15 @@ jerry = Workout.create(:name => "Jerry", :description => "For time.")
 jerry.workout_category_id = hero.id
 jerry.user_id = admin.id
 jerry.save
-jerry1 = jerry.exercises.create(:repetitions => 1, :units => "mile")
+jerry1 = jerry.exercises.create(:distance => 1, :units => "mile")
 jerry1.exercise_category_id = running.id
 jerry1.user_id = admin.id
 jerry1.save
-jerry2 = jerry.exercises.create(:distance => 2000)
+jerry2 = jerry.exercises.create(:distance => 2000, :units => "meters")
 jerry2.exercise_category_id = row.id
 jerry2.user_id = admin.id
 jerry2.save
-jerry3 = jerry.exercises.create(:repetitions => 1, :units => "mile")
+jerry3 = jerry.exercises.create(:distance => 1, :units => "mile")
 jerry3.exercise_category_id = running.id
 jerry3.user_id = admin.id
 jerry3.save
@@ -1064,7 +1064,7 @@ luce = Workout.create(:name => "Luce", :description => "Wearing a 20 pound vest,
 luce.workout_category_id = hero.id
 luce.user_id = admin.id
 luce.save
-luce1 = luce.exercises.create(:distance => 1000, :rounds => 3)
+luce1 = luce.exercises.create(:distance => 1000, :units => "meters", :rounds => 3)
 luce1.exercise_category_id = running.id
 luce1.user_id = admin.id
 luce1.save
@@ -1106,7 +1106,7 @@ roy2 = roy.exercises.create(:repetitions => 20, :rounds => 5, :description => "2
 roy2.exercise_category_id = box_jump.id
 roy2.user_id = admin.id
 roy2.save
-roy3 = roy.exercises.create(:repetitions => 25)
+roy3 = roy.exercises.create(:repetitions => 25, :rounds => 5)
 roy3.exercise_category_id = pullup.id
 roy3.user_id = admin.id
 roy3.save
@@ -1152,7 +1152,7 @@ coe1 = coe.exercises.create(:repetitions => 10, :weight => 95, :rounds => 10, :u
 coe1.exercise_category_id = thruster.id
 coe1.user_id = admin.id
 coe1.save
-coe2 = coe.exercises.create(:repetitions => 10)
+coe2 = coe.exercises.create(:repetitions => 10, :rounds => 10)
 coe2.exercise_category_id = ring_pushup.id
 coe2.user_id = admin.id
 coe2.save
@@ -1182,11 +1182,11 @@ helton1 = helton.exercises.create(:distance => 800, :rounds => 3, :units => "met
 helton1.exercise_category_id = running.id
 helton1.user_id = admin.id
 helton1.save
-helton2 = helton.exercises.create(:repetitions => 30, :weight => 50, :units => "pounds")
+helton2 = helton.exercises.create(:repetitions => 30, :weight => 50, :rounds => 3, :units => "pounds")
 helton2.exercise_category_id = dumbbell_squat_clean.id
 helton2.user_id = admin.id
 helton2.save
-helton3 = helton.exercises.create(:repetitions => 30)
+helton3 = helton.exercises.create(:repetitions => 30, :rounds => 3)
 helton3.exercise_category_id = burpee.id
 helton3.user_id = admin.id
 helton3.save
@@ -1208,7 +1208,7 @@ jack3.exercise_category_id = box_jump.id
 jack3.user_id = admin.id
 jack3.save
 
-forrest = Workout.create(:name => "Jack", :description => "3 rounds for time.")
+forrest = Workout.create(:name => "Forrest", :description => "3 rounds for time.")
 forrest.workout_category_id = hero.id
 forrest.user_id = admin.id
 forrest.save
@@ -1288,7 +1288,7 @@ collin = Workout.create(:name => "Collin", :description => "6 rounds for time.")
 collin.workout_category_id = hero.id
 collin.user_id = admin.id
 collin.save
-collin1 = collin.exercises.create(:distance => 400, :weight => 50, :rounds => 6, :units => "meters, pounds")
+collin1 = collin.exercises.create(:weight => 50, :rounds => 6, :units => "pounds", :description => "400 meters")
 collin1.exercise_category_id = sandbag.id
 collin1.user_id = admin.id
 collin1.save
