@@ -40,6 +40,45 @@ class WorkoutRecordsController < ApplicationController
     @title = "Workout Record For #{@workout_record.workout.name}"
   end
   
+  # hacky way of fb wall sharing. 
+  def fbpost
+    @workout_record = WorkoutRecord.find_by_id(params[:id])
+    @title = "Workout Record For #{@workout_record.workout.name}"
+    	if session[:fbaccess]['token'] then
+		@graph =	Koala::Facebook::API.new session[:fbaccess]['token']
+	
+	if @workout_record.time && !@workout_record.points && !@workout_record.rounds
+		$fbwall = "I just completed "+@workout_record.workout.workout_category.category+" - "+@workout_record.workout.name+" in "+@workout_record.time[:string] 
+	end 
+
+	if !@workout_record.time && !@workout_record.points && @workout_record.rounds  
+		$fbwall = "I just completed "+@workout_record.rounds+ " rounds of "+@workout_record.workout.workout_category.category+" - "+@workout_record.workout.name   
+	end  
+
+	if !@workout_record.time && @workout_record.points && !@workout_record.rounds  
+		$fbwall = "I just gained "+@workout_record.points+" of points from " +@workout_record.workout.workout_category.category+" - "+@workout_record.workout.name   
+	end  
+
+	if @workout_record.time && @workout_record.points && !@workout_record.rounds  
+		$fbwall = "I just gained "+@workout_record.points+" of points from "+ @workout_record.workout.workout_category.category+" - "+@workout_record.workout.name+" in "+@workout_record.time[:string]  
+	end  
+
+	if @workout_record.time && !@workout_record.points && @workout_record.rounds  
+		$fbwall = "I just completed "+@workout_record.rounds+" of points from "+ @workout_record.workout.workout_category.category+" - "+@workout_record.workout.name+" in "+@workout_record.time[:string]  
+	end  
+
+	if !@workout_record.time && @workout_record.points && @workout_record.rounds  
+		$fbwall = "I just gained "+@workout_record.points+" of points from "+ @workout_record.workout.workout_category.category+" - "+@workout_record.workout.name+" in "+@workout_record.rounds+ " rounds!"  
+	end  
+
+	if @workout_record.time && @workout_record.points && @workout_record.rounds  
+		$fbwall = "I just gained "+@workout_record.points+" of points from "+ @workout_record.workout.workout_category.category+" - "+@workout_record.workout.name+" in "+@workout_record.time[:string]+ " while doing "+ @workout_record.rounds+" rounds!"  
+	end  
+
+@graph.put_wall_post($fbwall)
+end
+  end
+  
 
 
   # return a form to edit a workout record
