@@ -1,5 +1,25 @@
 <div class="row">
     <div class="span8">
         <p><%= link_to 'Associated Record',workout_record_path(@personal_record.workout_record.id)%></p>
+    </div>&nbsp;
+    <div class="span8">
+      <% if @personal_record.workout_record.date_performed %>
+        <h1><%= @personal_record.workout_record.date_performed %></h1>
+      <% end %>
+      <h3><%= @personal_record.workout_record.workout.workout_category.category %> - <%= link_to "#{@personal_record.workout_record.workout.name}", workout_path(@personal_record.workout_record.workout) %></h3>
+      <% if !@personal_record.workout_record.note.blank? %>
+          Note: <%= @personal_record.workout_record.note %><br />
+      <% end %>
+      <% if @personal_record.workout_record.points %>
+          Points: <%= @personal_record.workout_record.points%><br />
+      <% end %>
+      <% if @personal_record.workout_record.time %>
+           Time: <%= @personal_record.workout_record.time[:string] %><br />
+      <% end %>
+      <% if @personal_record.workout_record.rounds %>
+          Rounds: <%= @personal_record.workout_record.rounds %><br />
+      <% end %>
+      <br />
+
     </div>
 </div>
