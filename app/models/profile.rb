@@ -38,6 +38,6 @@ class Profile < ActiveRecord::Base
   
   validates :height, :numericality => { :only_integer => true,
                                         :greater_than => 0,
-                                        :messages => 'Height must be a number greater that 0'}
+                                        :message => 'Height must be a number greater that 0'}
   validates_date :birthdate, :on_or_before => Date.current
 end
