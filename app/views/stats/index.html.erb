@@ -1,4 +1,29 @@
-<h1>Stats#index</h1>
 <%= javascript_include_tag :highcharts %>
-
-<%= high_chart('test', @h) %>
+<h1>Crossfit Stats</h1>
+<div class="row">
+  <div class="span10">
+    <% if not @workout_metrics_empty %>
+      <%= high_chart('workoutmetrics', @workout_metrics) %>
+    <% else %>
+      <p>You don't have enough data points to plot your workout metrics. Try <a href="<%= new_workout_record_path %>">entering a few workout records</a> first.</p>
+    <% end %>
+  </div>
+</div>&nbsp;
+<div class="row">
+  <div class="span10">
+    <% if not @bp_metrics_empty %>
+      <%= high_chart('bpmetrics', @bp_metrics) %>
+    <% else %>
+      <p>You don't have enough data points to plot your blood pressure. Try <a href="<%= new_health_record_path %>">entering a few health records</a> first.</p>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="span10">
+    <% if not @health_metrics_empty %>
+      <%= high_chart('healthmetrics', @health_metrics) %>
+    <% else %>
+      <p>You don't have enough data points to plot your health metrics. Try <a href="<%= new_health_record_path %>">entering a few health records</a> first.</p>
+    <% end %>
+  </div>
+</div>
