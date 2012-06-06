@@ -1,9 +1,7 @@
 <div class="row">
     <div class="span8">
     <% if @workout_record.date_performed %>
-      <h1>Editing Workout Record from <%= @workout_record.date_performed %></h1>
-    <% else %> 
-      <h1>Editing Workout Record</h1>
+      <h1>Edit Workout Record From <%= @workout_record.date_performed %></h1>
     <% end %>
     </div>
 </div>&nbsp;
@@ -23,7 +21,7 @@
             <%= label_tag :rounds, 'Rounds' %>
             <%= f.text_field :rounds %>
             <%= f.select :workout_id, @workouts.collect{|w| [w.name, w.id]} %>
-            <%= f.submit "Save Changes to Record", :class => 'btn btn-primary' %>
+            <%= f.submit "Save Changes", :class => 'btn btn-primary' %>
         </fieldset>
         <% end %>
     </div>
