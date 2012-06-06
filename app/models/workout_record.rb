@@ -1,5 +1,5 @@
 class WorkoutRecord < ActiveRecord::Base
-  attr_accessible :date_performed, :note, :points, :time, :rounds, :workout_id
+  attr_accessible :date_performed, :note, :points, :time, :rounds, :workout_id 
 
   belongs_to  :user
   belongs_to  :workout

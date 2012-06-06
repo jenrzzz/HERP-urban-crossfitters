@@ -13,8 +13,9 @@ class WorkoutRecordsController < ApplicationController
     @workout_record = WorkoutRecord.new
     @workout_record.workout = Workout.new
     if params[:show_daily]
-      @wod = DailyWod.order('created_at DESC').first
+    @wod = DailyWod.order('created_at DESC').first
     end
+
   end
 
   # create a new workout record
@@ -37,16 +38,40 @@ class WorkoutRecordsController < ApplicationController
   def show
     @workout_record = WorkoutRecord.find_by_id(params[:id])
     @title = "Workout Record For #{@workout_record.workout.name}"
-
-
-    
   end
   
   def fbwallpost
     if session[:fbaccess]['token'] then
 		@graph =	Koala::Facebook::API.new session[:fbaccess]['token']
-		@fbwallpost = @graph.put_wall_post(params[:fbwall])	
-  end
+		if @workout_record.time && !@workout_record.points && !@workout_record.rounds
+      $fbwall = "I just completed "+@workout_record.workout.workout_category.category+"-"+@workout_record.workout.name+"in "+@workout_record.time[:string] 
+      end 
+    if !@workout_record.time && !@workout_record.points && @workout_record.rounds  
+        $fbwall = "I just completed "+@workout_record.rounds+ "rounds of "+@workout_record.workout.workout_category.category+"-"+@workout_record.workout.name   
+        end  
+      
+        if !@workout_record.time && @workout_record.points && !@workout_record.rounds  
+        $fbwall = "I just gained "+@workout_record.points+"of points from " +@workout_record.workout.workout_category.category+"-"+@workout_record.workout.name   
+        end  
+      
+        if @workout_record.time && @workout_record.points && !@workout_record.rounds  
+        $fbwall = "I just gained "+@workout_record.points+"of points from "+ @workout_record.workout.workout_category.category+"-"+@workout_record.workout.name+"in "+@workout_record.time[:string]  
+        end  
+      
+        if @workout_record.time && !@workout_record.points && @workout_record.rounds  
+        $fbwall = "I just completed "+@workout_record.rounds+"of points from "+ @workout_record.workout.workout_category.category+"-"+@workout_record.workout.name+"in "+@workout_record.time[:string]  
+        end  
+      
+        if !@workout_record.time && @workout_record.points && @workout_record.rounds  
+        $fbwall = "I just gained "+@workout_record.points+"of points from "+ @workout_record.workout.workout_category.category+"-"+@workout_record.workout.name+"in "+@workout_record.rounds+ " rounds"  
+        end  
+      
+        if @workout_record.time && @workout_record.points && @workout_record.rounds  
+        $fbwall = "I just gained "+@workout_record.points+"of points from "+ @workout_record.workout.workout_category.category+"-"+@workout_record.workout.name+"in "+@workout_record.time[:string]+ " while doing "+ @workout_record.rounds+" rounds"  
+        end  
+  
+		@fbwallpost = @graph.put_wall_post($fbwall)	
+  	end
   	
   end
 

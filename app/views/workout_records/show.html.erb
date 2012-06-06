@@ -22,8 +22,15 @@
           Rounds: <%= @workout_record.rounds %><br />
       <% end %>
       <br />
-      <%= button_to 'Update Stats to Facebook', workout_record_path(@workout_record), :action => "fbwallpost", :fbwall => "moo cow" , :class => "btn btn-primary" %> 
+      
+      
+      <%= link_to 'Post to Facebook', workout_record_path(@workout_record),
+            :confirm => 'Are you sure?', :method => :fbwallpost, :class => "btn btn-primary" %>
+      
+      
       <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %> 
+      
+      
       <%= link_to 'Delete Record', workout_record_path(@workout_record),
             :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
