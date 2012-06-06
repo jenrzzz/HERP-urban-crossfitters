@@ -21,11 +21,11 @@ class WorkoutRecordsController < ApplicationController
     if @workout_record.save
       current_user.workout_records << @workout_record
       current_user.events << @workout_record.event
-      current_user.personal_records << PersonalRecord.where(:workout_record_id => @workout_record.id).first
+      current_user.personal_records << PersonalRecord.get_record_for(current_user.id,@workout_record.workout_id)
       redirect_to :action => 'show', :id => @workout_record.id
     else
       flash[:error] = 'There was a problem saving your workout record'
-      flash[:errors] = @workout_record.errors[:base]
+      flash[:errors] = @workout_record.errors
       redirect_to :action => 'new'
     end
   end
@@ -51,7 +51,7 @@ class WorkoutRecordsController < ApplicationController
     @workout_record = current_user.workout_records.find_by_id(params[:id])
     @workout_record.time = params[:time]
     if @workout_record.update_attributes(params[:workout_record])
-      current_user.personal_records << PersonalRecord.where(:workout_record_id => @workout_record.id).first
+      current_user.personal_records << PersonalRecord.where(:workout_record_id => @workout_record.id).order('updated_at DESC').first
       flash[:notice] = 'Edit was successful.'
       redirect_to :action => 'show', :id => @workout_record.id
     else

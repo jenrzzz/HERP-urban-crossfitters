@@ -2,7 +2,17 @@ class PersonalRecordsController < ApplicationController
   # display list of all personal records associated with user
   def index
     @title = 'Personal Records'
-    @personal_records = PersonalRecord.get_all_records_for(current_user.id)
+    @personal_records = []
+    Workout.select_official_workouts.each do |w|
+      if p = PersonalRecord.get_record_for(current_user.id, w.id)
+        @personal_records << p
+      end
+    end
+    Workout.select_custom_workouts(current_user.id).each do |w|
+      if p = PersonalRecord.get_record_for(current_user.id, w.id)
+        @personal_records << p
+      end
+    end
   end
 
   # show the personal record

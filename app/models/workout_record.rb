@@ -64,16 +64,15 @@ class WorkoutRecord < ActiveRecord::Base
   def check_personal_record
     pr = PersonalRecord.get_record_for(self.user_id, self.workout_id)
     if pr
-        pr.workout_record = self
-        pr.save
+      pr.save
     else
       pr = PersonalRecord.new
       pr.workout_record = self
-      pr.workout = self.workout
       pr.save
     end
   end
 
-    def update_personal_record
-    end
+  def update_personal_record
+    
+  end
 end
