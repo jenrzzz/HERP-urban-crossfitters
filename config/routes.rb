@@ -1,5 +1,4 @@
 Herpcs110s::Application.routes.draw do
-
   resources :session
   resources :profiles
   
@@ -14,7 +13,6 @@ Herpcs110s::Application.routes.draw do
   get '/login', :to => 'sessions#new', :as => :login
   get '/logout', :to => 'sessions#destroy', :as => :logout
 
-  # #FIXME temporary routes until help and about are completed properly
   match '/help', :to => 'home#index', :as => :help
   match '/about', :to => 'about#index', :as => :about_us
   
@@ -23,6 +21,7 @@ Herpcs110s::Application.routes.draw do
   match '/auth/failure', :to => 'sessions#failure'
 
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
+  match '/stats' => 'stats#index', :as => :stats
   
   root :to => "home#index"
 end

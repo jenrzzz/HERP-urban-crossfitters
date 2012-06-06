@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create]
 
   def new
+    @title = 'Log in'
   end
 
   def create
