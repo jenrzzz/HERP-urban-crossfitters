@@ -10,18 +10,27 @@ class HealthRecord < ActiveRecord::Base
   if validate :systolic_and_diastolic_present_together => true
     validates :systolic_bp, :numericality => { :only_integer => true,
                                                :allow_blank => true,
-                                               :greater_than => 0 }
+                                               :greater_than => 0 ,
+                            :message => 'Systolic bp must be an integer greater than 0'}
     validates :diastolic_bp, :numericality => { :only_integer => true,
                                                 :allow_blank => true,
-                                                :greater_than => 0 }
+                                                :greater_than => 0 ,
+                             :message => 'Diastolic bp must be an integer greater than 0'}
   end
 
   validates :weight, :numericality => { :only_integer => true,
                                         :allow_blank => true,
-                                        :greater_than => 0 }
+                                        :greater_than => 0 ,
+                     :message => 'Weight must be an integer greater than 0'}
   validates :resting_heart_rate, :numericality => { :only_integer => true,
                                                     :allow_blank => true,
-                                                    :greater_than => 0 }
+                                                    :greater_than => 0 ,
+                     :message => 'Resting heart rate must be an integer greater than 0'}
+
+  validates :calories_consumed, :numericality => { :only_integer => true,
+                                                    :allow_blank => true,
+                                                    :greater_than => 0 ,
+                     :message => 'Calories consumed must be an integer greater than 0'}
 
   validates_date :date_recorded, :on_or_before => Date.current
 

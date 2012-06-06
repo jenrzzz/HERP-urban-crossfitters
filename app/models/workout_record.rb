@@ -31,8 +31,8 @@ class WorkoutRecord < ActiveRecord::Base
   end
 
   validate :at_least_one_metric
-  validates_presence_of :workout_id
-  validates_presence_of :date_performed
+  validates_presence_of :workout_id, :message => 'A workout record must be associated with a workout'
+  validates_presence_of :date_performed, :message => 'A workout record must have a date for when it was entered'
 
   def at_least_one_metric
     unless(self.points || self.time || self.rounds)

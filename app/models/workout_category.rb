@@ -4,8 +4,9 @@ class WorkoutCategory < ActiveRecord::Base
   # order categories in ascending order
   scope :ordered, :order => 'category ASC'
 
-  validates_presence_of :category
-  validate :valid_category
+  validates_presence_of :category, :message => 'Workout category must be defined'
+  # user can create any type of custom category
+  # validate :valid_category
 
   def valid_category
     self.category == 'Girl' || self.category == 'Hero' ||
