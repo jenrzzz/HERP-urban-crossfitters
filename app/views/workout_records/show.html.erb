@@ -25,7 +25,7 @@
       
       
       <%= link_to 'Post to Facebook', workout_record_path(@workout_record),
-            :confirm => 'Are you sure?', :method => fbwallpost, :class => "btn btn-primary" %>
+            :confirm => 'Are you sure?', :action => fbwallpost, :class => "btn btn-primary" %>
       
       
       <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %> 
