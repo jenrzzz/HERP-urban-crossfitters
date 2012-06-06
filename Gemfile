@@ -35,7 +35,6 @@ gem 'omniauth-facebook', :git => 'https://github.com/mkdynamic/omniauth-facebook
 # For Graph API access
 gem 'faraday', '~> 0.7.0' # new koala needs old faraday
 gem 'koala', '>= 1.4.1'
-gem 'fb_graph'
 
 # To fetch WOD info from CrossFit's RSS feed
 gem 'feedzirra', :git => 'https://github.com/pauldix/feedzirra'

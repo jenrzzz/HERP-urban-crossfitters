@@ -16,14 +16,5 @@ class Authorization < ActiveRecord::Base
                          :provider => hash['provider'])
   end
 
-  def facebook
-    @fb_user ||= FBGraph::User.me(user_attributes[:token])
- end
-
-  def publish(text, feed_name)
-    begin
-      facebook.feed!(:message => text, :name => feed_name)
-    rescue Exception => e
-    end
-  end
+  
 end

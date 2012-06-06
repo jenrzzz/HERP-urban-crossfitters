@@ -38,11 +38,13 @@
                 <li><%= link_to content_tag(:i, '', :class => 'icon-user icon-white') + 'Profile', profiles_path+'/me' %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-fire icon-white') + 'Workout', workout_records_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-heart icon-white') + 'Health', health_records_path %></li>
-                <% #FIXME change to calendar/journal once implemented %>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-flag icon-white') + 'Goals', goals_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-calendar icon-white') + 'Calendar', '/calendar' %></li>
                 <% #FIXME need to declare singular resource for our help page once complete %>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-tasks icon-white') + 'Stats', '/stats' %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-question-sign icon-white') + 'Help', help_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-star icon-white') + 'About/Contact', about_us_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-off icon-white') + (current_user ? 'Log out' : 'Log in'), (current_user ? '/logout' : '/login') %></li>
               </ul>
             </div><!--/.nav-collapse -->
           </div>
