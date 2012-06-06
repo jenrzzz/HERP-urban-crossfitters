@@ -19,8 +19,8 @@
             <%= label_tag :birthdate, 'Date of birth:' %>
             <%= date_select :profile, :birthdate, :start_year => 1920, :end_year => Time.now.year, :order => [:month, :day, :year] %>
            <%= label_tag :height, 'Height' %> 
-              <%= select  :height, :feet, (0..10).collect {|n| [n, n] } %> feet
-              <%= select  :height, :inches, (0..11).collect {|n| [n, n] } %> inches
+              <%= select  :height, :feet, (0..10).collect {|n| [n, n] }, :selected => @profile.height[:feet]%> feet
+              <%= select  :height, :inches, (0..11).collect {|n| [n, n] }, :selected => @profile.height[:inches] %> inches
             <%= label_tag :description, 'Bio'%><%= f.text_area  :description, :rows => '4', :placeholder => "I love Crossfit" %>
             <%= f.submit "Save changes", :class => 'btn btn-primary' %>
         </fieldset>

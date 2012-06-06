@@ -8,13 +8,14 @@ class Goal < ActiveRecord::Base
   
   validate :check_status?
   
-  validates_presence_of :name
+  validates_presence_of :name, :message => 'You must give your goal a name'
 
   def check_status?
     if self.status
       ['incomplete', 'complete'].include? self.status.downcase
+    else
+      false
     end
-    false
   end
 
   def complete?

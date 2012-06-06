@@ -4,10 +4,10 @@ class InjuryRecord < ActiveRecord::Base
   has_one    :event, :as => :schedulable, :dependent => :destroy
   belongs_to :user
 
-  validates_presence_of :name
-  validates_presence_of :description
-  validates_presence_of :start_date
-  validates_presence_of :severity
+  validates_presence_of :name, :message => 'Injury must have a name'
+  validates_presence_of :description, :message => 'Injury must have a description'
+  validates_presence_of :start_date, :message => 'Injury must have a start date'
+  validates_presence_of :severity, :message => 'Injury must have a severity level'
 
   validate :severity_within_bounds
   after_create  :build_injury_event

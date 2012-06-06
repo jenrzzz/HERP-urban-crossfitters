@@ -12,7 +12,7 @@
             :confirm => 'Are you sure?', :method => :delete %>
       <% end %>
       <% if @exercise.exercise_category %>
-        <%= @exercise.exercise_category.category %></br>
+        <h2><%= @exercise.exercise_category.category %></h2>
       <% end %>
       <% if @exercise.repetitions %>
           Repetitions: <%= @exercise.repetitions %><br />

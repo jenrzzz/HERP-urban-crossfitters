@@ -8,6 +8,10 @@ class Profile < ActiveRecord::Base
     self[:height] = (val[:feet].to_i * 12) + val[:inches].to_i
   end
 
+  def height
+    {:feet => self[:height] / 12, :inches => self[:height] % 12}
+  end
+
   # converts height in inches value to a string
   # string format is: [feet]'[inches]"
   def height_str
@@ -33,6 +37,7 @@ class Profile < ActiveRecord::Base
   end
   
   validates :height, :numericality => { :only_integer => true,
-                                        :greater_than => 0 }
+                                        :greater_than => 0,
+                                        :message => 'Height must be a number greater that 0'}
   validates_date :birthdate, :on_or_before => Date.current
 end

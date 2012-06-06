@@ -20,10 +20,8 @@
       <% if @record.calories_consumed %>
           <b>Calories Consumed: </b><%= @record.calories_consumed %><br />
       <% end %>
-    </div>
-    <div class="span3">
-      <button class="btn"><%= link_to 'Edit Record', edit_health_record_path(@record) %></button></br>
-      <button class="btn"><%= link_to 'Delete Record', health_record_path(@record),
-          :confirm => 'Are you sure?', :method => :delete %></button>
+      <%= link_to 'Edit Record', edit_health_record_path(@record), :class => "btn btn-primary" %>
+      <%= link_to 'Delete Record', health_record_path(@record),
+            :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
 </div>
