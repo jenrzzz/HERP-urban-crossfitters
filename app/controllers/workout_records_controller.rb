@@ -34,6 +34,12 @@ class WorkoutRecordsController < ApplicationController
   def show
     @workout_record = WorkoutRecord.find_by_id(params[:id])
     @title = "Workout Record For #{@workout_record.workout.name}"
+    if session[:fbaccess]['token'] then
+		@graph =	Koala::Facebook::API.new session[:fbaccess]['token']
+		@fbwallpost = @graph.put_wall_post(params[:fbwall])	
+    end
+
+    
   end
 
   # return a form to edit a workout record
