@@ -24,8 +24,8 @@ class GoalsController < ApplicationController
       current_user.events << @goal.event
       redirect_to :action => 'show', :id => @goal.id
     else
-      flash.now[:error] = 'There was a problem saving your new goal.'
-      flash.now[:errors] = @goal.errors
+      flash[:error] = 'There was a problem saving your new goal.'
+      flash[:errors] = @goal.errors
       redirect_to :action => "new"
     end
     
