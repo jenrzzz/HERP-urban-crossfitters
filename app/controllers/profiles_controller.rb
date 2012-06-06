@@ -64,10 +64,9 @@ class ProfilesController < ApplicationController
   	  current_user.profile = @profile
   	  redirect_to profile_path('me')
   	else
-  	  flash.now[:error] = 'There was a problem saving your profile updates.'
-  	  flash.now[:errors] = @profile.errors
-  	  render :action => "edit"
-
+  	  flash[:error] = 'There was a problem saving your profile updates.'
+  	  flash[:errors] = @profile.errors
+  	  redirect_to :action => "edit"
   	end
   end
 end
