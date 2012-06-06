@@ -1,6 +1,6 @@
 <div class="row">
     <div class="span8">
-        <h2><%= link_to @goal.name, edit_goal_path(@goal.id) %></h2>
+        <h2><%= @goal.name %></h2>
         <p><%= @goal.description %></p>
         <p><strong>Status: </strong> 
             <span class="label<%= ' label-success' if @goal.status == 'Complete' %>">
@@ -8,5 +8,9 @@
             </span>
         </p>
         <p><strong>Deadline: </strong><%= @goal.deadline %></p>
+      <br />
+      <%= link_to 'Edit Goal', edit_goal_path(@goal), :class => "btn btn-primary" %> 
+      <%= link_to 'Delete Goal', goal_path(@goal),
+            :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
 </div>

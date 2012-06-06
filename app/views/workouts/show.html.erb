@@ -17,28 +17,28 @@
            - <%= @workout.name %></h2>
       <% end %>
       <% if @workout.description %>
-          Description:<%= @workout.description%>
+          Description: <%= @workout.description%><br />
       <% end %>
       <br />
-      <h2>Associated Exercises</h2> 
+      <h2>Components</h2> 
       <% @workout.exercises.each do |e| %>
         <% if e.exercise_category %>
           <strong><%= e.exercise_category.category %>:</strong><br />
         <% end %>
         <% if e.repetitions %>
-            Repetitions: <%= e.repetitions %>
+            Repetitions: <%= e.repetitions %><br />
         <% end %>
         <% if e.weight %>
-            Weight: <%= e.weight%> <%= e.units %>
+            Weight: <%= e.weight%> <%= e.units %><br />
         <% end %>
         <% if e.distance %>
-             Distance: <%= e.distance %> <%= e.units %>
+             Distance: <%= e.distance %> <%= e.units %><br />
         <% end %>
         <% if e.rounds %>
-            Rounds: <%= e.rounds %>
+            Rounds: <%= e.rounds %><br />
         <% end %>
         <% if e.description %>
-            <br />Description: <%= e.description %><br />
+            Description: <%= e.description %><br />
         <% end %>
         <br />
       <% end %>

@@ -1,32 +1,28 @@
 <div class="row">
-    <div class="span8">
-        <% if @workout_record.date_performed %>
-	  <h1> Workout Details for <%= @workout_record.date_performed %></h1>
-	<% else %>
-	  <h1> Workout Record Details </h1>
-	<% end %>
+    <div class="span3">
         <h2><%= link_to 'Back to Records', workout_records_path %>
     </div>
 </div>&nbsp;
 <div class="row">
     <div class="span6">
       <% if @workout_record.date_performed %>
-        <%= @workout_record.date_performed %></br>
+        <h1><%= @workout_record.date_performed %></h1>
       <% end %>
-      <%= link_to "#{@workout_record.workout.name}", workout_path(@workout_record.workout) %><br />
-      <% if @workout_record.note %>
-          Note:<%= @workout_record.note %><br />
+      <h3><%= @workout_record.workout.workout_category.category %> - <%= link_to "#{@workout_record.workout.name}", workout_path(@workout_record.workout) %></h3>
+      <% if !@workout_record.note.blank? %>
+          Note: <%= @workout_record.note %><br />
       <% end %>
       <% if @workout_record.points %>
-          Points:<%= @workout_record.points%><br />
+          Points: <%= @workout_record.points%><br />
       <% end %>
       <% if @workout_record.time %>
-           Time:<%= @workout_record.time[:string] %><br />
+           Time: <%= @workout_record.time[:string] %><br />
       <% end %>
       <% if @workout_record.rounds %>
-          Rounds:<%= @workout_record.rounds %><br />
-      <% end %> 
-      <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %><br />
+          Rounds: <%= @workout_record.rounds %><br />
+      <% end %>
+      <br />
+      <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %> 
       <%= link_to 'Delete Record', workout_record_path(@workout_record),
             :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
