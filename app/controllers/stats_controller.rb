@@ -1,6 +1,6 @@
 class StatsController < ApplicationController
   def index
-    @title = "Stats for #{current_user.profile.first_name or current_user.username}"
+    @title = "Stats for #{current_user.profile ? current_user.profile.first_name : current_user.username}"
     @h = LazyHighCharts::HighChart.new('graph') do |f|
       records = current_user.workout_records
       records = records.where( :date_performed => (Date.today - 30.days)..Date.today ).order("date_performed DESC")
