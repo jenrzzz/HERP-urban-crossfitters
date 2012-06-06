@@ -32,7 +32,12 @@ class GoalsController < ApplicationController
 
   # display a specific goal
   def show
-    @goal = Goal.find_by_id params[:id]
+    @goal = current_user.goals.find_by_id(params[:id])
+    unless @goal
+      flash[:error] = 'You do not have permission to view this goal'
+      redirect_to :action => 'index'
+      return
+    end
     @title = "Goal - #{@goal.name}"
   end
 
@@ -55,6 +60,16 @@ class GoalsController < ApplicationController
 
   # delete a specific goal
   def destroy
+    @goal = current_user.goals.find_by_id(params[:id])
+    unless @goal
+      flash[:error] = "You do not have permission to delete this goal"
+      redirect_to :action => 'index'
+      return
+    end
+    @goal.destroy
+    flash[:notice] = "Your goal was successfully deleted"
+    redirect_to :action => 'index'
+    return
   end
 
 end

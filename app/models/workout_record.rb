@@ -32,6 +32,7 @@ class WorkoutRecord < ActiveRecord::Base
 
   validate :at_least_one_metric
   validates_presence_of :workout_id
+  validates_presence_of :date_performed
 
   def at_least_one_metric
     unless(self.points || self.time || self.rounds)
@@ -63,31 +64,8 @@ class WorkoutRecord < ActiveRecord::Base
   def check_personal_record
     pr = PersonalRecord.get_record_for(self.user_id, self.workout_id)
     if pr
-      wr = WorkoutRecord.find_by_id(pr.workout_record_id)
-      newpr = false
-      if self.time
-        if wr.time
-          if self.time[:insecs] > wr.time[:insecs]
-            newpr = true
-          end
-        end
-      elsif self.rounds
-        if wr.rounds
-          if self.rounds > wr.rounds
-            newpr = true
-          end
-        end
-      elsif self.points
-        if wr.points
-          if self.points > wr.points
-            newpr = true
-          end
-        end
-      end
-      if newpr
         pr.workout_record = self
         pr.save
-      end
     else
       pr = PersonalRecord.new
       pr.workout_record = self
@@ -95,4 +73,7 @@ class WorkoutRecord < ActiveRecord::Base
       pr.save
     end
   end
+
+    def update_personal_record
+    end
 end
