@@ -23,8 +23,8 @@
       <% end %>
       <br />
 
-      <%= link_to 'Post to Facebook', @authorization.publish("I just finished: \n Booyeah!"), 
-            :class => "btn btn-primary" %> <br />
+ <!--     <%= link_to 'Post to Facebook', @graph.put_wall_post("I just finished: \n Booyeah!"), 
+            :class => "btn btn-primary" %> <br /> -->
       <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %> 
       <%= link_to 'Delete Record', workout_record_path(@workout_record),
             :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
