@@ -24,6 +24,7 @@
         <p><%= link_to "Log out", logout_path %></p>
     </div>
 </div>
+<% if @wod %>
 <div class="row">
     <div class="span6">
       <h3>Daily WOD for <%= @wod.date.strftime '%B %e, %Y' %></h3>
@@ -32,3 +33,4 @@
       <p><%= link_to "Do Workout", new_workout_path %></p>
     </div>
 </div>
+<% end %>
