@@ -1,31 +1,13 @@
 class EventsController < ApplicationController
   def index
-    redirect_to 'calendar#index'
+    @events = current_user.events.ordered
   end
 
   def show
-    current_user.events.find params[:id]
-  end
-
-  def new
-    @event = Event.new
-  end
-
-  def create
-    current_user.events.create params[:event]
-  end
-  
-  def edit
     @event = current_user.events.find params[:id]
-  end
-
-  def update
-    @event = current_user.events.find params[:id]
-    @event.update_attributes params[:event]
-  end
-
-  def destroy
-    @event = current_user.events.find params[:id]
-    @event.destroy
+    unless @event
+      flash[:error] = "You aren't permitted to see this event"
+      redirect_to :action => 'index'
+    end
   end
 end
