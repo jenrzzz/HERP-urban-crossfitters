@@ -22,8 +22,8 @@ class Exercise < ActiveRecord::Base
   validate :needs_units
 
   def at_least_one_metric
-    unless(self.repetitions || self.weight || self.rounds || self.distance)
-      self.errors[:base] << 'At least one metric must be entered'
+    unless self.repetitions || self.weight || self.rounds || self.distance || self.description
+      self.errors[:base] << "A description must be entered if you don't fill in a metric"
     end
   end
 

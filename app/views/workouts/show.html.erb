@@ -1,6 +1,5 @@
 <div class="row">
     <div class="span8">
-        <h1>View Workouts</h1>
         <h2><%= link_to 'Back to Workouts', workouts_path %>
     </div>
 </div>&nbsp;
@@ -12,34 +11,36 @@
             :confirm => 'Are you sure?', :method => :delete %>
       <% end %>
       <% if @workout.workout_category %>
-        <%= @workout.workout_category.category %></br>
+        <h2><%= @workout.workout_category.category %>
       <% end %>
       <% if @workout.name %>
-          Name:<%= @workout.name %><br />
+           - <%= @workout.name %></h2>
       <% end %>
       <% if @workout.description %>
-          Description:<%= @workout.description%><br />
+          Description:<%= @workout.description%>
       <% end %>
+      <br />
+      <h2>Associated Exercises</h2> 
       <% @workout.exercises.each do |e| %>
-
-      <% if e.exercise_category %>
-        <%= e.exercise_category.category %>
-      <% end %>
-      <% if e.repetitions %>
-          Repetitions:<%= e.repetitions %>
-      <% end %>
-      <% if e.weight %>
-          Weight:<%= e.weight%> <%= e.units %>
-      <% end %>
-      <% if e.distance %>
-           Distance:<%= e.distance %> <%= e.units %>
-      <% end %>
-      <% if e.rounds %>
-          Rounds:<%= e.rounds %><br />
-      <% end %>
-      <% if e.description %>
-          Description:<%= e.description %><br />
-      <% end %>
+        <% if e.exercise_category %>
+          <strong><%= e.exercise_category.category %>:</strong><br />
+        <% end %>
+        <% if e.repetitions %>
+            Repetitions: <%= e.repetitions %>
+        <% end %>
+        <% if e.weight %>
+            Weight: <%= e.weight%> <%= e.units %>
+        <% end %>
+        <% if e.distance %>
+             Distance: <%= e.distance %> <%= e.units %>
+        <% end %>
+        <% if e.rounds %>
+            Rounds: <%= e.rounds %>
+        <% end %>
+        <% if e.description %>
+            <br />Description: <%= e.description %><br />
+        <% end %>
+        <br />
       <% end %>
     </div>
 </div>

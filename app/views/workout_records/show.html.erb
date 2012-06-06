@@ -1,17 +1,19 @@
 <div class="row">
     <div class="span8">
-        <h1>View Workout Record</h1>
+        <% if @workout_record.date_performed %>
+	  <h1> Workout Details for <%= @workout_record.date_performed %></h1>
+	<% else %>
+	  <h1> Workout Record Details </h1>
+	<% end %>
         <h2><%= link_to 'Back to Records', workout_records_path %>
     </div>
 </div>&nbsp;
 <div class="row">
     <div class="span6">
-      <%= link_to 'Edit Record', edit_workout_record_path(@workout_record) %>
-      <%= link_to 'Delete Record', workout_record_path(@workout_record),
-            :confirm => 'Are you sure?', :method => :delete %>
       <% if @workout_record.date_performed %>
         <%= @workout_record.date_performed %></br>
       <% end %>
+      <%= link_to "#{@workout_record.workout.name}", workout_path(@workout_record.workout) %><br />
       <% if @workout_record.note %>
           Note:<%= @workout_record.note %><br />
       <% end %>
@@ -23,7 +25,9 @@
       <% end %>
       <% if @workout_record.rounds %>
           Rounds:<%= @workout_record.rounds %><br />
-      <% end %>
-      <%= link_to "#{@workout_record.workout.name}", workout_path(@workout_record.workout) %>
+      <% end %> 
+      <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %><br />
+      <%= link_to 'Delete Record', workout_record_path(@workout_record),
+            :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
 </div>
