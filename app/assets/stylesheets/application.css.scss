@@ -144,3 +144,11 @@ h3 {
 .btn-large {
   font-size: 26px;
 }
+
+[class^="icon-"],
+[class*=" icon-"] {
+  width: 17px;
+  height: 17px;
+  line-height: 14px;
+  vertical-align: middle;
+}
