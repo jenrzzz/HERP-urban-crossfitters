@@ -38,11 +38,11 @@
                 <li><%= link_to content_tag(:i, '', :class => 'icon-user icon-white') + 'Profile', profiles_path+'/me' %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-fire icon-white') + 'Workout', workout_records_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-heart icon-white') + 'Health', health_records_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-plus icon-white') + 'Injuries', injury_records_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-flag icon-white') + 'Goals', goals_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-calendar icon-white') + 'Calendar', '/calendar' %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-tasks icon-white') + 'Stats', '/stats' %></li>
-                <li><%= link_to content_tag(:i, '', :class => 'icon-star icon-white') + 'Personal Records', personal_records_path %></li>
-                <li><%= link_to content_tag(:i, '', :class => 'icon-question-sign icon-white') + 'About/Contact', about_us_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-star icon-white') + 'Records', personal_records_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-off icon-white') + (current_user ? 'Log out' : 'Log in'), (current_user ? '/logout' : '/login') %></li>
               </ul>
             </div><!--/.nav-collapse -->
@@ -60,12 +60,17 @@
                 <% flash[:errors].each do |k,e| %>
                   <li><%= e %></li>
                 <% end %>
+                </ul>
               <% end %>
             </div>
         <% end %>
         <%= yield %>
           <hr>
           <footer>
+            <p style="text-align: center; font-size: medium;">
+              <%= link_to 'Home', '/' %> | 
+              <%= link_to 'About', about_us_path %> | 
+              <%= link_to 'Help', '/help' %>
             <p><small>
               <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> HERP &mdash; Spring 2012
             </p>
