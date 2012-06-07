@@ -12,7 +12,7 @@
         <% else %>
           <p>You haven't added any workout records yet.</p>
         <% end %>
-        <% unless current_user.profile %>
+        <% if not current_user.profile %>
           <p><%= link_to "Create Profile", new_profile_path %></p>
         <% end %>
         <p><%= link_to "View Workouts", workouts_path %></p>
