@@ -5,6 +5,7 @@ class DashboardsController < ApplicationController
   # Renders the dashboard with the daily WOD.
   def show
     @wod = DailyWod.order('created_at DESC').first
+    @logo_path = '/'
     @title = 'Dashboard'
   end
 end
