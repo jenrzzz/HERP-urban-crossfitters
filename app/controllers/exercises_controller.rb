@@ -8,9 +8,6 @@ class ExercisesController < ApplicationController
   # display list of all exercises
   def index
     @title = 'Exercises'
-    @officialExercises = Exercise.select_official_exercises.ordered
-    @customExercises = current_user.exercises.ordered
-    @exercises = @officialExercises + @customExercises
   end
 
   # return an HTML form to add new exercise
@@ -23,18 +20,14 @@ class ExercisesController < ApplicationController
   # create a new exercise
   def create
     # create new exercise
-    @exercise = Exercise.new params[:exercise]
     if params[:create_exercise_category]
-      category = ExerciseCategory.select_official_categories.where(:category => params[:create_category]).first
-      unless category
-        category = ExerciseCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
-      end
-      unless category
-        category = ExerciseCategory.new(:category => params[:create_category])
-        current_user.exercise_categories << category
-        @categories << category
-      end
+      category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_category])
+      params[:exercise][:exercise_category_attributes][:category] = category.category
+      @exercise = Exercise.new params[:exercise]
+      @exercise.exercise_category = category
+      set_up_categories
     else
+      @exercise = Exercise.new params[:exercise]
       # attempt to save exercise
       if @exercise.save
         # associate exercise with user
@@ -55,6 +48,7 @@ class ExercisesController < ApplicationController
   def show
     @exercise = Exercise.find_by_id(params[:id])
     @title = "Exercise - #{@exercise.exercise_category.category}"
+    # only allow user to view their custom exercises or official exercises
     unless (@exercise.user_id == current_user.id || @exercise.user_id == 1)
       flash[:error] = "You are not permitted to view this exercise"
       redirect_to :action => 'index'
@@ -73,18 +67,14 @@ class ExercisesController < ApplicationController
 
   # update a specific exercise
   def update
-    @exercise = current_user.exercises.find_by_id(params[:id])
     if params[:create_exercise_category]
-      category = ExerciseCategory.select_official_categories.where(:category => params[:create_category]).first
-      unless category
-        category = ExerciseCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
-      end
-      unless category
-        category = ExerciseCategory.new(:category => params[:create_category])
-        current_user.exercise_categories << category
-        @categories << category
-      end
+      category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_category])
+      params[:exercise][:exercise_category_attributes][:category] = category.category
+      @exercise = current_user.exercises.find_by_id(params[:id])
+      @exercise.exercise_category = category
+      set_up_categories
     else
+      @exercise = current_user.exercises.find_by_id(params[:id])
       if @exercise.update_attributes(params[:exercise])
         flash[:notice] = 'Edit was successful'
         redirect_to :action => 'show', :id => @exercise.id
@@ -100,11 +90,7 @@ class ExercisesController < ApplicationController
   # delete a specific exercise
   def destroy
     @exercise = current_user.exercises.find_by_id(params[:id])
-    category_id = @exercise.exercise_category.id
     @exercise.destroy
-    unless Exercise.where(:exercise_category_id => @exercise.exercise_category.id).first
-      ExerciseCategory.find_by_id(category_id).destroy
-    end
     flash[:notice] = 'Exercise deleted'
     redirect_to :action => 'index'
   end

@@ -13,16 +13,17 @@ class ExerciseCategory < ActiveRecord::Base
   end
 
   # Finds a pre-defined category and creates it if it doesn't exist.
-  def self.find_or_new_by_category(category)
+  def self.find_or_new_by_category(user_id, category)
     # see if the category is already defined in the standard exercises
     c = ExerciseCategory.select_official_categories.where(:category => category).first
     # unless it is defined as official, check user categories
     unless c
-      c = ExerciseCategory.find_by_category(category)
+      c = User.find_by_id(user_id).exercise_categories.find_by_category(category)
     end
     # no official or custom category found, make new
     unless c
       c = ExerciseCategory.new(:category => category)
+      User.find_by_id(user_id).exercise_categories << c
     end
     c
   end
