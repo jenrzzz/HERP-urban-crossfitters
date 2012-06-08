@@ -8,10 +8,10 @@
             </span>
 	</p>
 	<p><strong>Injury Date: </strong><%= @injury.start_date %></p
-	<% if @injury.end_date %>>
-	<p><strong>Recovery Date: </strong><%= @injury.end_date %></p>
+	<% if @injury.ongoing %>>
+	  <p><strong>Recovery Date: </strong><%= 'Ongoing' %></p>
 	<% else %>
-	<p><strong>Recovery Date: </strong><%= 'Ongoing' %></p>
+          <p><strong>Recovery Date: </strong><%= @injury.end_date %></p>
 	<% end %>
     </div>
 </div>
