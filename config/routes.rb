@@ -1,6 +1,11 @@
 Herpcs110s::Application.routes.draw do
+
+
+  get "share/publish"
+
   resources :session
   resources :profiles
+  resources :share
   
   resources :health_records, :workout_records, :injury_records
   resources :exercises, :workouts, :goals, :events, :trainers, :personal_records
@@ -22,6 +27,12 @@ Herpcs110s::Application.routes.draw do
 
   match '/calendar(/:year(/:month))' => 'calendar#index', :as => :calendar, :constraints => {:year => /\d{4}/, :month => /\d{1,2}/}
   match '/stats' => 'stats#index', :as => :stats
+  
+  
+
+  match '/share/post' => 'share#publish', :via => :post, :as => :fb_publish
+  
+  
   
   root :to => "home#index"
 end
