@@ -22,13 +22,11 @@
           Rounds: <%= @workout_record.rounds %><br />
       <% end %>
       <br />
-      
-    
-      
-      
+          
+      <%= link_to 'Post to Facebook',  '/share/post', :confirm => 'Are you sure?',:class => "btn btn-primary" %> 
+           
       <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %> 
-      
-      
+            
       <%= link_to 'Delete Record', workout_record_path(@workout_record),
             :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
