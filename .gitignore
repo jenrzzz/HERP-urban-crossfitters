@@ -22,3 +22,6 @@
 *.swo
 
 *.DS_Store
+
+# Ignore OAuth config info
+/config/application.yml

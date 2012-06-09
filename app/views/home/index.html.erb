@@ -18,8 +18,12 @@ $(document).ready(function() {
   <!-- <h1>Urban Crossfitters</h1> -->
   <div class = "hero-unit">
   <%= image_tag src=image_path('cs110logo3.png') %>
-  <p>Welcome to HERP's web application, Urban Crossfitters.</p>
-  <p><a href="<%= login_path %>" class="btn btn-info btn-large">Log in with Facebook &raquo;</a>
+  <p>Welcome <%= 'back' if current_user %> to HERP's web application, Urban Crossfitters.</p>
+  <p> <% if current_user %>
+        <%= link_to 'Continue to Dashboard', dashboard_path, :class => 'btn btn-info btn-large' %>
+      <% else %>
+        <a href="<%= login_path %>" class="btn btn-info btn-large">Log in with Facebook &raquo;</a>
+      <% end %></p>  <p><a href="<%= login_path %>" class="btn btn-info btn-large">Log in with Facebook &raquo;</a>
   </div>
   <!-- Example row of columns -->
   <div class="row-fluid">

@@ -49,6 +49,6 @@
 
 <div class="row">
     </br>
-    <%= link_to "Do Workout", new_workout_record_path, :class => 'btn-large btn-primary' %>
+    <%= link_to "Do Workout", new_workout_record_path + "?workout=#{@workout.id}", :class => 'btn-large btn-primary' %>
 </div>
 

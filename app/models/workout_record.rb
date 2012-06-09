@@ -36,7 +36,20 @@ class WorkoutRecord < ActiveRecord::Base
     WorkoutRecord.where(:user_id => user_id).ordered.first
   end
 
-  # ----- INSTANCE METHODS -----
+  def self.get_series_for_chart(user_id)
+    records = User.find_by_id(user_id).workout_records
+    records = records.where( :date_performed => (Date.today - 30.days)..Date.today ).ordered
+    points, times = [], []
+    records.each do |r|
+      # Convert date_performed to milliseconds since epoch for JS charting
+      performed_date = r.date_performed.to_time.tv_sec * 1000
+      points << [performed_date, r.points] if r.points
+      times << [performed_date, r.time[:insecs]] if r.time
+    end
+    return points, times
+  end
+
+# ----- INSTANCE METHODS -----
   # Takes a hash of hours, minutes, and seconds and converts to seconds.
   def time=(val)
     self[:time] = (val[:hours].to_i * 3600) + (val[:minutes].to_i * 60) + (val[:seconds].to_i)
