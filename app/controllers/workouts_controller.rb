@@ -7,9 +7,6 @@ class WorkoutsController < ApplicationController
   # display list of all workout
   def index
     @title = 'Workouts'
-    @officialWorkouts = Workout.select_official_workouts.ordered
-    @customWorkouts = current_user.workouts.ordered
-    @workouts = @officialWorkouts + @customWorkouts
   end
 
   # return an HTML form to add new workout
@@ -19,7 +16,6 @@ class WorkoutsController < ApplicationController
     @workout.exercises.build
     current_user.exercises << @workout.exercises
     @workout.exercises.each do |e|
-      # FIXME associate 'e' with a user here
       e.exercise_category = ExerciseCategory.new
       # associate the new category with current user
       current_user.exercise_categories << e.exercise_category
@@ -145,8 +141,11 @@ class WorkoutsController < ApplicationController
 
   # delete a specific workout
   def destroy
-    # FIXME edit this so a user can only delete their own workouts
-    @workout = Workout.find(params[:id])
+    @workout = current_user.workouts.find_by_id(params[:id])
+    unless @workout
+      flash[:error] = 'You are not permitted to delete this workout'
+      redirect_to :action => 'index'
+    end
     @workout.destroy
     flash[:notice] = 'Successfully deleted workout'
     redirect_to :action => 'index'

@@ -21,7 +21,8 @@ class ExercisesController < ApplicationController
   def create
     # create new exercise
     if params[:create_exercise_category]
-      category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_category])
+      cu_id = current_user.id
+      category = ExerciseCategory.find_or_new_by_category(cu_id, params[:create_category])
       params[:exercise][:exercise_category_attributes][:category] = category.category
       @exercise = Exercise.new params[:exercise]
       @exercise.exercise_category = category
@@ -68,7 +69,8 @@ class ExercisesController < ApplicationController
   # update a specific exercise
   def update
     if params[:create_exercise_category]
-      category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_category])
+      cu_id = current_user.id
+      category = ExerciseCategory.find_or_new_by_category(cu_id, params[:create_category])
       params[:exercise][:exercise_category_attributes][:category] = category.category
       @exercise = current_user.exercises.find_by_id(params[:id])
       @exercise.exercise_category = category

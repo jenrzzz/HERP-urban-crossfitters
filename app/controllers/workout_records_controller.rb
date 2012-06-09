@@ -110,6 +110,10 @@ end
   # delete a specific workout record
   def destroy
     @workout_record = current_user.workout_records.find_by_id(params[:id])
+    unless @workout_record
+      flash[:error] = 'You are not permitted to delete this workout record'
+      redirect_to :action => 'index'
+    end
     @workout_record.destroy
     redirect_to :action => 'index'
   end

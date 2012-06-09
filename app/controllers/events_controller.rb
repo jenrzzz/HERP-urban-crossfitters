@@ -11,7 +11,7 @@ class EventsController < ApplicationController
 
   # View an individual event.
   def show
-    @event = current_user.events.find params[:id]
+    @event = current_user.events.find_by_id(params[:id])
     @title = "Event - #{@event.name}"
     unless @event
       flash[:error] = "You aren't permitted to see this event"
