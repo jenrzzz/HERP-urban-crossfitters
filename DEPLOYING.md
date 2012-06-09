@@ -1,6 +1,6 @@
-﻿# Deploying #
+# Deploying #
 You can view the latest Markdown-compiled version of this file at
-http://github.com/jenrzzz/HERP-urban-crossfitters/blob/master/DEPLOYING.md
+https://github.com/jenrzzz/HERP-urban-crossfitters/blob/master/DEPLOYING.md
 
 Follow these instructions to deploy the Urban Crossfitters Rails application to a new server.
 
