@@ -1,41 +1,50 @@
 # Records health-related metrics: blood pressure, weight, heart rate,
 # and calories consumed over time.
 class HealthRecord < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # ----- ATTRIBUTES ACCESSIBLE -----
   attr_accessible :date_recorded, :systolic_bp, :diastolic_bp, :weight,
                   :resting_heart_rate, :calories_consumed
+
+  # ----- NAMED SCOPE -----
+  scope :ordered, :order => 'date_recorded DESC'
+
+  # ----- ASSOCIATIONS -----
   belongs_to :user
 
+  # ----- VALIDATION CALLS -----
   validate :at_least_one_health_metric
   validate :systolic_and_diastolic_present_together
 
   if validate :systolic_and_diastolic_present_together => true
-    validates :systolic_bp, :numericality => { :only_integer => true,
-                                               :allow_blank => true,
-                                               :greater_than => 0 ,
-                            :message => 'Systolic bp must be an integer greater than 0'}
-    validates :diastolic_bp, :numericality => { :only_integer => true,
-                                                :allow_blank => true,
-                                                :greater_than => 0 ,
-                             :message => 'Diastolic bp must be an integer greater than 0'}
+    validates :systolic_bp,
+              :numericality => { :only_integer => true, :allow_blank => true,
+                                 :greater_than => 0 ,
+                                  :message => 'Systolic bp must be an integer greater than 0'}
+    validates :diastolic_bp,
+              :numericality => { :only_integer => true, :allow_blank => true,
+                                 :greater_than => 0 ,
+                                 :message => 'Diastolic bp must be an integer greater than 0'}
   end
 
-  validates :weight, :numericality => { :only_integer => true,
-                                        :allow_blank => true,
-                                        :greater_than => 0 ,
-                     :message => 'Weight must be an integer greater than 0'}
-  validates :resting_heart_rate, :numericality => { :only_integer => true,
-                                                    :allow_blank => true,
-                                                    :greater_than => 0 ,
-                     :message => 'Resting heart rate must be an integer greater than 0'}
+  validates :weight,
+            :numericality => { :only_integer => true, :allow_blank => true,
+                               :greater_than => 0 ,
+                               :message => 'Weight must be an integer greater than 0'}
+  validates :resting_heart_rate,
+            :numericality => { :only_integer => true, :allow_blank => true,
+                               :greater_than => 0 ,
+                               :message => 'Resting heart rate must be an integer greater than 0'}
 
-  validates :calories_consumed, :numericality => { :only_integer => true,
-                                                    :allow_blank => true,
-                                                    :greater_than => 0 ,
-                     :message => 'Calories consumed must be an integer greater than 0'}
+  validates :calories_consumed,
+            :numericality => { :only_integer => true, :allow_blank => true,
+                               :greater_than => 0 ,
+                               :message => 'Calories consumed must be an integer greater than 0'}
 
   validates_date :date_recorded, :on_or_before => Date.current
 
+
+  # ----- CUSTOM VALIDATION METHODS -----
   # Validation to ensure that at least one metric was provided
   def at_least_one_health_metric
     unless (self.systolic_bp || self.diastolic_bp || self.weight ||

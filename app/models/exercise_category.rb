@@ -1,12 +1,17 @@
 # Model for a category of exercises.
 class ExerciseCategory < ActiveRecord::Base
+
+  # ----- ATTRIBUTES ACESSIBLE -----
   attr_accessible :category
 
+  # ----- NAMED SCOPES -----
   # order categories in ascending order
   scope :ordered, :order => 'category ASC'
 
+  # ----- VALIDATION CALLS -----
   validates_presence_of :category, :message => 'An exercise category must be specified'
 
+  # ----- CLASS METHODS -----
   # Returns all official pre-defined categories.
   def self.select_official_categories
     ExerciseCategory.where(:user_id => 1)

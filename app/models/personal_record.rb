@@ -1,11 +1,19 @@
 # Calculates and stores personal bests for
 # different workouts.
 class PersonalRecord < ActiveRecord::Base
-  # attr_accessible :title, :body
+
+  # ----- NAMED SCOPE -----
+  scope :ordered, :order => 'updated_at DESC'
+
+  # ----- ASSOCIATIONS -----
   belongs_to :user
   belongs_to :workout_record
   belongs_to :workout
 
+  # ----- CLASS METHODS -----
+  def self.fetch_latest(workout_record_id)
+    PersonalRecord.where(:workout_record_id => workout_record_id).ordered.first
+  end
 
   def self.get_all_records_for(user_id)
     PersonalRecord.find(:all, :group => :workout_id)

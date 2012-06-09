@@ -1,8 +1,11 @@
 # Stores user info (email and username) and relates
 # all personal data.
 class User < ActiveRecord::Base
+
+  # ----- ATTRIBUTES ACCESSIBLE ------
   attr_accessible :email, :username
 
+  # ----- ASSOCIATIONS -----
   has_one  :profile
 
   has_many :goals
@@ -22,10 +25,12 @@ class User < ActiveRecord::Base
 
   has_many :trainers
   
-  #authorization
   has_many :authorizations
+
+  # ----- VALIDATION CALLS -----
   validates :username, :email, :presence => true
 
+  # ----- CLASS METHODS -----
   # Creates a new user from the passed hash
   def self.create_from_hash!(hash)
     create(:username => hash['info']['name'], :email => hash['info']['email'])

@@ -1,10 +1,17 @@
 # Special model for OmniAuth integration.
 class Authorization < ActiveRecord::Base
+
+  # ----- ATTRIBUTES ACCESSIBLE -----
   attr_accessible :provider, :uid, :user_id, :user
+
+  # ----- ASSOCIATIONS -----
   belongs_to :user
+
+  # ----- VALIDATION CALLS -----
   validates :user_id, :provider, :uid, :presence => true
   validates :uid, :uniqueness => { :scope => :provider }
 
+  # ----- CLASS METHODS -----
   # Selects a user's Authorization model from a hash
   # defining :provider and :uid.
   def self.find_from_hash(hash)
@@ -18,6 +25,4 @@ class Authorization < ActiveRecord::Base
                          :uid => hash['uid'],
                          :provider => hash['provider'])
   end
-
-  
 end

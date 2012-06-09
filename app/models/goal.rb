@@ -2,17 +2,23 @@
 # Goal is schedulable and automatically creates an Event with the
 # build_goal_event and update_goal_event hooks.
 class Goal < ActiveRecord::Base
+
+  # ----- ATTRIBUTES ACCESSIBLE -----
   attr_accessible :name, :description, :status, :deadline
+
+  # ----- ASSOCIATIONS -----
   has_one     :event, :as => :schedulable, :dependent => :destroy
   belongs_to  :user
 
+  # ----- CALLBACKS -----
   after_create  :build_goal_event
   after_update  :update_goal_event
-  
+
+  # ----- VALIDATION CALLS ----- 
   validate :check_status?
-  
   validates_presence_of :name, :message => 'You must give your goal a name'
 
+  # ----- INSTANCE METHODS -----
   # Returns true if the status is valid.
   def check_status?
     if self.status
@@ -28,6 +34,8 @@ class Goal < ActiveRecord::Base
   end
 
   private
+
+  # ----- CALLBACK METHODS -----
   # Hook to create a new Event whenever this Goal is created.
   def build_goal_event
     if self.deadline

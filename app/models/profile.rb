@@ -1,10 +1,35 @@
 # Stores profile biographical information and
 # hooks in with the Facebook graph.
 class Profile < ActiveRecord::Base
+
+  # ----- ATTRIBUTES ACCESSIBLE -----
   attr_accessible :first_name, :last_name, :height, :picture, :gender,
                   :birthdate, :description
+
+  # ----- ASSOCIATIONS -----
   belongs_to :user
 
+  # ----- VALIDATION CALLS -----
+  validates :height,
+            :numericality => { :only_integer => true, :greater_than => 0,
+                               :message => 'Height must be a number greater that 0'}
+  validates_date :birthdate, :on_or_before => Date.current
+
+  # ----- CLASS METHODS -----
+  # Creates a new Graph API connection through Koala
+  # with the provided token.
+  def self.open_graph(token)
+    Koala::Facebook::API.new token
+  end
+
+  # Gets a User object from the Graph
+  def self.fetch_fb_graph_user(graph)
+    user = graph.get_object 'me'
+    picture = graph.get_object 'me', :fields => 'picture,birthday'
+    user.merge! picture
+  end
+
+  # ----- INSTANCE METHODS -----
   # converts value to height in inches
   def height=(val)
     self[:height] = (val[:feet].to_i * 12) + val[:inches].to_i
@@ -27,22 +52,4 @@ class Profile < ActiveRecord::Base
     end
     "" + feet.to_s + "'" + inch.to_s + "\""
   end
-
-  # Creates a new Graph API connection through Koala
-  # with the provided token.
-  def self.open_graph(token)
-    Koala::Facebook::API.new token
-  end
-
-  # Gets a User object from the Graph
-  def self.fetch_fb_graph_user(graph)
-    user = graph.get_object 'me'
-    picture = graph.get_object 'me', :fields => 'picture,birthday'
-    user.merge! picture
-  end
-  
-  validates :height, :numericality => { :only_integer => true,
-                                        :greater_than => 0,
-                                        :message => 'Height must be a number greater that 0'}
-  validates_date :birthdate, :on_or_before => Date.current
 end
