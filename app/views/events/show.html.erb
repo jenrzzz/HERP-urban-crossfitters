@@ -22,9 +22,6 @@
 	<p><strong>Recovery Date: </strong><%= 'Ongoing' %></p>
 	<% end %>
       <% elsif sch.is_a?(WorkoutRecord) %>
-        <%= link_to 'Edit Record', edit_workout_record_path(sch) %>
-        <%= link_to 'Delete Record', workout_record_path(sch),
-              :confirm => 'Are you sure?', :method => :delete %><br />
         <% if sch.date_performed %>
           <%= sch.date_performed %></br>
         <% end %>
@@ -39,6 +36,10 @@
         <% end %>
         <% if sch.rounds %>
             Rounds:<%= sch.rounds %><br />
+        <%= link_to 'Edit Record', edit_workout_record_path(sch), :class => "btn btn-primary" %>
+        <%= link_to 'Delete Record', workout_record_path(sch),
+              :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
+
         <% end %>
       <% elsif sch.is_a?(Goal) %>
         <h2><%= link_to sch.name, edit_goal_path(sch.id) %></h2>
