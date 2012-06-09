@@ -66,7 +66,11 @@
         <% end %>
         <%= yield %>
           <hr>
-          <footer>
+        <footer>
+            <p style="text-align: center; font-size: medium;">
+              <%= link_to 'Home', '/' %> | 
+              <%= link_to 'About', about_us_path %> | 
+              <%= link_to 'Help', '/help' %>
             <p><small>
               <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a> HERP &mdash; Spring 2012
             </p>
