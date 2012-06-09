@@ -11,6 +11,8 @@ Follow these instructions to deploy the Urban Crossfitters Rails application to 
 - SQLite3 + libs
 - Linux or Mac OS X
 - Front-end web server (optional; used for reverse-proxy configuration)
+- Rails and Thin gems
+  ```gem install thin; gem install rails```
 
 ## Installing ##
 
