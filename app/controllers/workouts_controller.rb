@@ -26,47 +26,31 @@ class WorkoutsController < ApplicationController
   # create a new workout
   def create
     # create new workout
-    @workout = Workout.new params[:workout]
     if params[:create_workout_category]
-      # TODO pull this out into its own method
-      category = WorkoutCategory.select_official_categories.where(:category => params[:create_category]).first
-      unless category
-        category = WorkoutCategory.where(:user_id => current_user.id, :category => params[:create_category]).first
-      end
-      unless category
-        category = WorkoutCategory.new(:category => params[:create_category])
-        current_user.workout_categories << category
-        @categories << category
-      end
+      category = WorkoutCategory.find_or_new_by_category(current_user.id, params[:create_category])
+      params[:workout][:workout_category_attributes][:category] = category.category
+      @workout = Workout.new params[:workout]
+      @workout.workout_category = category
+      set_up_categories
     elsif params[:add_exercise]
+      @workout = Workout.new params[:workout]
       @workout.exercises.build
       @workout.exercises.each do |e|
         e.exercise_category = ExerciseCategory.new
       end
     elsif params[:remove_exercise]
+      @workout = Workout.new params[:workout]
       # they have destry attributes handled automatically by rails
     elsif params[:add_exercise_category]
-      # FIXME see if you can call another controller's method to do this
-      category = ExerciseCategory.select_official_categories.where(:category => params[:create_exercise_category]).first
-      unless category
-        category = ExerciseCategory.where(:user_id => current_user.id, :category => params[:create_exercise_category]).first
-      end
-      unless category
-        category = ExerciseCategory.new(:category => params[:create_exercise_category])
-        current_user.exercise_categories << category
-        @exerciseCategories << category
-      end
+      @workout = Workout.new params[:workout]
+      category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_exercise_category])
+      set_up_categories
     else
+      @workout = Workout.new params[:workout]
       if @workout.save
         # associate workout with user
+        @workout.associate_exercises_with(current_user.id)
         current_user.workouts << @workout
-        current_user.workouts.each do |w|
-          #FIXME remove this and implement the fixme at line 18
-          w.exercises.where(:user_id => nil).each do |e|
-            e.user_id = current_user.id
-            e.save
-          end
-        end
         # display the workout
         redirect_to :action => 'show', :id => @workout.id
         return
@@ -114,6 +98,9 @@ class WorkoutsController < ApplicationController
       end
       # add one more empty exercise attribute
       @workout.exercises.build
+      @workout.exercises.each do |e|
+        e.exercise_category = ExerciseCategory.new
+      end
     elsif params[:remove_exercise]
       # collect all marked for delete exercise ids
       removed_exercises = params[:workout][:exercises_attributes].collect { |i, att| att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
@@ -125,16 +112,16 @@ class WorkoutsController < ApplicationController
         # rebuild exercises attributes that doesn't have an id and its _destroy attribute is not 1
         @workouts.exercises.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
       end
+    elsif params[:add_exercise_category]
+      category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_exercise_category])
+      set_up_categories
     else
       # save goes like usual
       if @workout.update_attributes(params[:workout])
+        @workout.associate_exercises_with(current_user.id)
         flash[:notice] = "Successfully updated workout."
         redirect_to @workout and return
       end
-    end
-    # FIXME move after line 107
-    @workout.exercises.each do |e|
-      e.exercise_category = ExerciseCategory.new
     end
     render :action => 'edit'
   end
