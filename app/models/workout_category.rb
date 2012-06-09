@@ -12,21 +12,15 @@ class WorkoutCategory < ActiveRecord::Base
   # ----- VALIDATION CALLS -----
   validates_presence_of :category, :message => 'Workout category must be defined'
 
-  # Validates if the category is allowed.
-  def valid_category
-    ['Girl', 'Hero', 'WOD', 'Benchmark', 'Custom'].include? self.category
-  end
-
-  # Finds +category+ or creates a new one if it was not found.
-  def self.find_or_new_by_category(category)
-    # see if the category is already defined in the standard workouts
+  # ----- CLASS METHODS -----
+  def self.find_or_new_by_category(user_id, category)
     c = WorkoutCategory.select_official_categories.where(:category => category).first
     unless c
-      c = WorkoutCategory.find_by_category(category)
+      c = WorkoutCategory.where(:user_id => user_id, :category => category).first
     end
     unless c
       c = WorkoutCategory.new(:category => category)
-      current_user.workout_categories << c
+      User.find_by_id(user_id).workout_categories << c
     end
     c
   end
