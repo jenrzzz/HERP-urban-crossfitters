@@ -5,20 +5,21 @@
 </div>&nbsp;
 <div class="row">
     <div class="span6">
-        <%= link_to "Add Workout", new_workout_path %><br />
         <h2>Standard Workouts</h2>
         <% if @officialWorkouts %>
           <% @officialWorkouts.group_by(&:workout_category).sort.each do |c,ws| %>
-            <br /><h3><%= c.category %></h3><br />
+            <br /><h3><%= c.category %></h3>
               <% ws.each do |w| %>
                 <%= link_to "#{w.name}", workout_path(w) %><br />
               <% end %>
           <% end %>
         <% end %>
-        <h2>Custom Workouts</h2>
+        <br />
+        <h2>Custom Workouts</h2> 
+        <%= link_to "Add Workout", new_workout_path, :class => 'btn btn-primary' %><br />
         <% if @customWorkouts %>
           <% @customWorkouts.group_by(&:workout_category).sort.each do |c,ws| %>
-            <br /><h3><%= c.category %></h3><br />
+            <br /><h3><%= c.category %></h3>
               <% ws.each do |w| %>
                 <%= link_to "#{w.name}", workout_path(w) %><br />
               <% end %>

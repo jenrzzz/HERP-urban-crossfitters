@@ -5,19 +5,14 @@
 </div>&nbsp;
 <div class="row">
     <div class="span6">
-      <% unless @workout.user_id == 1 %>
-        <%= link_to 'Edit Workout', edit_workout_path(@workout) %>
-        <%= link_to 'Delete Workout', workout_path(@workout),
-            :confirm => 'Are you sure?', :method => :delete %>
-      <% end %>
-      <% if @workout.workout_category %>
+        <% if @workout.workout_category %>
         <h2><%= @workout.workout_category.category %>
       <% end %>
       <% if @workout.name %>
            - <%= @workout.name %></h2>
       <% end %>
       <% if @workout.description %>
-          Description: <%= @workout.description%><br />
+          <%= @workout.description%><br />
       <% end %>
       <br />
       <h2>Components</h2> 
@@ -42,5 +37,18 @@
         <% end %>
         <br />
       <% end %>
+
+      <% unless @workout.user_id == 1 %>
+        <%= link_to 'Edit', edit_workout_path(@workout), :class => 'btn btn-primary'%>
+        <%= link_to 'Delete', workout_path(@workout),
+            :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-primary' %>
+      <% end %>
+
     </div>
 </div>
+
+<div class="row">
+    </br>
+    <%= link_to "Do Workout", new_workout_record_path, :class => 'btn-large btn-primary' %>
+</div>
+
