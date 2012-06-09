@@ -1,5 +1,9 @@
 <%= stylesheet_link_tag "event_calendar" %>
 <%= javascript_include_tag "event_calendar" %>
-<h1>Calendar</h1>
-
-<%= raw(event_calendar) %>
+<div class="row">
+  <div class="span12">
+    <h1>Calendar</h1>
+    <%= raw(event_calendar) %>&nbsp;
+    <p><%= link_to 'View all events', events_path, :class => 'btn btn-primary', :style => 'float: right;' %></p>
+  </div>
+</div>

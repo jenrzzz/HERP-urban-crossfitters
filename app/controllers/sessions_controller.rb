@@ -5,7 +5,11 @@ class SessionsController < ApplicationController
   # Render login page
   def new
     @title = 'Log in'
-  end
+    if current_user
+      flash[:notice] = 'You are already logged in.'
+      redirect_to :controller => 'dashboards', :action => 'show'
+    end
+end
 
   # Creates a session by handling callback from OmniAuth at /auth/facebook
   # and redirects to dashboard if successful.
