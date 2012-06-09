@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_login
  
   private
- 
+
   # Filter to require users to login before accessing
   # this page.
   def require_login

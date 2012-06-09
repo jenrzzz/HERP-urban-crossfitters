@@ -3,12 +3,8 @@ class InjuryRecordsController < ApplicationController
   # display list of all injuries
   def index
     @injury_records = current_user.injury_records
-    if current_user.profile
-      name = current_user.profile.first_name
-    else
-      name = current_user.username
-    end
-      @title = "Recorded Injuries For #{name}"
+    name = current_user.get_name
+    @title = "Recorded Injuries For #{name}"
   end
 
   def new

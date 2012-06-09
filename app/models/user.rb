@@ -34,5 +34,15 @@ class User < ActiveRecord::Base
   # Creates a new user from the passed hash
   def self.create_from_hash!(hash)
     create(:username => hash['info']['name'], :email => hash['info']['email'])
-  end  
+  end
+
+  def get_name
+    name = ''
+    if self.profile
+      name = self.profile.first_name
+    else
+      name = self.username
+    end
+    return name
+  end
 end

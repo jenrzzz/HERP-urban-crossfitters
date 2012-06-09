@@ -9,12 +9,7 @@ class CalendarController < ApplicationController
     @year = (params[:year] || (Time.zone || Time).now.year).to_i
 
     @shown_month = Date.civil(@year, @month)
-    name = ''
-    if current_user.profile
-      name = current_user.profile.first_name
-    else
-      name = current_user.username
-    end
+    name = current_user.get_name
     @title = "#{name}'s Calendar For #{@shown_month.strftime '%B %Y'}"
     @event_strips = current_user.events.event_strips_for_month(@shown_month)
   end
