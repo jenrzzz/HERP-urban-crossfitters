@@ -1,23 +1,17 @@
 # Renders graphs for the current user with LazyHighCharts.
 class StatsController < ApplicationController
-  
+  CHART_OPTIONS = { :x_axis => { :type => 'datetime' },
+                    :chart => { :zoom_type => 'xy' },
+                  }
   # Render graphs for WorkoutRecords points and times, HealthRecords blood pressure,
   # and HealthRecords weight and resting heart rate.
   def index
     @title = "Stats for #{current_user.profile ? current_user.profile.first_name : current_user.username}"
     @workout_metrics = LazyHighCharts::HighChart.new('graph') do |f|
-      records = current_user.workout_records
-      records = records.where( :date_performed => (Date.today - 30.days)..Date.today ).order("date_performed DESC")
-      points, times = [], []
-      records.each do |r|
-        # Convert date_performed to number of milliseconds since the epoch for JS charting
-        performed_date = r.date_performed.to_time.tv_sec * 1000
-        points << [performed_date, r.points] if r.points
-        times << [performed_date, r.time[:insecs]] if r.time
-      end
+      points, times = WorkoutRecord.get_series_for_chart current_user.id
       @workout_metrics_empty = (points.size < 2) || (times.size < 2)
-      f.options[:x_axis] = { :type => 'datetime' }
-      f.options[:chart][:zoom_type] = 'xy'
+      
+      f.options.merge! CHART_OPTIONS
       f.options[:title] = { :text => "Workout Metrics for #{current_user.profile ? current_user.profile.first_name : current_user.username}" }
       f.options[:subtitle] = { :text => "#{(Date.today - 30.days).strftime('%B %e')} to #{Date.today.strftime('%B %e, %Y')}" }
       point_axis = { :opposite => true, :title => { :text => 'Points' } }

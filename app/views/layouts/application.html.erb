@@ -32,12 +32,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             <% end %>
-            <%= link_to 'URBAN CROSSFITTERS', dashboard_path, :class => 'brand' %>
+            <%= link_to 'URBAN CROSSFITTERS', @logo_path || dashboard_path, :class => 'brand', :style => 'margin-left: 15px; padding-right: 20px' %>
             <div class="nav-collapse">
               <ul class="nav">
                 <li><%= link_to content_tag(:i, '', :class => 'icon-user icon-white') + 'Profile', profiles_path+'/me' %></li>
-                <li><%= link_to content_tag(:i, '', :class => 'icon-fire icon-white') + 'Workout', workouts_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-fire icon-white') + 'Workout', workout_records_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-heart icon-white') + 'Health', health_records_path %></li>
+                <li><%= link_to content_tag(:i, '', :class => 'icon-plus icon-white') + 'Injuries', injury_records_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-flag icon-white') + 'Goals', goals_path %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-calendar icon-white') + 'Calendar', '/calendar' %></li>
                 <li><%= link_to content_tag(:i, '', :class => 'icon-tasks icon-white') + 'Stats', '/stats' %></li>
