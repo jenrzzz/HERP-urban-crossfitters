@@ -14,12 +14,11 @@
 /log/*.log
 /tmp
 
-# Ignore OAuth config info
-/config/application.yml
-
 # Ignore lockfiles
 *.lock
 
 # Ignore swap files
 *.swp
 *.swo
+
+*.DS_Store

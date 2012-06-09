@@ -8,15 +8,22 @@
     <div class="span6">
         <h3>Welcome <%= current_user.profile ? current_user.profile.first_name : current_user.username %>!</h3>
         <% if @last_workout %>
-          <p><%= "It's been #{(Date.today - @last_workout.date_performed).to_i} days since your last workout." %></p>
+          <% if @last_workout_elapsed_days > 0 %>
+            <p>It's been <%= @last_workout_elapsed_days.to_s + ' day' + ((@last_workout_elapsed_days != 1) ? 's' : '') %> 
+            since <%= link_to 'your last workout', workout_record_path(@last_workout.id) %>.</p>
+          <% elsif @last_workout_elapsed_days == 0  %>
+            <p>Your <%= link_to 'last workout', workout_record_path(@last_workout.id) %> was today.</p>
+          <% elsif @last_workout_elapsed_days < 0 %>
+            <p>Your <%= link_to 'next scheduled workout', workout_record_path(@last_workout.id) %> is 
+            <%= @last_workout_elapsed_days.abs.to_s + ' day' + ((@last_workout_elapsed_days != 1) ? 's' : '') %> from now.</p>
+          <% end %>
         <% else %>
           <p>You haven't added any workout records yet.</p>
         <% end %>
         <% if not current_user.profile %>
           <p><%= link_to "Create Profile", new_profile_path %></p>
         <% end %>
-        <p><%= link_to "View Workouts", workouts_path %></p>
-        <p><%= link_to "View Exercises", exercises_path %></p>
+        <p><%#= link_to "View All Workouts", workouts_path %></p>
     </div>
 </div>
 <% if @wod %>
@@ -25,7 +32,7 @@
       <h3>Daily WOD for <%= @wod.date.strftime '%B %e, %Y' %></h3>
       <p><a href="<%= @wod.link or '#' %>"><strong><%= @wod.title %></strong></a></p>
       <p><pre><%= @wod.description %></pre></p>
-      <p><%= link_to "Do Workout", new_workout_record_path + '?show_daily=true', :class => 'btn btn-primary' %></p>
+      <p><%= link_to "Do Workout", new_workout_record_path + '?show_daily=true&daily_wod=true', :class => 'btn btn-primary' %></p>
     </div>
 </div>
 <% end %>

@@ -4,16 +4,12 @@
     </div>
 </div>
 <div class="row">
-    <div class="span8">
-      <% if @events.size > 0 %>
-        <% @events.group_by(&:end_at).sort.reverse.each do |date, events| %>
+    <div class="span6">
+        <% @events.group_by(&:end_at).sort.reverse.each do |date,events| %>
           <h2><%= date %></h2>
           <% events.each do |event| %>
             <%= link_to "#{event.name}", event_path(event) %><br />
           <% end %>
         <% end %>
-      <% else %>
-        <p>You currently do not have any events.</p>
-      <% end %>
     </div>
 </div>

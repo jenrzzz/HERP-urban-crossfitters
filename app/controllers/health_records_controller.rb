@@ -2,7 +2,7 @@
 class HealthRecordsController < ApplicationController
   # display list of all health records for a user
   def index
-    @records = current_user.health_records
+    @records = current_user.health_records.ordered
     @title = 'Health Records'
   end
 

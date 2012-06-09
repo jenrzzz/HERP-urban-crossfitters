@@ -14,3 +14,4 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require facebook-sdk
+//= require workout_records

@@ -9,7 +9,7 @@
       </div>
     </div>
 <% if @records %>
-    <% @records.reverse.each do |record| %>
+    <% @records.each do |record| %>
         <div class="row">
 	    <div class ="span6">
                <%= link_to "#{record.date_recorded}", health_record_path(record) %>

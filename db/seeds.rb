@@ -86,6 +86,14 @@ ExerciseCategory.all.each do |exerciseCategory|
 	exerciseCategory.save
 end
 
+# Create a generic Daily WOD workout to record data
+# even if the user doesn't want to create a custom workout
+# for it.
+generic_wod = Workout.create(:name => 'Generic WOD', :description => "Today's WOD as posted on the CrossFit website.") 
+generic_wod.workout_category_id = wod.id
+generic_wod.user_id = admin.id
+generic_wod.save
+
 #GIRLS------------------------------------------------------------------------
 angie = Workout.create(:name => "Angie", :description => "For Time. Complete all reps of each exercise before moving to the next.")
 angie.workout_category_id = girl.id

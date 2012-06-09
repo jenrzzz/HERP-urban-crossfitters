@@ -59,9 +59,9 @@ class InjuryRecordsController < ApplicationController
     end
   end
 
-	# delete a specific injury
-	def destroy
-		@injury = current_user.injury_records.lookup_by_params[:id]
-		@record.destroy
-	end
+  # delete a specific injury
+  def destroy
+    @injury = current_user.injury_records.lookup_by_params[:id]
+    @record.destroy
+  end
 end

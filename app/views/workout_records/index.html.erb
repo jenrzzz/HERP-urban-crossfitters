@@ -5,16 +5,20 @@
 </div>&nbsp;
 <div class="row">
     <div class="span8">
-        <p><%= link_to "Add Workout Record", new_workout_record_path, :class => 'btn btn-primary' %></p>&nbsp;
-        <table class="table table-striped">
-        <tr><th>Date</th><th>Workout</th><th>Notes</th></tr>
-        <% @workout_records.each do |wr| %>
-          <tr>
-            <td><%= link_to wr.date_performed.strftime('%B %e, %Y'), workout_record_path(wr) %></td>
-            <td><strong><%= link_to wr.workout.name, workout_path(wr.workout) %></strong></td>
-            <td><%= if not wr.note.blank? then (wr.note.length > 50) ? wr.note[0, 48].strip + '…' : wr.note else 'No notes.' end %></td>
-          </tr>
+        <% if @workout_records.size > 0 %>
+          <table class="table table-striped">
+          <tr><th>Date</th><th>Workout</th><th>Notes</th></tr>
+            <% @workout_records.each do |wr| %>
+              <tr>
+                <td><%= link_to wr.date_performed.strftime('%B %e, %Y'), workout_record_path(wr) %></td>
+                <td><strong><%= link_to wr.workout.name, workout_path(wr.workout) %></strong></td>
+                <td><%= if not wr.note.blank? then (wr.note.length > 50) ? wr.note[0, 48].strip + '…' : wr.note else 'No notes.' end %></td>
+              </tr>
+          <% end %>
+        <% else %>
+          <p>You have no workout records saved.</p>
         <% end %>
         </table>
+        <p><%= link_to "Add Workout Record", new_workout_record_path, :class => 'btn btn-primary' %></p>
     </div>
 </div>

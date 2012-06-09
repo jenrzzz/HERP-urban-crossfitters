@@ -9,13 +9,7 @@
     </div>
 </div>
 
-<% if current_user.profile.id == @profile.id %>
-  <div class="row">
-      <div class="span2">
-          <%= link_to "Edit Profile", edit_profile_path('me') %>
-      </div>
-  </div>
-<% end %>
+
 &nbsp;
 <div class="row">
     <div class="span8">
@@ -24,6 +18,9 @@
             <tr><td>Height</td><td><%= @profile.height_str %></td></tr>
             <tr><td>Gender</td><td><%= @profile.gender %></td></tr>
         </table>
-        <p><%= @profile.description %></p>
+        <p style="padding-left: 8px;"><%= @profile.description %></p>&nbsp;
+        <% if current_user.profile.id == @profile.id %>
+            <%= link_to "Edit Profile", edit_profile_path('me'), :class => 'btn btn-primary' %>
+        <% end %>
     </div>
 </div>
