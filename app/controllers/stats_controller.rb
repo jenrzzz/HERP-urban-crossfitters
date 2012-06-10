@@ -66,5 +66,33 @@ class StatsController < ApplicationController
       f.series :name => 'Weight (pounds)', :data => weight
       f.series :name => 'Resting Heart Rate (beats per minute)', :data => heart_rate
     end
+
+    # Build daily calories and BMI chart
+    @bmi_chart = LazyHighCharts::HighChart.new('graph') do |f|
+      bmi = HealthRecord.get_bmi_series_for_chart current_user.id
+      calories = HealthRecord.get_calories_series_for_chart current_user.id
+      @bmi_chart_empty = (bmi.size < 2) && (calories.size < 2)
+      f.options.merge! CHART_OPTIONS
+      f.options[:title] = { :text => "BMI for #{current_user.get_name}" }
+      f.options[:subtitle] = { :text => "#{(Date.today - 30.days).strftime('%B %e')} to #{Date.today.strftime('%B %e, %Y')}" }
+      # Label the axes
+      bmi_axis = { :opposite => true, # Label this axis on the right side instead of left
+                     :title => { :text => 'BMI' } 
+                   }
+      calories_axis = { :labels => { 
+                        :style => { :color => '#AA4643' } 
+                    }, 
+                    :title => { 
+                        :text => 'Calories Consumed', 
+                        :style => { :color => '#AA4643' } 
+                    } 
+                  }
+      f.y_axis = nil
+
+      # Add the axes and series to the chart
+      f.options[:yAxis] = [bmi_axis, calories_axis]
+      f.series :name => 'BMI', :data => bmi, :yAxis => 0
+      f.series :name => 'Daily Calories Consumed', :data => calories, :yAxis => 1
+    end
   end
 end

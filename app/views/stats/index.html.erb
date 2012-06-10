@@ -28,3 +28,12 @@
     <% end %>
   </div>
 </div>
+<div class="row">
+  <div class="span12">
+    <% if not @bmi_graph_empty %>
+      <%= high_chart('healthmetrics', @bmi_chart) %>
+    <% else %>
+      <p>You don't have enough data points to plot your BMI health metrics. Try <a href="<%= new_health_record_path %>">entering a few health records</a> first.</p>
+    <% end %>
+  </div>
+</div>

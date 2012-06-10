@@ -81,7 +81,28 @@ class HealthRecord < ActiveRecord::Base
     records = User.find_by_id(user_id).health_records.last_month
     weight = HealthRecord.series_from_collection records, :weight
   end
-  
+
+  def self.get_bmi_series_for_chart(user_id)
+    records = HealthRecord.get_weight_series_for_chart user_id
+    user = User.find_by_id(user_id)
+    if not user.profile
+      return []
+    end
+    height = user.profile[:height]
+
+    records.map! { |r| [r[0], HealthRecord.calculate_bmi(r[1], height)] }
+    return records
+  end
+
+  def self.get_calories_series_for_chart(user_id)
+    records = User.find_by_id(user_id).health_records.last_month
+    calories = HealthRecord.series_from_collection records, :calories_consumed
+  end
+
+  def self.calculate_bmi(weight_pounds, height_inches)
+    ( weight_pounds.to_f / (height_inches.to_f**2) ) * 703
+  end
+
   def self.series_from_collection(collection, column)
     series = []
     collection.each do |r|
