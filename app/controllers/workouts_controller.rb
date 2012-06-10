@@ -50,8 +50,14 @@ class WorkoutsController < ApplicationController
       @workout = Workout.new params[:workout]
       # they have destry attributes handled automatically by rails
     elsif params[:add_exercise_category]
-      @workout = Workout.new params[:workout]
       category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_exercise_category])
+      exercises_attributes = params[:workout].delete(:exercises_attributes)
+      @workout = Workout.new params[:workout]
+      if exercises_attributes.present?
+        @workout.exercises = exercises_attributes.map do |exercise_attributes|
+          Exercise.find_or_new_by_attributes(current_user.id, exercise_attributes)
+        end
+      end
       set_up_categories
     else
       exercises_attributes = params[:workout].delete(:exercises_attributes)
