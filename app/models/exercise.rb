@@ -11,7 +11,7 @@ class Exercise < ActiveRecord::Base
 
   # ----- ASSOCIATIONS -----
   belongs_to :exercise_category
-  has_many :exercises_workouts
+  has_many :exercise_workouts
   has_many :workouts, :through => :exercise_workouts
   accepts_nested_attributes_for :exercise_category
 
