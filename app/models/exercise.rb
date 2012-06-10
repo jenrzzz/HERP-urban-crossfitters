@@ -11,7 +11,7 @@ class Exercise < ActiveRecord::Base
 
   # ----- ASSOCIATIONS -----
   belongs_to :exercise_category
-  has_many :exercises_workouts
+  has_many :exercise_workouts
   has_many :workouts, :through => :exercise_workouts
   accepts_nested_attributes_for :exercise_category
 
@@ -38,10 +38,47 @@ class Exercise < ActiveRecord::Base
     Exercise.where(:exercise_category_id => category_id)
   end
 
+  # Finds a pre-defined exercise and creates it if it doesn't exist.
+  def self.find_or_new_by_attributes(user_id, a)
+    # see if the category is already defined in the standard exercises
+    a = a[1].except(:_destroy)
+    a[:repetitions] = nil if a[:repetitions].blank?
+    a[:weight] = nil if a[:weight].blank?
+    a[:rounds] = nil if a[:rounds].blank?
+    a[:distance] = nil if a[:distance].blank?
+    a[:units] = nil if a[:units].blank?
+    e = Exercise.select_official_exercises.where(:repetitions => a[:repetitions],
+                                                 :weight => a[:weight],
+                                                 :distance => a[:distance],
+                                                 :units => a[:units],
+                                                 :rounds => a[:rounds])
+    e = e.where(:exercise_category_id => a[:exercise_category_attributes][:category]).first
+    # unless it is defined as official, check user exercises
+    unless e
+      e = User.find_by_id(user_id).exercises.where(:repetitions => a[:repetitions],
+                                                   :weight => a[:weight],
+                                                   :distance => a[:distance],
+                                                   :units => a[:units],
+                                                   :rounds => a[:rounds])
+      e = e.where(:exercise_category_id => a[:exercise_category_attributes][:category]).first
+    end
+    # no official or custom exercise found, make new
+    unless e
+      e = Exercise.new(a)
+      e.exercise_category = ExerciseCategory.find_by_id(a[:exercise_category_attributes][:category])
+      e.save
+      User.find_by_id(user_id).exercises << e
+    end
+    e
+  end
+
   # ----- INSTANCE METHODS -----
   # find an existing exercise category or make a new one
   def exercise_category_attributes=(category)
-    self.exercise_category = ExerciseCategory.find_or_initialize_by_category(category)
+      self.exercise_category = ExerciseCategory.find_by_id(category[:category])
+    unless self.exercise_category
+      self.exercise_category = ExerciseCategory.find_or_initialize_by_category(category)
+    end
   end
 
   # ----- CUSTOM VALIDATION METHODS -----

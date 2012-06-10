@@ -5,20 +5,21 @@
 </div>&nbsp;
 <div class="row">
 </div>
-<% if @personal_records %>
-    <% @personal_records.each do |p| %>
-        <div class="row">
-            <div class="span8">
-              <% if p.workout_record.workout %>
-                <h2><%= link_to p.workout_record.workout.name, personal_record_path(p.id) %></h2>
-              <% end %>
-            </div>
-        </div>
-    <% end %>
-<% else %>
+<% if @personal_records.blank? %>
     <div class="row">
         <div class="span8">
             <h3>You currently have no personal records.</h3>
+            <p>You don't have enough workout records to have any personal records. Try <a href="<%= new_workout_record_path %>">entering a few workout records</a> first.</p>
         </div>
     </div>
+<% else %>
+  <% @personal_records.each do |p| %>
+    <div class="row">
+      <div class="span8">
+        <% if p.workout_record.workout %>
+          <h2><%= link_to p.workout_record.workout.name, personal_record_path(p.id) %></h2>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
