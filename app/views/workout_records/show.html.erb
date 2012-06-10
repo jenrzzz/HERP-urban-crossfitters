@@ -22,9 +22,12 @@
           Rounds: <%= @workout_record.rounds %><br />
       <% end %>
       <br />
-    <%= hidden_field_tag(:fb_string, :value => @fb_string) %>
-          
-    <%= link_to 'Post to Facebook',  '/share', :param => :fb_string,  :method => :post, :confirm => 'Are you sure?', :class => "btn btn-primary" %> 
+<%= form_tag("/share", :method => 'post') do %>
+      <textarea name="fb_string" rows="2"><%= @fb_string %></textarea>
+      <input type="submit" value="Post to Facebook" />
+  <% end %>
+           
+    
            
       <%= link_to 'Edit Record', edit_workout_record_path(@workout_record), :class => "btn btn-primary" %> 
             
