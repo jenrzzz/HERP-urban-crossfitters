@@ -169,6 +169,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -250,9 +254,13 @@
 
           
           <div class="method-source-code" id="index-source">
-            <pre><span class="ruby-comment"># File app/controllers/home_controller.rb, line 6</span>
+            <pre><span class="ruby-comment"># File app/controllers/home_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'dashboards'</span>, <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">request</span>.<span class="ruby-identifier">referer</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">env</span>[<span class="ruby-string">'HTTP_REFERER'</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span>(<span class="ruby-constant">URI</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">env</span>[<span class="ruby-string">'HTTP_REFERER'</span>]).<span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">dashboard_path</span>))
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'dashboards'</span>, <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Home'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->

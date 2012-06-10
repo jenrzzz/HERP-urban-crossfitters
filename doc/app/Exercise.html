@@ -70,11 +70,17 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-find_or_new_by_attributes">::find_or_new_by_attributes</a>
+    
     <li><a href="#method-c-select_custom_exercises">::select_custom_exercises</a>
     
     <li><a href="#method-c-select_official_exercises">::select_official_exercises</a>
     
+    <li><a href="#method-c-with_category">::with_category</a>
+    
     <li><a href="#method-i-at_least_one_metric">#at_least_one_metric</a>
+    
+    <li><a href="#method-i-exercise_category_attributes-3D">#exercise_category_attributes=</a>
     
     <li><a href="#method-i-needs_units">#needs_units</a>
     
@@ -175,6 +181,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -241,6 +251,65 @@ official.</p>
       <h3 class="section-header">Public Class Methods</h3>
 
     
+      <div id="method-c-find_or_new_by_attributes" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_or_new_by_attributes</span><span
+            class="method-args">(user_id, a)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds a pre-defined exercise and creates it if it doesn’t exist.</p>
+          
+
+          
+          <div class="method-source-code" id="find_or_new_by_attributes-source">
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_or_new_by_attributes</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">a</span>)
+  <span class="ruby-comment"># see if the category is already defined in the standard exercises</span>
+  <span class="ruby-identifier">a</span> = <span class="ruby-identifier">a</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">except</span>(<span class="ruby-value">:_destroy</span>)
+  <span class="ruby-identifier">a</span>[<span class="ruby-value">:repetitions</span>] = <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:repetitions</span>].<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">a</span>[<span class="ruby-value">:weight</span>] = <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:weight</span>].<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">a</span>[<span class="ruby-value">:rounds</span>] = <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:rounds</span>].<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">a</span>[<span class="ruby-value">:distance</span>] = <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:distance</span>].<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">a</span>[<span class="ruby-value">:units</span>] = <span class="ruby-keyword">nil</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:units</span>].<span class="ruby-identifier">blank?</span>
+  <span class="ruby-identifier">e</span> = <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">select_official_exercises</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:repetitions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:repetitions</span>],
+                                               <span class="ruby-value">:weight</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:weight</span>],
+                                               <span class="ruby-value">:distance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:distance</span>],
+                                               <span class="ruby-value">:units</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:units</span>],
+                                               <span class="ruby-value">:rounds</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:rounds</span>])
+  <span class="ruby-identifier">e</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:exercise_category_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:exercise_category_attributes</span>][<span class="ruby-value">:category</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-comment"># unless it is defined as official, check user exercises</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">e</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:repetitions</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:repetitions</span>],
+                                                 <span class="ruby-value">:weight</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:weight</span>],
+                                                 <span class="ruby-value">:distance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:distance</span>],
+                                                 <span class="ruby-value">:units</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:units</span>],
+                                                 <span class="ruby-value">:rounds</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:rounds</span>])
+    <span class="ruby-identifier">e</span> = <span class="ruby-identifier">e</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:exercise_category_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">:exercise_category_attributes</span>][<span class="ruby-value">:category</span>]).<span class="ruby-identifier">first</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># no official or custom exercise found, make new</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">e</span> = <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">a</span>)
+    <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">a</span>[<span class="ruby-value">:exercise_category_attributes</span>][<span class="ruby-value">:category</span>])
+    <span class="ruby-identifier">e</span>.<span class="ruby-identifier">save</span>
+    <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">exercises</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_or_new_by_attributes-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_or_new_by_attributes-method -->
+
+    
       <div id="method-c-select_custom_exercises" class="method-detail ">
         
         <div class="method-heading">
@@ -257,7 +326,7 @@ official.</p>
 
           
           <div class="method-source-code" id="select_custom_exercises-source">
-            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 20</span>
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_custom_exercises</span>(<span class="ruby-identifier">user_id</span>)
   <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">exercises</span>
 <span class="ruby-keyword">end</span></pre>
@@ -282,12 +351,12 @@ official.</p>
 
         <div class="method-description">
           
-          <p>Returns all “official” predefined exercises.</p>
+          <p>—– CLASS METHODS —– Returns all “official” predefined exercises.</p>
           
 
           
           <div class="method-source-code" id="select_official_exercises-source">
-            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_official_exercises</span>
   <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -299,6 +368,36 @@ official.</p>
 
         
       </div><!-- select_official_exercises-method -->
+
+    
+      <div id="method-c-with_category" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">with_category</span><span
+            class="method-args">(category_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="with_category-source">
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">with_category</span>(<span class="ruby-identifier">category_id</span>)
+  <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:exercise_category_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">category_id</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- with_category-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- with_category-method -->
 
     
     </section><!-- public-class-method-details -->
@@ -318,13 +417,14 @@ official.</p>
 
         <div class="method-description">
           
-          <p>Validates that this model contains at least piece of useful information.
-One of: repetitions, weight, rounds, distance, or description.</p>
+          <p>—– CUSTOM VALIDATION METHODS —– Validates that this model contains at least
+piece of useful information. One of: repetitions, weight, rounds, distance,
+or description.</p>
           
 
           
           <div class="method-source-code" id="at_least_one_metric-source">
-            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 30</span>
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 87</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">at_least_one_metric</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">repetitions</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">weight</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rounds</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">distance</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">description</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:base</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;A description must be entered if you don't fill in a metric&quot;</span>
@@ -338,6 +438,39 @@ One of: repetitions, weight, rounds, distance, or description.</p>
 
         
       </div><!-- at_least_one_metric-method -->
+
+    
+      <div id="method-i-exercise_category_attributes-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exercise_category_attributes=</span><span
+            class="method-args">(category)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>—– INSTANCE METHODS —– find an existing exercise category or make a new one</p>
+          
+
+          
+          <div class="method-source-code" id="exercise_category_attributes-3D-source">
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">exercise_category_attributes=</span>(<span class="ruby-identifier">category</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">category</span>[<span class="ruby-value">:category</span>])
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exercise_category</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">find_or_initialize_by_category</span>(<span class="ruby-identifier">category</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- exercise_category_attributes-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- exercise_category_attributes-3D-method -->
 
     
       <div id="method-i-needs_units" class="method-detail ">
@@ -357,7 +490,7 @@ conditionally require it.</p>
 
           
           <div class="method-source-code" id="needs_units-source">
-            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 37</span>
+            <pre><span class="ruby-comment"># File app/models/exercise.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">needs_units</span>
   <span class="ruby-keyword">if</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">weight</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">units</span>).<span class="ruby-identifier">blank?</span>)
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:base</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'Please specify the units for the exercise'</span>

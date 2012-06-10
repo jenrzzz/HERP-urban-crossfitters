@@ -74,8 +74,6 @@
     
     <li><a href="#method-c-select_official_categories">::select_official_categories</a>
     
-    <li><a href="#method-i-valid_category">#valid_category</a>
-    
   </ul>
 </nav>
 
@@ -173,6 +171,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -242,29 +244,27 @@
         
         <div class="method-heading">
           <span class="method-name">find_or_new_by_category</span><span
-            class="method-args">(category)</span>
+            class="method-args">(user_id, category)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>Finds <code>category</code> or creates a new one if it was not found.</p>
+          <p>—– CLASS METHODS —–</p>
           
 
           
           <div class="method-source-code" id="find_or_new_by_category-source">
-            <pre><span class="ruby-comment"># File app/models/workout_category.rb, line 18</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">category</span>)
-  <span class="ruby-comment"># see if the category is already defined in the standard workouts</span>
+            <pre><span class="ruby-comment"># File app/models/workout_category.rb, line 16</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">category</span>)
   <span class="ruby-identifier">c</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">select_official_categories</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">category</span>).<span class="ruby-identifier">first</span>
-  <span class="ruby-comment"># unless it is defined as official, check user categories</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">c</span>
-    <span class="ruby-identifier">c</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">find_by_category</span>(<span class="ruby-identifier">category</span>)
+    <span class="ruby-identifier">c</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">category</span>).<span class="ruby-identifier">first</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-comment"># no official or custom category found, make new</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">c</span>
     <span class="ruby-identifier">c</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">category</span>)
+    <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">workout_categories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">c</span>
 <span class="ruby-keyword">end</span></pre>
@@ -294,7 +294,7 @@
 
           
           <div class="method-source-code" id="select_official_categories-source">
-            <pre><span class="ruby-comment"># File app/models/workout_category.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/models/workout_category.rb, line 29</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_official_categories</span>
   <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -309,42 +309,6 @@
 
     
     </section><!-- public-class-method-details -->
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-valid_category" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">valid_category</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Validates if the category is allowed.</p>
-          
-
-          
-          <div class="method-source-code" id="valid_category-source">
-            <pre><span class="ruby-comment"># File app/models/workout_category.rb, line 13</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">valid_category</span>
-  [<span class="ruby-string">'Girl'</span>, <span class="ruby-string">'Hero'</span>, <span class="ruby-string">'WOD'</span>, <span class="ruby-string">'Benchmark'</span>, <span class="ruby-string">'Custom'</span>].<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">category</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- valid_category-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- valid_category-method -->
-
-    
-    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

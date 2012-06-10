@@ -70,6 +70,8 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-fetch_latest">::fetch_latest</a>
+    
     <li><a href="#method-c-get_all_records_for">::get_all_records_for</a>
     
     <li><a href="#method-c-get_record_for">::get_record_for</a>
@@ -171,6 +173,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -236,6 +242,36 @@
       <h3 class="section-header">Public Class Methods</h3>
 
     
+      <div id="method-c-fetch_latest" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fetch_latest</span><span
+            class="method-args">(workout_record_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>—– CLASS METHODS —–</p>
+          
+
+          
+          <div class="method-source-code" id="fetch_latest-source">
+            <pre><span class="ruby-comment"># File app/models/personal_record.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fetch_latest</span>(<span class="ruby-identifier">workout_record_id</span>)
+  <span class="ruby-constant">PersonalRecord</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:workout_record_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workout_record_id</span>).<span class="ruby-identifier">ordered</span>.<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fetch_latest-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fetch_latest-method -->
+
+    
       <div id="method-c-get_all_records_for" class="method-detail ">
         
         <div class="method-heading">
@@ -252,7 +288,7 @@
 
           
           <div class="method-source-code" id="get_all_records_for-source">
-            <pre><span class="ruby-comment"># File app/models/personal_record.rb, line 10</span>
+            <pre><span class="ruby-comment"># File app/models/personal_record.rb, line 18</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_all_records_for</span>(<span class="ruby-identifier">user_id</span>)
   <span class="ruby-constant">PersonalRecord</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, <span class="ruby-value">:group</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:workout_id</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -282,7 +318,7 @@
 
           
           <div class="method-source-code" id="get_record_for-source">
-            <pre><span class="ruby-comment"># File app/models/personal_record.rb, line 13</span>
+            <pre><span class="ruby-comment"># File app/models/personal_record.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_record_for</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">workout_id</span>)
   <span class="ruby-identifier">records</span> = <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_id</span>, <span class="ruby-value">:workout_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">workout_id</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">records</span>.<span class="ruby-identifier">blank?</span>

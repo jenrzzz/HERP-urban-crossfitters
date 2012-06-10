@@ -70,6 +70,10 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-get_series_for_chart">::get_series_for_chart</a>
+    
+    <li><a href="#method-c-latest">::latest</a>
+    
     <li><a href="#method-i-at_least_one_metric">#at_least_one_metric</a>
     
     <li><a href="#method-i-time">#time</a>
@@ -173,6 +177,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -236,6 +244,82 @@ and update_workout_event hooks.</p>
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-get_series_for_chart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_series_for_chart</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a tuple containing the series of times and points per workout over
+the last month for charting.</p>
+          
+
+          
+          <div class="method-source-code" id="get_series_for_chart-source">
+            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_series_for_chart</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">records</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">workout_records</span>
+  <span class="ruby-identifier">records</span> = <span class="ruby-identifier">records</span>.<span class="ruby-identifier">where</span>( <span class="ruby-value">:date_performed</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> <span class="ruby-operator">-</span> <span class="ruby-value">30</span>.<span class="ruby-identifier">days</span>)<span class="ruby-operator">..</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> ).<span class="ruby-identifier">ordered</span>
+  <span class="ruby-identifier">points</span>, <span class="ruby-identifier">times</span> = [], []
+  <span class="ruby-identifier">records</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># Convert date_performed to milliseconds since epoch for JS charting</span>
+    <span class="ruby-identifier">performed_date</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">date_performed</span>.<span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">tv_sec</span> * <span class="ruby-value">1000</span>
+    <span class="ruby-identifier">points</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">performed_date</span>, <span class="ruby-identifier">r</span>.<span class="ruby-identifier">points</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">points</span>
+    <span class="ruby-identifier">times</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">performed_date</span>, <span class="ruby-identifier">r</span>.<span class="ruby-identifier">time</span>[<span class="ruby-value">:insecs</span>]] <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">time</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">points</span>, <span class="ruby-identifier">times</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_series_for_chart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_series_for_chart-method -->
+
+    
+      <div id="method-c-latest" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">latest</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>—– CLASS METHODS —–</p>
+          
+
+          
+          <div class="method-source-code" id="latest-source">
+            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">latest</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">ordered</span>.<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- latest-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- latest-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -251,12 +335,13 @@ and update_workout_event hooks.</p>
 
         <div class="method-description">
           
-          <p>Ensures that at least one workout metrics was provided.</p>
+          <p>—– CUSTOM VALIDATION METHODS —– Ensures that at least one workout metrics
+was provided.</p>
           
 
           
           <div class="method-source-code" id="at_least_one_metric-source">
-            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 45</span>
+            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 77</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">at_least_one_metric</span>
   <span class="ruby-keyword">unless</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rounds</span>)
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:base</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'At least one metric must be entered'</span>
@@ -290,7 +375,7 @@ and :insecs, which contains the time in seconds.</p>
 
           
           <div class="method-source-code" id="time-source">
-            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 28</span>
+            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">time</span>
   <span class="ruby-identifier">h</span> = <span class="ruby-keyword">self</span>[<span class="ruby-value">:time</span>] <span class="ruby-operator">/</span> <span class="ruby-value">3600</span>
   <span class="ruby-identifier">m</span> = (<span class="ruby-keyword">self</span>[<span class="ruby-value">:time</span>] <span class="ruby-operator">/</span> <span class="ruby-value">60</span>) <span class="ruby-operator">%</span> <span class="ruby-value">60</span>
@@ -323,12 +408,13 @@ and :insecs, which contains the time in seconds.</p>
 
         <div class="method-description">
           
-          <p>Takes a hash of hours, minutes, and seconds and converts to seconds.</p>
+          <p>—– INSTANCE METHODS —– Takes a hash of hours, minutes, and seconds and
+converts to seconds.</p>
           
 
           
           <div class="method-source-code" id="time-3D-source">
-            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 21</span>
+            <pre><span class="ruby-comment"># File app/models/workout_record.rb, line 56</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">time=</span>(<span class="ruby-identifier">val</span>)
   <span class="ruby-keyword">self</span>[<span class="ruby-value">:time</span>] = (<span class="ruby-identifier">val</span>[<span class="ruby-value">:hours</span>].<span class="ruby-identifier">to_i</span> * <span class="ruby-value">3600</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">val</span>[<span class="ruby-value">:minutes</span>].<span class="ruby-identifier">to_i</span> * <span class="ruby-value">60</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">val</span>[<span class="ruby-value">:seconds</span>].<span class="ruby-identifier">to_i</span>)
 <span class="ruby-keyword">end</span></pre>

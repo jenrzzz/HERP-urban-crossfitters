@@ -181,6 +181,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -263,7 +267,7 @@ and doesn't really do anything interesting.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@goal</span> = <span class="ruby-constant">Goal</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:goal</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@goal</span>.<span class="ruby-identifier">save</span>
@@ -302,7 +306,7 @@ and doesn't really do anything interesting.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 65</span>
+            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 61</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@goal</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">goals</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@goal</span>
@@ -341,7 +345,7 @@ and doesn't really do anything interesting.</p>
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 48</span>
+            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@goal</span> = <span class="ruby-constant">Goal</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
   <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;Edit #{@goal.name}&quot;</span>
@@ -375,12 +379,8 @@ and doesn't really do anything interesting.</p>
             <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@goals</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">goals</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">profile</span>
-    <span class="ruby-identifier">name</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">profile</span>.<span class="ruby-identifier">first_name</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">name</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">username</span>
-  <span class="ruby-keyword">end</span>
-    <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;Goals For #{name}&quot;</span>
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">get_name</span>
+  <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;Goals For #{name}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -408,7 +408,7 @@ and doesn't really do anything interesting.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Add Goal'</span>
   <span class="ruby-ivar">@goal</span> = <span class="ruby-constant">Goal</span>.<span class="ruby-identifier">new</span>
@@ -439,7 +439,7 @@ and doesn't really do anything interesting.</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 37</span>
+            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 33</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@goal</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">goals</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@goal</span>
@@ -475,7 +475,7 @@ and doesn't really do anything interesting.</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 54</span>
+            <pre><span class="ruby-comment"># File app/controllers/goals_controller.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@goal</span> = <span class="ruby-constant">Goal</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@goal</span>.<span class="ruby-identifier">update_attributes</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:goal</span>]

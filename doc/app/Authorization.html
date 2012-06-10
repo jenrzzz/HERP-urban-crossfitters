@@ -171,6 +171,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -252,7 +256,7 @@
 
           
           <div class="method-source-code" id="create_from_hash-source">
-            <pre><span class="ruby-comment"># File app/models/authorization.rb, line 15</span>
+            <pre><span class="ruby-comment"># File app/models/authorization.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_from_hash</span>(<span class="ruby-identifier">hash</span>, <span class="ruby-identifier">user</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">user</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">create_from_hash!</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-constant">Authorization</span>.<span class="ruby-identifier">create</span>(<span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>,
@@ -280,13 +284,14 @@
 
         <div class="method-description">
           
-          <p>Selects a user’s <a href="Authorization.html">Authorization</a> model from
-a hash defining :provider and :uid.</p>
+          <p>—– CLASS METHODS —– Selects a user’s <a
+href="Authorization.html">Authorization</a> model from a hash defining
+:provider and :uid.</p>
           
 
           
           <div class="method-source-code" id="find_from_hash-source">
-            <pre><span class="ruby-comment"># File app/models/authorization.rb, line 10</span>
+            <pre><span class="ruby-comment"># File app/models/authorization.rb, line 17</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_from_hash</span>(<span class="ruby-identifier">hash</span>)
   <span class="ruby-identifier">find_by_provider_and_uid</span>(<span class="ruby-identifier">hash</span>[<span class="ruby-string">'provider'</span>], <span class="ruby-identifier">hash</span>[<span class="ruby-string">'uid'</span>])
 <span class="ruby-keyword">end</span></pre>

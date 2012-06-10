@@ -70,6 +70,20 @@
 
   <ul class="link-list">
     
+    <li><a href="#method-c-calculate_bmi">::calculate_bmi</a>
+    
+    <li><a href="#method-c-get_bmi_series_for_chart">::get_bmi_series_for_chart</a>
+    
+    <li><a href="#method-c-get_bp_series_for_chart">::get_bp_series_for_chart</a>
+    
+    <li><a href="#method-c-get_calories_series_for_chart">::get_calories_series_for_chart</a>
+    
+    <li><a href="#method-c-get_heart_rate_series_for_chart">::get_heart_rate_series_for_chart</a>
+    
+    <li><a href="#method-c-get_weight_series_for_chart">::get_weight_series_for_chart</a>
+    
+    <li><a href="#method-c-series_from_collection">::series_from_collection</a>
+    
     <li><a href="#method-i-at_least_one_health_metric">#at_least_one_health_metric</a>
     
     <li><a href="#method-i-systolic_and_diastolic_present_together">#systolic_and_diastolic_present_together</a>
@@ -171,6 +185,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -233,6 +251,242 @@ calories consumed over time.</p>
 
     <!-- Methods -->
     
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-calculate_bmi" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calculate_bmi</span><span
+            class="method-args">(weight_pounds, height_inches)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="calculate_bmi-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 102</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">calculate_bmi</span>(<span class="ruby-identifier">weight_pounds</span>, <span class="ruby-identifier">height_inches</span>)
+  ( <span class="ruby-identifier">weight_pounds</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> (<span class="ruby-identifier">height_inches</span>.<span class="ruby-identifier">to_f</span><span class="ruby-operator">**</span><span class="ruby-value">2</span>) ) * <span class="ruby-value">703</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- calculate_bmi-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- calculate_bmi-method -->
+
+    
+      <div id="method-c-get_bmi_series_for_chart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_bmi_series_for_chart</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_bmi_series_for_chart-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_bmi_series_for_chart</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">records</span> = <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">get_weight_series_for_chart</span> <span class="ruby-identifier">user_id</span>
+  <span class="ruby-identifier">user</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">profile</span>
+    <span class="ruby-keyword">return</span> []
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">height</span> = <span class="ruby-identifier">user</span>.<span class="ruby-identifier">profile</span>[<span class="ruby-value">:height</span>]
+
+  <span class="ruby-identifier">records</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">r</span>[<span class="ruby-value">0</span>], <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">calculate_bmi</span>(<span class="ruby-identifier">r</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">height</span>)] }
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">records</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_bmi_series_for_chart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_bmi_series_for_chart-method -->
+
+    
+      <div id="method-c-get_bp_series_for_chart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_bp_series_for_chart</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns a tuple containing the series for systolic and diastolic blood
+pressure over the last month for charting.</p>
+          
+
+          
+          <div class="method-source-code" id="get_bp_series_for_chart-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_bp_series_for_chart</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">records</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">health_records</span>.<span class="ruby-identifier">last_month</span>
+  <span class="ruby-identifier">sys_bp</span> = <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">series_from_collection</span> <span class="ruby-identifier">records</span>, <span class="ruby-value">:systolic_bp</span>
+  <span class="ruby-identifier">dia_bp</span> = <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">series_from_collection</span> <span class="ruby-identifier">records</span>, <span class="ruby-value">:diastolic_bp</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">sys_bp</span>, <span class="ruby-identifier">dia_bp</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_bp_series_for_chart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_bp_series_for_chart-method -->
+
+    
+      <div id="method-c-get_calories_series_for_chart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_calories_series_for_chart</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_calories_series_for_chart-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_calories_series_for_chart</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">records</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">health_records</span>.<span class="ruby-identifier">last_month</span>
+  <span class="ruby-identifier">calories</span> = <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">series_from_collection</span> <span class="ruby-identifier">records</span>, <span class="ruby-value">:calories_consumed</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_calories_series_for_chart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_calories_series_for_chart-method -->
+
+    
+      <div id="method-c-get_heart_rate_series_for_chart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_heart_rate_series_for_chart</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_heart_rate_series_for_chart-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_heart_rate_series_for_chart</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">records</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">health_records</span>.<span class="ruby-identifier">last_month</span>
+  <span class="ruby-identifier">heart_rate</span> = <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">series_from_collection</span> <span class="ruby-identifier">records</span>, <span class="ruby-value">:resting_heart_rate</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_heart_rate_series_for_chart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_heart_rate_series_for_chart-method -->
+
+    
+      <div id="method-c-get_weight_series_for_chart" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_weight_series_for_chart</span><span
+            class="method-args">(user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_weight_series_for_chart-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_weight_series_for_chart</span>(<span class="ruby-identifier">user_id</span>)
+  <span class="ruby-identifier">records</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">health_records</span>.<span class="ruby-identifier">last_month</span>
+  <span class="ruby-identifier">weight</span> = <span class="ruby-constant">HealthRecord</span>.<span class="ruby-identifier">series_from_collection</span> <span class="ruby-identifier">records</span>, <span class="ruby-value">:weight</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_weight_series_for_chart-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_weight_series_for_chart-method -->
+
+    
+      <div id="method-c-series_from_collection" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">series_from_collection</span><span
+            class="method-args">(collection, column)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="series_from_collection-source">
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">series_from_collection</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">column</span>)
+  <span class="ruby-identifier">series</span> = []
+  <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">recorded_date</span> = <span class="ruby-identifier">r</span>.<span class="ruby-identifier">date_recorded</span>.<span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">tv_sec</span> * <span class="ruby-value">1000</span>
+    <span class="ruby-identifier">series</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">recorded_date</span>, <span class="ruby-identifier">r</span>[<span class="ruby-identifier">column</span>]] <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">column</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">series</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- series_from_collection-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- series_from_collection-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
       <h3 class="section-header">Public Instance Methods</h3>
 
@@ -248,12 +502,13 @@ calories consumed over time.</p>
 
         <div class="method-description">
           
-          <p>Validation to ensure that at least one metric was provided</p>
+          <p>—– CUSTOM VALIDATION METHODS —– Validation to ensure that at least one
+metric was provided</p>
           
 
           
           <div class="method-source-code" id="at_least_one_health_metric-source">
-            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 40</span>
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 50</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">at_least_one_health_metric</span>
   <span class="ruby-keyword">unless</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">systolic_bp</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">diastolic_bp</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">weight</span> <span class="ruby-operator">||</span>
           <span class="ruby-keyword">self</span>.<span class="ruby-identifier">resting_heart_rate</span> <span class="ruby-operator">||</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">calories_consumed</span>)
@@ -287,7 +542,7 @@ blood pressure.</p>
 
           
           <div class="method-source-code" id="systolic_and_diastolic_present_together-source">
-            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 49</span>
+            <pre><span class="ruby-comment"># File app/models/health_record.rb, line 59</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">systolic_and_diastolic_present_together</span>
   <span class="ruby-keyword">unless</span> (<span class="ruby-keyword">self</span>.<span class="ruby-identifier">systolic_bp</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">diastolic_bp</span> <span class="ruby-operator">||</span>
           <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">systolic_bp</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-keyword">self</span>.<span class="ruby-identifier">diastolic_bp</span>)

@@ -171,6 +171,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -287,7 +291,7 @@ records for event strips in the calendar.</p>
           <div class="method-source-code" id="show-source">
             <pre><span class="ruby-comment"># File app/controllers/events_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-ivar">@event</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-ivar">@event</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;Event - #{@event.name}&quot;</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@event</span>
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;You aren't permitted to see this event&quot;</span>

@@ -181,6 +181,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -263,50 +267,48 @@ workouts are referred to as “official”.</p>
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 31</span>
+            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-comment"># create new workout</span>
-  <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_workout_category</span>]
-    <span class="ruby-comment"># TODO pull this out into its own method</span>
-    <span class="ruby-identifier">category</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">select_official_categories</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_category</span>]).<span class="ruby-identifier">first</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">category</span>
-      <span class="ruby-identifier">category</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_category</span>]).<span class="ruby-identifier">first</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">category</span>
-      <span class="ruby-identifier">category</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_category</span>])
-      <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workout_categories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">category</span>
-      <span class="ruby-ivar">@categories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">category</span>
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">category</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_category</span>])
+    <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>][<span class="ruby-value">:workout_category_attributes</span>][<span class="ruby-value">:category</span>] = <span class="ruby-identifier">category</span>.<span class="ruby-identifier">category</span>
+    <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
+    <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">workout_category</span> = <span class="ruby-identifier">category</span>
+    <span class="ruby-identifier">set_up_categories</span>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:add_exercise</span>]
+    <span class="ruby-identifier">exercises_attributes</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-value">:exercises_attributes</span>)
+    <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">present?</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span> = <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">exercise_attributes</span><span class="ruby-operator">|</span>
+        <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">find_or_new_by_attributes</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">exercise_attributes</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
     <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>
     <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span>
+        <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:remove_exercise</span>]
+    <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
     <span class="ruby-comment"># they have destry attributes handled automatically by rails</span>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:add_exercise_category</span>]
-    <span class="ruby-comment"># FIXME see if you can call another controller's method to do this</span>
-    <span class="ruby-identifier">category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">select_official_categories</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_exercise_category</span>]).<span class="ruby-identifier">first</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">category</span>
-      <span class="ruby-identifier">category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_exercise_category</span>]).<span class="ruby-identifier">first</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">category</span>
-      <span class="ruby-identifier">category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_exercise_category</span>])
-      <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">exercise_categories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">category</span>
-      <span class="ruby-ivar">@exerciseCategories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">category</span>
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
+    <span class="ruby-identifier">category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_exercise_category</span>])
+    <span class="ruby-identifier">set_up_categories</span>
   <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">exercises_attributes</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-value">:exercises_attributes</span>)
+    <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">present?</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span> = <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">exercise_attributes</span><span class="ruby-operator">|</span>
+        <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">find_or_new_by_attributes</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">exercise_attributes</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">save</span>
       <span class="ruby-comment"># associate workout with user</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">associate_exercises_with</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
       <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workouts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@workout</span>
-      <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workouts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment">#FIXME remove this and implement the fixme at line 18</span>
-        <span class="ruby-identifier">w</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">e</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>
-          <span class="ruby-identifier">e</span>.<span class="ruby-identifier">save</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
       <span class="ruby-comment"># display the workout</span>
       <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">id</span>
       <span class="ruby-keyword">return</span>
@@ -343,10 +345,13 @@ workouts are referred to as “official”.</p>
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 147</span>
+            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 171</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-  <span class="ruby-comment"># FIXME edit this so a user can only delete their own workouts</span>
-  <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@workout</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workouts</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@workout</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'You are not permitted to delete this workout'</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Successfully deleted workout'</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
@@ -377,7 +382,7 @@ workouts are referred to as “official”.</p>
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 100</span>
+            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 94</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@workout</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workouts</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@workout</span>
@@ -415,9 +420,6 @@ workouts are referred to as “official”.</p>
             <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 8</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Workouts'</span>
-  <span class="ruby-ivar">@officialWorkouts</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">select_official_workouts</span>.<span class="ruby-identifier">ordered</span>
-  <span class="ruby-ivar">@customWorkouts</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workouts</span>.<span class="ruby-identifier">ordered</span>
-  <span class="ruby-ivar">@workouts</span> = <span class="ruby-ivar">@officialWorkouts</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@customWorkouts</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -445,14 +447,13 @@ workouts are referred to as “official”.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 16</span>
+            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 13</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Add Workout'</span>
   <span class="ruby-ivar">@workout</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workouts</span>.<span class="ruby-identifier">build</span> 
   <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>
   <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">exercises</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>
   <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
-    <span class="ruby-comment"># FIXME associate 'e' with a user here</span>
     <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
     <span class="ruby-comment"># associate the new category with current user</span>
     <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">exercise_categories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span>
@@ -485,7 +486,7 @@ workouts are referred to as “official”.</p>
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 86</span>
+            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">select_official_workouts</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@workout</span>
@@ -524,39 +525,69 @@ workouts are referred to as “official”.</p>
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 110</span>
+            <pre><span class="ruby-comment"># File app/controllers/workouts_controller.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:add_exercise</span>]
-    <span class="ruby-comment"># rebuild the exercise attributes that don't have an id</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>][<span class="ruby-value">:exercises_attributes</span>].<span class="ruby-identifier">blank?</span>
-      <span class="ruby-keyword">for</span> <span class="ruby-identifier">attribute</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>][<span class="ruby-value">:exercises_attributes</span>]
-        <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">except</span>(<span class="ruby-value">:_destroy</span>)) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:id</span>)
+      <span class="ruby-identifier">exercises_attributes</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-value">:exercises_attributes</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">present?</span>
+        <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span> = <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">exercise_attributes</span><span class="ruby-operator">|</span>
+          <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">find_or_new_by_attributes</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">exercise_attributes</span>)
+        <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-comment"># add one more empty exercise attribute</span>
-    <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span>
+          <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:remove_exercise</span>]
     <span class="ruby-comment"># collect all marked for delete exercise ids</span>
     <span class="ruby-identifier">removed_exercises</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>][<span class="ruby-value">:exercises_attributes</span>].<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span>, <span class="ruby-identifier">att</span><span class="ruby-operator">|</span> <span class="ruby-identifier">att</span>[<span class="ruby-value">:id</span>] <span class="ruby-keyword">if</span> (<span class="ruby-identifier">att</span>[<span class="ruby-value">:id</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">att</span>[<span class="ruby-value">:_destroy</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>) }
     <span class="ruby-comment"># physically delete the exercises from database</span>
     <span class="ruby-comment"># FIXME this delete an exercise that might be shared between workouts</span>
-    <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">removed_exercises</span>)
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Exercises removed.&quot;</span>
-    <span class="ruby-keyword">for</span> <span class="ruby-identifier">attribute</span> <span class="ruby-keyword">in</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>][<span class="ruby-value">:exercises_attributes</span>]
-      <span class="ruby-comment"># rebuild exercises attributes that doesn't have an id and its _destroy attribute is not 1</span>
-      <span class="ruby-ivar">@workouts</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">except</span>(<span class="ruby-value">:_destroy</span>)) <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:id</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">last</span>[<span class="ruby-value">:_destroy</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>)
+    <span class="ruby-identifier">exercises_attributes</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-value">:exercises_attributes</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">present?</span>
+      <span class="ruby-identifier">exercises</span> = <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">exercise_attributes</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">exercise_attributes</span>[<span class="ruby-value">1</span>][<span class="ruby-value">:_destroy</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">find_or_new_by_attributes</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">exercise_attributes</span>)
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-keyword">nil</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span> = <span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">compact</span>
     <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span>
+          <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:add_exercise_category</span>]
+    <span class="ruby-identifier">category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:create_exercise_category</span>])
+    <span class="ruby-identifier">set_up_categories</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-comment"># save goes like usual</span>
+    <span class="ruby-identifier">exercises_attributes</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-value">:exercises_attributes</span>)
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>])
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">present?</span>
+        <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span> = <span class="ruby-identifier">exercises_attributes</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">exercise_attributes</span><span class="ruby-operator">|</span>
+          <span class="ruby-constant">Exercise</span>.<span class="ruby-identifier">find_or_new_by_attributes</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">exercise_attributes</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">build</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span>
+          <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">associate_exercises_with</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
       <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">&quot;Successfully updated workout.&quot;</span>
       <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@workout</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">return</span>
     <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-comment"># FIXME move after line 107</span>
-  <span class="ruby-ivar">@workout</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">e</span>.<span class="ruby-identifier">exercise_category</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'edit'</span>
 <span class="ruby-keyword">end</span></pre>
