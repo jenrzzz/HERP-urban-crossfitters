@@ -5,7 +5,13 @@
 </div>&nbsp;
 <div class="row">
     <div class="span8">
-        <% if @workout_records.size > 0 %>
+        <p style="font-size: medium;">Check out all the workouts you can do.<br/>
+	<%= link_to "View All Workouts", workouts_path, :class => 'btn btn-primary' %><br/>
+	Want something more personal? Create a custom workout!<br/>
+	<%= link_to "Add New Workout", new_workout_path, :class => 'btn btn-primary' %><p>
+        Record your workout:<br/>
+	<%= link_to "Add Workout Record", new_workout_record_path, :class => 'btn btn-primary' %>
+	<% if @workout_records.size > 0 %>
           <table class="table table-striped">
           <tr><th>Date</th><th>Workout</th><th>Notes</th></tr>
             <% @workout_records.each do |wr| %>
@@ -19,15 +25,5 @@
           <p>You have no workout records saved.</p>
         <% end %>
         </table>
-        <p><%= link_to "Add Workout Record", new_workout_record_path, :class => 'btn btn-primary' %></p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="span8">
-        <p style="font-size: medium;">Check out all the workouts you can do.<br/>
-	<%= link_to "View All Workouts", workouts_path, :class => 'btn btn-primary' %><br/>
-	Want something more personal? Create a custom workout!<br/>
-	<%= link_to "Add New Workout", new_workout_path, :class => 'btn btn-primary' %><p>
     </div>
 </div>
