@@ -82,19 +82,17 @@ class WorkoutRecordsController < ApplicationController
 
   private
   def parse_text_for_fb(workout_name, rounds, time, points)
-    str = ""
     if time && points
-      str = "I just scored "+points.to_s+" points doing "+workout_name.to_s+" in "+time[:string]+"."
+      str = "I just scored #{points.to_s} points doing #{workout_name.to_s} in #{time[:string]}."
     elsif rounds && points
-      str = "I just scored "+points.to_s+" points doing "+rounds.to_s+" rounds of "+workout_name.to_s+"."
+      str = "I just scored #{points.to_s} points doing #{rounds.to_s} rounds of #{workout_name.to_s}."
     elsif rounds 
-      str = "I just completed "+rounds.to_s+" rounds of "+workout_name.to_s+"."
+      str = "I just completed #{rounds.to_s} rounds of #{workout_name.to_s}."
     elsif time 
-      str = "I just completed "+workout_name.to_s+" in "+time[:string]+"."
+      str = "I just completed #{workout_name.to_s} in #{time[:string]}."
     elsif points
-      str = "I just completed "+points+" points doing "+workout_name+"."  
+      str = "I just completed #{points.to_s} points doing #{workout_name}."  
     end
-    return str
   end
 
 
