@@ -33,10 +33,18 @@ class WorkoutsController < ApplicationController
       @workout.workout_category = category
       set_up_categories
     elsif params[:add_exercise]
+      exercises_attributes = params[:workout].delete(:exercises_attributes)
       @workout = Workout.new params[:workout]
+      if exercises_attributes.present?
+        @workout.exercises = exercises_attributes.map do |exercise_attributes|
+          Exercise.find_or_new_by_attributes(current_user.id, exercise_attributes)
+        end
+      end
       @workout.exercises.build
       @workout.exercises.each do |e|
-        e.exercise_category = ExerciseCategory.new
+        unless e.exercise_category
+          e.exercise_category = ExerciseCategory.new
+        end
       end
     elsif params[:remove_exercise]
       @workout = Workout.new params[:workout]
@@ -46,7 +54,13 @@ class WorkoutsController < ApplicationController
       category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_exercise_category])
       set_up_categories
     else
+      exercises_attributes = params[:workout].delete(:exercises_attributes)
       @workout = Workout.new params[:workout]
+      if exercises_attributes.present?
+        @workout.exercises = exercises_attributes.map do |exercise_attributes|
+          Exercise.find_or_new_by_attributes(current_user.id, exercise_attributes)
+        end
+      end
       if @workout.save
         # associate workout with user
         @workout.associate_exercises_with(current_user.id)
@@ -90,34 +104,61 @@ class WorkoutsController < ApplicationController
   def update
     @workout = Workout.find(params[:id])
     if params[:add_exercise]
-      # rebuild the exercise attributes that don't have an id
-      unless params[:workout][:exercises_attributes].blank?
-        for attribute in params[:workout][:exercises_attributes]
-          @workout.exercises.build(attribute.last.except(:_destroy)) unless attribute.last.has_key?(:id)
+        exercises_attributes = params[:workout].delete(:exercises_attributes)
+        if exercises_attributes.present?
+          @workout.exercises = exercises_attributes.map do |exercise_attributes|
+            Exercise.find_or_new_by_attributes(current_user.id, exercise_attributes)
+          end
         end
-      end
-      # add one more empty exercise attribute
-      @workout.exercises.build
-      @workout.exercises.each do |e|
-        e.exercise_category = ExerciseCategory.new
-      end
+        @workout.exercises.build
+        @workout.exercises.each do |e|
+          unless e.exercise_category
+            e.exercise_category = ExerciseCategory.new
+          end
+        end
     elsif params[:remove_exercise]
       # collect all marked for delete exercise ids
       removed_exercises = params[:workout][:exercises_attributes].collect { |i, att| att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
       # physically delete the exercises from database
       # FIXME this delete an exercise that might be shared between workouts
-      Exercise.delete(removed_exercises)
       flash[:notice] = "Exercises removed."
-      for attribute in params[:workout][:exercises_attributes]
-        # rebuild exercises attributes that doesn't have an id and its _destroy attribute is not 1
-        @workouts.exercises.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
+      exercises_attributes = params[:workout].delete(:exercises_attributes)
+      if exercises_attributes.present?
+        exercises = exercises_attributes.map do |exercise_attributes|
+          if exercise_attributes[1][:_destroy].to_i == 0
+            Exercise.find_or_new_by_attributes(current_user.id, exercise_attributes)
+          else
+            nil
+          end
+        end
+        @workout.exercises = exercises.compact
+      end
+      if @workout.exercises.blank?
+        @workout.exercises.build
+        @workout.exercises.each do |e|
+          unless e.exercise_category
+            e.exercise_category = ExerciseCategory.new
+          end
+        end
       end
     elsif params[:add_exercise_category]
       category = ExerciseCategory.find_or_new_by_category(current_user.id, params[:create_exercise_category])
       set_up_categories
     else
       # save goes like usual
+      exercises_attributes = params[:workout].delete(:exercises_attributes)
       if @workout.update_attributes(params[:workout])
+        if exercises_attributes.present?
+          @workout.exercises = exercises_attributes.map do |exercise_attributes|
+            Exercise.find_or_new_by_attributes(current_user.id, exercise_attributes)
+          end
+        end
+        @workout.exercises.build
+        @workout.exercises.each do |e|
+          unless e.exercise_category
+            e.exercise_category = ExerciseCategory.new
+          end
+        end
         @workout.associate_exercises_with(current_user.id)
         flash[:notice] = "Successfully updated workout."
         redirect_to @workout and return
