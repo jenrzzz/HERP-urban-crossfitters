@@ -1,6 +1,6 @@
 <div class="row">
     <div class="span8">
-        <h1>Your Workouts</h1>
+        <h1>Your Workout Records</h1>
     </div>
 </div>&nbsp;
 <div class="row">
@@ -20,5 +20,14 @@
         <% end %>
         </table>
         <p><%= link_to "Add Workout Record", new_workout_record_path, :class => 'btn btn-primary' %></p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="span8">
+        <p style="font-size: medium;">Check out all the workouts you can do.<br/>
+	<%= link_to "View All Workouts", workouts_path, :class => 'btn btn-primary' %><br/>
+	Want something more personal? Create a custom workout!<br/>
+	<%= link_to "Add New Workout", new_workout_path, :class => 'btn btn-primary' %><p>
     </div>
 </div>
