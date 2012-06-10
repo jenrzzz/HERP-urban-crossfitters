@@ -119,8 +119,6 @@ class WorkoutsController < ApplicationController
     elsif params[:remove_exercise]
       # collect all marked for delete exercise ids
       removed_exercises = params[:workout][:exercises_attributes].collect { |i, att| att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
-      # physically delete the exercises from database
-      # FIXME this delete an exercise that might be shared between workouts
       flash[:notice] = "Exercises removed."
       exercises_attributes = params[:workout].delete(:exercises_attributes)
       if exercises_attributes.present?
