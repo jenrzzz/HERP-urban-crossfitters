@@ -13,7 +13,7 @@
             <%= f.text_area :description, :size => "20x5" %><br />
             <%= f.fields_for :workout_category do |wc| %>
               <%= label_tag :category, 'Category' %>
-              <%= wc.select :category, @categories.collect{|c| [c.category, c.id]}%>
+              <%= wc.select :category, @categories.collect{|c| [c.category, c.category]}%>
               <br /><%= text_field_tag :create_category %>
             <%= f.submit 'Create Workout Category', :name => 'create_workout_category' %>
             <% end %>
