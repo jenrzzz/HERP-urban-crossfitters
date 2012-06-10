@@ -37,6 +37,7 @@ class WorkoutRecordsController < ApplicationController
   def show
     @workout_record = WorkoutRecord.find_by_id(params[:id])
     @title = "Workout Record For #{@workout_record.workout.name}"
+    #@fb_string = parse_text_for_fb(@workout_record.workout.name, @workout_record.rounds, @workout_record.time, @workout_record.points)
   end
   
   # return a form to edit a workout record
@@ -74,6 +75,43 @@ class WorkoutRecordsController < ApplicationController
     @workout_record.destroy
     redirect_to :action => 'index'
   end
+
+
+  def fb_post
+      raise params.to_yaml
+      #@workout_record = WorkoutRecord.find_by_id(params[:id])
+      #@fb_string = parse_text_for_fb(@workout_record.workout.name, @workout_record.rounds, @workout_record.time, @workout_record.points)
+    if session[:fbaccess]['token'] then
+     @graph = Koala::Facebook::API.new session[:fbaccess]['token']
+      begin
+        @graph.put_wall_post(params[:fbwall])
+      rescue
+        flash[:notice] = 'You have already posted this workout to Facebook!'
+      else
+        flash[:notice] = 'Successfully posted on Facebook!'
+      ensure
+        redirect_to :action => :show, :id => @workout_record.id
+      end
+    end
+  end
+
+  private
+  def parse_text_for_fb(workout_name, rounds=nil, time=nil, points=nil)
+    str = ""
+    if time && points
+      str = "I just scored "+points+" points doing "+workout_name+" in "+time[:string]+"."
+    elseif rounds && points
+      str = "I just scored "+points+" points doing "+rounds+" rounds of "+workout_name+"."
+    elseif rounds
+      str = "I just completed "+rounds+" rounds of "+workout+"."
+    elseif time
+      str = "I just completed "+workout_name+" in "+time[:string]+"."
+    elseif points
+      str = "I just completed "+points+" points doing "+workout_name+"."  
+    end
+    return str
+  end
+
 
   private
   def set_up_workouts_select
