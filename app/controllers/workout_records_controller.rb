@@ -13,8 +13,9 @@ class WorkoutRecordsController < ApplicationController
     @title = 'Add Workout Record'
     @workout_record = WorkoutRecord.new
     @workout_record.workout = Workout.new
+    @selected_workout = Workout.find_by_id params[:workout] if params[:workout]
+    @selected_workout = Workout.find_by_name 'Generic WOD' if params[:daily_wod]
     @wod = DailyWod.order('created_at DESC').first if params[:show_daily]
-    @generic_wod = Workout.find_by_name 'Generic WOD' if params[:daily_wod]
   end
 
   # create a new workout record
