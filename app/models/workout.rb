@@ -37,4 +37,11 @@ class Workout < ActiveRecord::Base
       e.save
     end
   end
+
+  def workout_category_attributes=(category)
+      self.workout_category = WorkoutCategory.find_by_id(category[:category])
+    unless self.workout_category
+      self.workout_category = WorkoutCategory.find_or_initialize_by_category(category)
+    end
+  end
 end
