@@ -169,6 +169,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -247,12 +251,13 @@ update_injury_event hooks.</p>
 
         <div class="method-description">
           
-          <p>Ensures that the provided severity value is between 1 and 10 inclusive.</p>
+          <p>—– CUSTOM VALIDATION METHODS —– Ensures that the provided severity value is
+between 1 and 10 inclusive.</p>
           
 
           
           <div class="method-source-code" id="severity_within_bounds-source">
-            <pre><span class="ruby-comment"># File app/models/injury_record.rb, line 20</span>
+            <pre><span class="ruby-comment"># File app/models/injury_record.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">severity_within_bounds</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">not</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">10</span>).<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">:severity</span>]
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:base</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'Severity must be between 1 and 10 (inclusive)'</span>

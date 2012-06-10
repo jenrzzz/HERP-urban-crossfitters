@@ -177,6 +177,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -259,7 +263,7 @@ graph.</p>
 
           
           <div class="method-source-code" id="fetch_fb_graph_user-source">
-            <pre><span class="ruby-comment"># File app/models/profile.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/models/profile.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">fetch_fb_graph_user</span>(<span class="ruby-identifier">graph</span>)
   <span class="ruby-identifier">user</span> = <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">get_object</span> <span class="ruby-string">'me'</span>
   <span class="ruby-identifier">picture</span> = <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">get_object</span> <span class="ruby-string">'me'</span>, <span class="ruby-value">:fields</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'picture,birthday'</span>
@@ -286,12 +290,13 @@ graph.</p>
 
         <div class="method-description">
           
-          <p>Creates a new Graph API connection through Koala with the provided token.</p>
+          <p>—– CLASS METHODS —– Creates a new Graph API connection through Koala with
+the provided token.</p>
           
 
           
           <div class="method-source-code" id="open_graph-source">
-            <pre><span class="ruby-comment"># File app/models/profile.rb, line 33</span>
+            <pre><span class="ruby-comment"># File app/models/profile.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">open_graph</span>(<span class="ruby-identifier">token</span>)
   <span class="ruby-constant">Koala</span><span class="ruby-operator">::</span><span class="ruby-constant">Facebook</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">token</span>
 <span class="ruby-keyword">end</span></pre>
@@ -327,7 +332,7 @@ graph.</p>
 
           
           <div class="method-source-code" id="height-source">
-            <pre><span class="ruby-comment"># File app/models/profile.rb, line 14</span>
+            <pre><span class="ruby-comment"># File app/models/profile.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">height</span>
   {<span class="ruby-value">:feet</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">:height</span>] <span class="ruby-operator">/</span> <span class="ruby-value">12</span>, <span class="ruby-value">:inches</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">:height</span>] <span class="ruby-operator">%</span> <span class="ruby-value">12</span>}
 <span class="ruby-keyword">end</span></pre>
@@ -352,12 +357,12 @@ graph.</p>
 
         <div class="method-description">
           
-          <p>converts value to height in inches</p>
+          <p>—– INSTANCE METHODS —– converts value to height in inches</p>
           
 
           
           <div class="method-source-code" id="height-3D-source">
-            <pre><span class="ruby-comment"># File app/models/profile.rb, line 9</span>
+            <pre><span class="ruby-comment"># File app/models/profile.rb, line 34</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">height=</span>(<span class="ruby-identifier">val</span>)
   <span class="ruby-keyword">self</span>[<span class="ruby-value">:height</span>] = (<span class="ruby-identifier">val</span>[<span class="ruby-value">:feet</span>].<span class="ruby-identifier">to_i</span> * <span class="ruby-value">12</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">:inches</span>].<span class="ruby-identifier">to_i</span>
 <span class="ruby-keyword">end</span></pre>
@@ -388,7 +393,7 @@ href="http://inches">feet]‘</a>“</p>
 
           
           <div class="method-source-code" id="height_str-source">
-            <pre><span class="ruby-comment"># File app/models/profile.rb, line 20</span>
+            <pre><span class="ruby-comment"># File app/models/profile.rb, line 45</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">height_str</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">:height</span>]
     <span class="ruby-keyword">return</span> <span class="ruby-string">'0'</span>

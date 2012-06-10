@@ -169,6 +169,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -253,7 +257,10 @@ rendering the dashboard view and pulls today's WOD.</p>
           <div class="method-source-code" id="show-source">
             <pre><span class="ruby-comment"># File app/controllers/dashboards_controller.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-  <span class="ruby-ivar">@wod</span> = <span class="ruby-constant">DailyWod</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at DESC'</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-ivar">@wod</span> = <span class="ruby-constant">DailyWod</span>.<span class="ruby-identifier">ordered</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-ivar">@last_workout</span> = <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">latest</span>(<span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">id</span>)
+  <span class="ruby-ivar">@last_workout_elapsed_days</span> = (<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@last_workout</span>.<span class="ruby-identifier">date_performed</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@last_workout</span>
+  <span class="ruby-ivar">@logo_path</span> = <span class="ruby-string">'/'</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Dashboard'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->

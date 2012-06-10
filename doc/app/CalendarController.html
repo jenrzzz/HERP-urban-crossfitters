@@ -169,6 +169,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -259,12 +263,7 @@ href="http://:month">params</a> and <a href="http://:year">params</a>.</p>
   <span class="ruby-ivar">@year</span> = (<span class="ruby-identifier">params</span>[<span class="ruby-value">:year</span>] <span class="ruby-operator">||</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Time</span>).<span class="ruby-identifier">now</span>.<span class="ruby-identifier">year</span>).<span class="ruby-identifier">to_i</span>
 
   <span class="ruby-ivar">@shown_month</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">civil</span>(<span class="ruby-ivar">@year</span>, <span class="ruby-ivar">@month</span>)
-  <span class="ruby-identifier">name</span> = <span class="ruby-string">''</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">profile</span>
-    <span class="ruby-identifier">name</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">profile</span>.<span class="ruby-identifier">first_name</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">name</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">username</span>
-  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">name</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">get_name</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;#{name}'s Calendar For #{@shown_month.strftime '%B %Y'}&quot;</span>
   <span class="ruby-ivar">@event_strips</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">events</span>.<span class="ruby-identifier">event_strips_for_month</span>(<span class="ruby-ivar">@shown_month</span>)
 <span class="ruby-keyword">end</span></pre>

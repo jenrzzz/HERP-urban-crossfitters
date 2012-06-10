@@ -171,6 +171,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -250,12 +254,12 @@ build_goal_event and update_goal_event hooks.</p>
 
         <div class="method-description">
           
-          <p>Returns true if the status is valid.</p>
+          <p>—– INSTANCE METHODS —– Returns true if the status is valid.</p>
           
 
           
           <div class="method-source-code" id="check_status-3F-source">
-            <pre><span class="ruby-comment"># File app/models/goal.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/models/goal.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">check_status?</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span>
     [<span class="ruby-string">'incomplete'</span>, <span class="ruby-string">'complete'</span>].<span class="ruby-identifier">include?</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span>.<span class="ruby-identifier">downcase</span>
@@ -289,7 +293,7 @@ build_goal_event and update_goal_event hooks.</p>
 
           
           <div class="method-source-code" id="complete-3F-source">
-            <pre><span class="ruby-comment"># File app/models/goal.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/models/goal.rb, line 32</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">complete?</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-string">'Complete'</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">status</span> <span class="ruby-keyword">or</span> <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>

@@ -148,6 +148,12 @@
     <a href="SessionsHelper.html">SessionsHelper</a>
   </li>
     <li class="class">
+    <a href="ShareController.html">ShareController</a>
+  </li>
+    <li class="module">
+    <a href="ShareHelper.html">ShareHelper</a>
+  </li>
+    <li class="class">
     <a href="StatsController.html">StatsController</a>
   </li>
     <li class="module">
@@ -203,13 +209,19 @@
   
     <li class="method"><a href="EventColor.html#method-c-blue">::blue &mdash; EventColor</a>
   
+    <li class="method"><a href="HealthRecord.html#method-c-calculate_bmi">::calculate_bmi &mdash; HealthRecord</a>
+  
     <li class="method"><a href="Authorization.html#method-c-create_from_hash">::create_from_hash &mdash; Authorization</a>
   
     <li class="method"><a href="User.html#method-c-create_from_hash-21">::create_from_hash! &mdash; User</a>
   
     <li class="method"><a href="Profile.html#method-c-fetch_fb_graph_user">::fetch_fb_graph_user &mdash; Profile</a>
   
+    <li class="method"><a href="PersonalRecord.html#method-c-fetch_latest">::fetch_latest &mdash; PersonalRecord</a>
+  
     <li class="method"><a href="Authorization.html#method-c-find_from_hash">::find_from_hash &mdash; Authorization</a>
+  
+    <li class="method"><a href="Exercise.html#method-c-find_or_new_by_attributes">::find_or_new_by_attributes &mdash; Exercise</a>
   
     <li class="method"><a href="WorkoutCategory.html#method-c-find_or_new_by_category">::find_or_new_by_category &mdash; WorkoutCategory</a>
   
@@ -217,9 +229,25 @@
   
     <li class="method"><a href="PersonalRecord.html#method-c-get_all_records_for">::get_all_records_for &mdash; PersonalRecord</a>
   
+    <li class="method"><a href="HealthRecord.html#method-c-get_bmi_series_for_chart">::get_bmi_series_for_chart &mdash; HealthRecord</a>
+  
+    <li class="method"><a href="HealthRecord.html#method-c-get_bp_series_for_chart">::get_bp_series_for_chart &mdash; HealthRecord</a>
+  
+    <li class="method"><a href="HealthRecord.html#method-c-get_calories_series_for_chart">::get_calories_series_for_chart &mdash; HealthRecord</a>
+  
+    <li class="method"><a href="HealthRecord.html#method-c-get_heart_rate_series_for_chart">::get_heart_rate_series_for_chart &mdash; HealthRecord</a>
+  
     <li class="method"><a href="PersonalRecord.html#method-c-get_record_for">::get_record_for &mdash; PersonalRecord</a>
   
+    <li class="method"><a href="WorkoutRecord.html#method-c-get_series_for_chart">::get_series_for_chart &mdash; WorkoutRecord</a>
+  
+    <li class="method"><a href="HealthRecord.html#method-c-get_weight_series_for_chart">::get_weight_series_for_chart &mdash; HealthRecord</a>
+  
     <li class="method"><a href="EventColor.html#method-c-green">::green &mdash; EventColor</a>
+  
+    <li class="method"><a href="DailyWod.html#method-c-latest">::latest &mdash; DailyWod</a>
+  
+    <li class="method"><a href="WorkoutRecord.html#method-c-latest">::latest &mdash; WorkoutRecord</a>
   
     <li class="method"><a href="Profile.html#method-c-open_graph">::open_graph &mdash; Profile</a>
   
@@ -231,13 +259,19 @@
   
     <li class="method"><a href="Workout.html#method-c-select_custom_workouts">::select_custom_workouts &mdash; Workout</a>
   
-    <li class="method"><a href="ExerciseCategory.html#method-c-select_official_categories">::select_official_categories &mdash; ExerciseCategory</a>
-  
     <li class="method"><a href="WorkoutCategory.html#method-c-select_official_categories">::select_official_categories &mdash; WorkoutCategory</a>
+  
+    <li class="method"><a href="ExerciseCategory.html#method-c-select_official_categories">::select_official_categories &mdash; ExerciseCategory</a>
   
     <li class="method"><a href="Exercise.html#method-c-select_official_exercises">::select_official_exercises &mdash; Exercise</a>
   
     <li class="method"><a href="Workout.html#method-c-select_official_workouts">::select_official_workouts &mdash; Workout</a>
+  
+    <li class="method"><a href="HealthRecord.html#method-c-series_from_collection">::series_from_collection &mdash; HealthRecord</a>
+  
+    <li class="method"><a href="Exercise.html#method-c-with_category">::with_category &mdash; Exercise</a>
+  
+    <li class="method"><a href="Workout.html#method-i-associate_exercises_with">#associate_exercises_with &mdash; Workout</a>
   
     <li class="method"><a href="HealthRecord.html#method-i-at_least_one_health_metric">#at_least_one_health_metric &mdash; HealthRecord</a>
   
@@ -249,45 +283,47 @@
   
     <li class="method"><a href="Goal.html#method-i-complete-3F">#complete? &mdash; Goal</a>
   
-    <li class="method"><a href="HealthRecordsController.html#method-i-create">#create &mdash; HealthRecordsController</a>
-  
-    <li class="method"><a href="TrainersController.html#method-i-create">#create &mdash; TrainersController</a>
-  
-    <li class="method"><a href="ProfilesController.html#method-i-create">#create &mdash; ProfilesController</a>
+    <li class="method"><a href="SessionsController.html#method-i-create">#create &mdash; SessionsController</a>
   
     <li class="method"><a href="ExercisesController.html#method-i-create">#create &mdash; ExercisesController</a>
   
-    <li class="method"><a href="WorkoutRecordsController.html#method-i-create">#create &mdash; WorkoutRecordsController</a>
+    <li class="method"><a href="WorkoutsController.html#method-i-create">#create &mdash; WorkoutsController</a>
   
     <li class="method"><a href="InjuryRecordsController.html#method-i-create">#create &mdash; InjuryRecordsController</a>
   
-    <li class="method"><a href="SessionsController.html#method-i-create">#create &mdash; SessionsController</a>
+    <li class="method"><a href="ProfilesController.html#method-i-create">#create &mdash; ProfilesController</a>
+  
+    <li class="method"><a href="TrainersController.html#method-i-create">#create &mdash; TrainersController</a>
   
     <li class="method"><a href="GoalsController.html#method-i-create">#create &mdash; GoalsController</a>
   
-    <li class="method"><a href="WorkoutsController.html#method-i-create">#create &mdash; WorkoutsController</a>
+    <li class="method"><a href="ShareController.html#method-i-create">#create &mdash; ShareController</a>
   
-    <li class="method"><a href="InjuryRecordsController.html#method-i-destroy">#destroy &mdash; InjuryRecordsController</a>
+    <li class="method"><a href="HealthRecordsController.html#method-i-create">#create &mdash; HealthRecordsController</a>
+  
+    <li class="method"><a href="WorkoutRecordsController.html#method-i-create">#create &mdash; WorkoutRecordsController</a>
+  
+    <li class="method"><a href="WorkoutRecordsController.html#method-i-destroy">#destroy &mdash; WorkoutRecordsController</a>
   
     <li class="method"><a href="SessionsController.html#method-i-destroy">#destroy &mdash; SessionsController</a>
   
     <li class="method"><a href="ExercisesController.html#method-i-destroy">#destroy &mdash; ExercisesController</a>
   
-    <li class="method"><a href="WorkoutRecordsController.html#method-i-destroy">#destroy &mdash; WorkoutRecordsController</a>
-  
-    <li class="method"><a href="WorkoutsController.html#method-i-destroy">#destroy &mdash; WorkoutsController</a>
-  
     <li class="method"><a href="GoalsController.html#method-i-destroy">#destroy &mdash; GoalsController</a>
+  
+    <li class="method"><a href="InjuryRecordsController.html#method-i-destroy">#destroy &mdash; InjuryRecordsController</a>
   
     <li class="method"><a href="TrainersController.html#method-i-destroy">#destroy &mdash; TrainersController</a>
   
     <li class="method"><a href="HealthRecordsController.html#method-i-destroy">#destroy &mdash; HealthRecordsController</a>
   
-    <li class="method"><a href="WorkoutsController.html#method-i-edit">#edit &mdash; WorkoutsController</a>
+    <li class="method"><a href="WorkoutsController.html#method-i-destroy">#destroy &mdash; WorkoutsController</a>
   
-    <li class="method"><a href="ProfilesController.html#method-i-edit">#edit &mdash; ProfilesController</a>
+    <li class="method"><a href="HealthRecordsController.html#method-i-edit">#edit &mdash; HealthRecordsController</a>
   
     <li class="method"><a href="InjuryRecordsController.html#method-i-edit">#edit &mdash; InjuryRecordsController</a>
+  
+    <li class="method"><a href="WorkoutRecordsController.html#method-i-edit">#edit &mdash; WorkoutRecordsController</a>
   
     <li class="method"><a href="TrainersController.html#method-i-edit">#edit &mdash; TrainersController</a>
   
@@ -295,9 +331,9 @@
   
     <li class="method"><a href="GoalsController.html#method-i-edit">#edit &mdash; GoalsController</a>
   
-    <li class="method"><a href="WorkoutRecordsController.html#method-i-edit">#edit &mdash; WorkoutRecordsController</a>
+    <li class="method"><a href="ProfilesController.html#method-i-edit">#edit &mdash; ProfilesController</a>
   
-    <li class="method"><a href="HealthRecordsController.html#method-i-edit">#edit &mdash; HealthRecordsController</a>
+    <li class="method"><a href="WorkoutsController.html#method-i-edit">#edit &mdash; WorkoutsController</a>
   
     <li class="method"><a href="Event.html#method-i-end_at">#end_at &mdash; Event</a>
   
@@ -305,9 +341,11 @@
   
     <li class="method"><a href="CalendarHelper.html#method-i-event_calendar_opts">#event_calendar_opts &mdash; CalendarHelper</a>
   
+    <li class="method"><a href="Exercise.html#method-i-exercise_category_attributes-3D">#exercise_category_attributes= &mdash; Exercise</a>
+  
     <li class="method"><a href="SessionsController.html#method-i-failure">#failure &mdash; SessionsController</a>
   
-    <li class="method"><a href="WorkoutRecordsController.html#method-i-fbpost">#fbpost &mdash; WorkoutRecordsController</a>
+    <li class="method"><a href="User.html#method-i-get_name">#get_name &mdash; User</a>
   
     <li class="method"><a href="Profile.html#method-i-height">#height &mdash; Profile</a>
   
@@ -315,75 +353,75 @@
   
     <li class="method"><a href="Profile.html#method-i-height_str">#height_str &mdash; Profile</a>
   
-    <li class="method"><a href="HomeController.html#method-i-index">#index &mdash; HomeController</a>
-  
     <li class="method"><a href="AboutController.html#method-i-index">#index &mdash; AboutController</a>
   
-    <li class="method"><a href="CalendarController.html#method-i-index">#index &mdash; CalendarController</a>
+    <li class="method"><a href="GoalsController.html#method-i-index">#index &mdash; GoalsController</a>
   
     <li class="method"><a href="WorkoutRecordsController.html#method-i-index">#index &mdash; WorkoutRecordsController</a>
   
-    <li class="method"><a href="WorkoutsController.html#method-i-index">#index &mdash; WorkoutsController</a>
-  
-    <li class="method"><a href="InjuryRecordsController.html#method-i-index">#index &mdash; InjuryRecordsController</a>
-  
-    <li class="method"><a href="PersonalRecordsController.html#method-i-index">#index &mdash; PersonalRecordsController</a>
-  
-    <li class="method"><a href="EventsController.html#method-i-index">#index &mdash; EventsController</a>
-  
     <li class="method"><a href="ExercisesController.html#method-i-index">#index &mdash; ExercisesController</a>
-  
-    <li class="method"><a href="HealthRecordsController.html#method-i-index">#index &mdash; HealthRecordsController</a>
-  
-    <li class="method"><a href="GoalsController.html#method-i-index">#index &mdash; GoalsController</a>
   
     <li class="method"><a href="TrainersController.html#method-i-index">#index &mdash; TrainersController</a>
   
     <li class="method"><a href="StatsController.html#method-i-index">#index &mdash; StatsController</a>
   
+    <li class="method"><a href="EventsController.html#method-i-index">#index &mdash; EventsController</a>
+  
+    <li class="method"><a href="WorkoutsController.html#method-i-index">#index &mdash; WorkoutsController</a>
+  
+    <li class="method"><a href="CalendarController.html#method-i-index">#index &mdash; CalendarController</a>
+  
+    <li class="method"><a href="HealthRecordsController.html#method-i-index">#index &mdash; HealthRecordsController</a>
+  
+    <li class="method"><a href="PersonalRecordsController.html#method-i-index">#index &mdash; PersonalRecordsController</a>
+  
+    <li class="method"><a href="InjuryRecordsController.html#method-i-index">#index &mdash; InjuryRecordsController</a>
+  
+    <li class="method"><a href="HomeController.html#method-i-index">#index &mdash; HomeController</a>
+  
     <li class="method"><a href="CalendarHelper.html#method-i-month_link">#month_link &mdash; CalendarHelper</a>
   
     <li class="method"><a href="Exercise.html#method-i-needs_units">#needs_units &mdash; Exercise</a>
   
-    <li class="method"><a href="SessionsController.html#method-i-new">#new &mdash; SessionsController</a>
-  
-    <li class="method"><a href="ProfilesController.html#method-i-new">#new &mdash; ProfilesController</a>
-  
-    <li class="method"><a href="ExercisesController.html#method-i-new">#new &mdash; ExercisesController</a>
-  
-    <li class="method"><a href="GoalsController.html#method-i-new">#new &mdash; GoalsController</a>
-  
-    <li class="method"><a href="HealthRecordsController.html#method-i-new">#new &mdash; HealthRecordsController</a>
+    <li class="method"><a href="WorkoutRecordsController.html#method-i-new">#new &mdash; WorkoutRecordsController</a>
   
     <li class="method"><a href="WorkoutsController.html#method-i-new">#new &mdash; WorkoutsController</a>
   
-    <li class="method"><a href="TrainersController.html#method-i-new">#new &mdash; TrainersController</a>
+    <li class="method"><a href="ExercisesController.html#method-i-new">#new &mdash; ExercisesController</a>
   
     <li class="method"><a href="InjuryRecordsController.html#method-i-new">#new &mdash; InjuryRecordsController</a>
   
-    <li class="method"><a href="WorkoutRecordsController.html#method-i-new">#new &mdash; WorkoutRecordsController</a>
+    <li class="method"><a href="TrainersController.html#method-i-new">#new &mdash; TrainersController</a>
+  
+    <li class="method"><a href="HealthRecordsController.html#method-i-new">#new &mdash; HealthRecordsController</a>
+  
+    <li class="method"><a href="GoalsController.html#method-i-new">#new &mdash; GoalsController</a>
+  
+    <li class="method"><a href="ProfilesController.html#method-i-new">#new &mdash; ProfilesController</a>
+  
+    <li class="method"><a href="SessionsController.html#method-i-new">#new &mdash; SessionsController</a>
   
     <li class="method"><a href="InjuryRecord.html#method-i-severity_within_bounds">#severity_within_bounds &mdash; InjuryRecord</a>
   
-    <li class="method"><a href="WorkoutsController.html#method-i-show">#show &mdash; WorkoutsController</a>
-  
-    <li class="method"><a href="HealthRecordsController.html#method-i-show">#show &mdash; HealthRecordsController</a>
-  
-    <li class="method"><a href="DashboardsController.html#method-i-show">#show &mdash; DashboardsController</a>
+    <li class="method"><a href="PersonalRecordsController.html#method-i-show">#show &mdash; PersonalRecordsController</a>
   
     <li class="method"><a href="InjuryRecordsController.html#method-i-show">#show &mdash; InjuryRecordsController</a>
   
-    <li class="method"><a href="WorkoutRecordsController.html#method-i-show">#show &mdash; WorkoutRecordsController</a>
+    <li class="method"><a href="GoalsController.html#method-i-show">#show &mdash; GoalsController</a>
   
-    <li class="method"><a href="PersonalRecordsController.html#method-i-show">#show &mdash; PersonalRecordsController</a>
+    <li class="method"><a href="DashboardsController.html#method-i-show">#show &mdash; DashboardsController</a>
   
     <li class="method"><a href="EventsController.html#method-i-show">#show &mdash; EventsController</a>
   
-    <li class="method"><a href="GoalsController.html#method-i-show">#show &mdash; GoalsController</a>
+    <li class="method"><a href="HealthRecordsController.html#method-i-show">#show &mdash; HealthRecordsController</a>
+  
+    <li class="method"><a href="TrainersController.html#method-i-show">#show &mdash; TrainersController</a>
+  
+    <li class="method"><a href="WorkoutRecordsController.html#method-i-show">#show &mdash; WorkoutRecordsController</a>
   
     <li class="method"><a href="ProfilesController.html#method-i-show">#show &mdash; ProfilesController</a>
   
-    <li class="method"><a href="TrainersController.html#method-i-show">#show &mdash; TrainersController</a>
+    <li class="method"><a href="WorkoutsController.html#method-i-show">#show &mdash; WorkoutsController</a>
   
     <li class="method"><a href="ExercisesController.html#method-i-show">#show &mdash; ExercisesController</a>
   
@@ -393,23 +431,23 @@
   
     <li class="method"><a href="WorkoutRecord.html#method-i-time-3D">#time= &mdash; WorkoutRecord</a>
   
-    <li class="method"><a href="ExercisesController.html#method-i-update">#update &mdash; ExercisesController</a>
-  
-    <li class="method"><a href="GoalsController.html#method-i-update">#update &mdash; GoalsController</a>
-  
-    <li class="method"><a href="InjuryRecordsController.html#method-i-update">#update &mdash; InjuryRecordsController</a>
-  
     <li class="method"><a href="HealthRecordsController.html#method-i-update">#update &mdash; HealthRecordsController</a>
-  
-    <li class="method"><a href="ProfilesController.html#method-i-update">#update &mdash; ProfilesController</a>
   
     <li class="method"><a href="WorkoutRecordsController.html#method-i-update">#update &mdash; WorkoutRecordsController</a>
   
+    <li class="method"><a href="ProfilesController.html#method-i-update">#update &mdash; ProfilesController</a>
+  
+    <li class="method"><a href="ExercisesController.html#method-i-update">#update &mdash; ExercisesController</a>
+  
     <li class="method"><a href="TrainersController.html#method-i-update">#update &mdash; TrainersController</a>
+  
+    <li class="method"><a href="InjuryRecordsController.html#method-i-update">#update &mdash; InjuryRecordsController</a>
+  
+    <li class="method"><a href="GoalsController.html#method-i-update">#update &mdash; GoalsController</a>
   
     <li class="method"><a href="WorkoutsController.html#method-i-update">#update &mdash; WorkoutsController</a>
   
-    <li class="method"><a href="WorkoutCategory.html#method-i-valid_category">#valid_category &mdash; WorkoutCategory</a>
+    <li class="method"><a href="Workout.html#method-i-workout_category_attributes-3D">#workout_category_attributes= &mdash; Workout</a>
   
 </ul>
 

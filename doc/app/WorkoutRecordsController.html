@@ -76,8 +76,6 @@
     
     <li><a href="#method-i-edit">#edit</a>
     
-    <li><a href="#method-i-fbpost">#fbpost</a>
-    
     <li><a href="#method-i-index">#index</a>
     
     <li><a href="#method-i-new">#new</a>
@@ -183,6 +181,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -264,7 +266,7 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 23</span>
+            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
   <span class="ruby-ivar">@workout_record</span> = <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout_record</span>]
   <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:time</span>]
@@ -305,9 +307,13 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 111</span>
+            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
   <span class="ruby-ivar">@workout_record</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workout_records</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@workout_record</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">'You are not permitted to delete this workout record'</span>
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
+  <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">destroy</span>
   <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
 <span class="ruby-keyword">end</span></pre>
@@ -337,11 +343,11 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 86</span>
+            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
   <span class="ruby-ivar">@workout_record</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workout_records</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@workout_record</span>
-    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;The selected workout record doesn't belong to you&quot;</span>
+    <span class="ruby-identifier">flash</span>[<span class="ruby-value">:error</span>] = <span class="ruby-string">&quot;The selected workout record doesn't belong to you.&quot;</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'index'</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Edit Workout Record'</span>
@@ -354,70 +360,6 @@
 
         
       </div><!-- edit-method -->
-
-    
-      <div id="method-i-fbpost" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">fbpost</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>hacky way of fb wall sharing.</p>
-          
-
-          
-          <div class="method-source-code" id="fbpost-source">
-            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 45</span>
-  <span class="ruby-keyword">def</span> <span class="ruby-identifier">fbpost</span>
-    <span class="ruby-ivar">@workout_record</span> = <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;Workout Record For #{@workout_record.workout.name}&quot;</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:fbaccess</span>][<span class="ruby-string">'token'</span>] <span class="ruby-keyword">then</span>
-                <span class="ruby-ivar">@graph</span> =      <span class="ruby-constant">Koala</span><span class="ruby-operator">::</span><span class="ruby-constant">Facebook</span><span class="ruby-operator">::</span><span class="ruby-constant">API</span>.<span class="ruby-identifier">new</span> <span class="ruby-identifier">session</span>[<span class="ruby-value">:fbaccess</span>][<span class="ruby-string">'token'</span>]
-        
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just completed &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; in &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span>[<span class="ruby-value">:string</span>] 
-        <span class="ruby-keyword">end</span> 
-
-        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>  
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just completed &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span><span class="ruby-operator">+</span> <span class="ruby-string">&quot; rounds of &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span>   
-        <span class="ruby-keyword">end</span>  
-
-        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>  
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just gained &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; of points from &quot;</span> <span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span>   
-        <span class="ruby-keyword">end</span>  
-
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>  
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just gained &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; of points from &quot;</span><span class="ruby-operator">+</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; in &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span>[<span class="ruby-value">:string</span>]  
-        <span class="ruby-keyword">end</span>  
-
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>  
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just completed &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; of points from &quot;</span><span class="ruby-operator">+</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; in &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span>[<span class="ruby-value">:string</span>]  
-        <span class="ruby-keyword">end</span>  
-
-        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>  
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just gained &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; of points from &quot;</span><span class="ruby-operator">+</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; in &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span><span class="ruby-operator">+</span> <span class="ruby-string">&quot; rounds!&quot;</span>  
-        <span class="ruby-keyword">end</span>  
-
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>  
-                <span class="ruby-identifier">$fbwall</span> = <span class="ruby-string">&quot;I just gained &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; of points from &quot;</span><span class="ruby-operator">+</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">workout_category</span>.<span class="ruby-identifier">category</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; - &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; in &quot;</span><span class="ruby-operator">+</span><span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span>[<span class="ruby-value">:string</span>]<span class="ruby-operator">+</span> <span class="ruby-string">&quot; while doing &quot;</span><span class="ruby-operator">+</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span><span class="ruby-operator">+</span><span class="ruby-string">&quot; rounds!&quot;</span>  
-        <span class="ruby-keyword">end</span>  
-
-<span class="ruby-ivar">@graph</span>.<span class="ruby-identifier">put_wall_post</span>(<span class="ruby-identifier">$fbwall</span>)
-<span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span></pre>
-          </div><!-- fbpost-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- fbpost-method -->
 
     
       <div id="method-i-index" class="method-detail ">
@@ -472,10 +414,9 @@
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Add Workout Record'</span>
   <span class="ruby-ivar">@workout_record</span> = <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:show_daily</span>]
-  <span class="ruby-ivar">@wod</span> = <span class="ruby-constant">DailyWod</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at DESC'</span>).<span class="ruby-identifier">first</span>
-  <span class="ruby-keyword">end</span>
-
+  <span class="ruby-ivar">@selected_workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">find_by_id</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:workout</span>]
+  <span class="ruby-ivar">@selected_workout</span> = <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">find_by_name</span> <span class="ruby-string">'Generic WOD'</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:daily_wod</span>]
+  <span class="ruby-ivar">@wod</span> = <span class="ruby-constant">DailyWod</span>.<span class="ruby-identifier">order</span>(<span class="ruby-string">'created_at DESC'</span>).<span class="ruby-identifier">first</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:show_daily</span>]
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -503,10 +444,13 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 39</span>
+            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
   <span class="ruby-ivar">@workout_record</span> = <span class="ruby-constant">WorkoutRecord</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@title</span> = <span class="ruby-node">&quot;Workout Record For #{@workout_record.workout.name}&quot;</span>
+  <span class="ruby-ivar">@fb_string</span> = <span class="ruby-identifier">parse_text_for_fb</span>(<span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">workout</span>.<span class="ruby-identifier">name</span>, <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">rounds</span>, <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span>, <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">points</span>)
+
+
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           
@@ -534,12 +478,12 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 96</span>
+            <pre><span class="ruby-comment"># File app/controllers/workout_records_controller.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
   <span class="ruby-ivar">@workout_record</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">workout_records</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
   <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">time</span> = <span class="ruby-identifier">params</span>[<span class="ruby-value">:time</span>]
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:workout_record</span>])
-    <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">personal_records</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PersonalRecord</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:workout_record_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">id</span>).<span class="ruby-identifier">order</span>(<span class="ruby-string">'updated_at DESC'</span>).<span class="ruby-identifier">first</span>
+    <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">personal_records</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PersonalRecord</span>.<span class="ruby-identifier">fetch_latest</span>(<span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">id</span>)
     <span class="ruby-identifier">flash</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-string">'Edit was successful.'</span>
     <span class="ruby-identifier">redirect_to</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'show'</span>, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@workout_record</span>.<span class="ruby-identifier">id</span>
   <span class="ruby-keyword">else</span>

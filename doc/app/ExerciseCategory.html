@@ -171,6 +171,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -240,7 +244,7 @@
         
         <div class="method-heading">
           <span class="method-name">find_or_new_by_category</span><span
-            class="method-args">(category)</span>
+            class="method-args">(user_id, category)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
@@ -252,17 +256,18 @@
 
           
           <div class="method-source-code" id="find_or_new_by_category-source">
-            <pre><span class="ruby-comment"># File app/models/exercise_category.rb, line 16</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">category</span>)
+            <pre><span class="ruby-comment"># File app/models/exercise_category.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_or_new_by_category</span>(<span class="ruby-identifier">user_id</span>, <span class="ruby-identifier">category</span>)
   <span class="ruby-comment"># see if the category is already defined in the standard exercises</span>
   <span class="ruby-identifier">c</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">select_official_categories</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">category</span>).<span class="ruby-identifier">first</span>
   <span class="ruby-comment"># unless it is defined as official, check user categories</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">c</span>
-    <span class="ruby-identifier">c</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">find_by_category</span>(<span class="ruby-identifier">category</span>)
+    <span class="ruby-identifier">c</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">exercise_categories</span>.<span class="ruby-identifier">find_by_category</span>(<span class="ruby-identifier">category</span>)
   <span class="ruby-keyword">end</span>
   <span class="ruby-comment"># no official or custom category found, make new</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">c</span>
     <span class="ruby-identifier">c</span> = <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">category</span>)
+    <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">exercise_categories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">c</span>
 <span class="ruby-keyword">end</span></pre>
@@ -287,12 +292,12 @@
 
         <div class="method-description">
           
-          <p>Returns all official pre-defined categories.</p>
+          <p>—– CLASS METHODS —– Returns all official pre-defined categories.</p>
           
 
           
           <div class="method-source-code" id="select_official_categories-source">
-            <pre><span class="ruby-comment"># File app/models/exercise_category.rb, line 11</span>
+            <pre><span class="ruby-comment"># File app/models/exercise_category.rb, line 16</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_official_categories</span>
   <span class="ruby-constant">ExerciseCategory</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
 <span class="ruby-keyword">end</span></pre>

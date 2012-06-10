@@ -169,6 +169,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -247,13 +251,14 @@ href="InjuryRecord.html">InjuryRecord</a> and render in the calendar.</p>
 
         <div class="method-description">
           
-          <p>Returns the event’s <a href="Event.html#method-i-end_at">#end_at</a> date,
-or today’s date if <a href="Event.html#method-i-end_at">#end_at</a> is nil.</p>
+          <p>—– INSTANCE METHODS —– Returns the event’s <a
+href="Event.html#method-i-end_at">#end_at</a> date, or today’s date if <a
+href="Event.html#method-i-end_at">#end_at</a> is nil.</p>
           
 
           
           <div class="method-source-code" id="end_at-source">
-            <pre><span class="ruby-comment"># File app/models/event.rb, line 10</span>
+            <pre><span class="ruby-comment"># File app/models/event.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">end_at</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">:end_at</span>]
     <span class="ruby-keyword">self</span>[<span class="ruby-value">:end_at</span>].<span class="ruby-identifier">to_date</span>

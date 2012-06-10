@@ -74,6 +74,10 @@
     
     <li><a href="#method-c-select_official_workouts">::select_official_workouts</a>
     
+    <li><a href="#method-i-associate_exercises_with">#associate_exercises_with</a>
+    
+    <li><a href="#method-i-workout_category_attributes-3D">#workout_category_attributes=</a>
+    
   </ul>
 </nav>
 
@@ -171,6 +175,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -252,7 +260,7 @@
 
           
           <div class="method-source-code" id="select_custom_workouts-source">
-            <pre><span class="ruby-comment"># File app/models/workout.rb, line 22</span>
+            <pre><span class="ruby-comment"># File app/models/workout.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_custom_workouts</span>(<span class="ruby-identifier">user_id</span>)
   <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">user_id</span>).<span class="ruby-identifier">workouts</span>
 <span class="ruby-keyword">end</span></pre>
@@ -277,12 +285,12 @@
 
         <div class="method-description">
           
-          <p>Returns all official workouts</p>
+          <p>—– CLASS METHODS —– Returns all official workouts</p>
           
 
           
           <div class="method-source-code" id="select_official_workouts-source">
-            <pre><span class="ruby-comment"># File app/models/workout.rb, line 17</span>
+            <pre><span class="ruby-comment"># File app/models/workout.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">select_official_workouts</span>
   <span class="ruby-constant">Workout</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -297,6 +305,79 @@
 
     
     </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-associate_exercises_with" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">associate_exercises_with</span><span
+            class="method-args">(current_user_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>—– INSTANCE METHODS —–</p>
+          
+
+          
+          <div class="method-source-code" id="associate_exercises_with-source">
+            <pre><span class="ruby-comment"># File app/models/workout.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">associate_exercises_with</span>(<span class="ruby-identifier">current_user_id</span>)
+  <span class="ruby-identifier">es</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">exercises</span>.<span class="ruby-identifier">where</span>(<span class="ruby-value">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">es</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">current_user_id</span>).<span class="ruby-identifier">exercises</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">e</span>.<span class="ruby-identifier">save</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- associate_exercises_with-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- associate_exercises_with-method -->
+
+    
+      <div id="method-i-workout_category_attributes-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">workout_category_attributes=</span><span
+            class="method-args">(category)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="workout_category_attributes-3D-source">
+            <pre><span class="ruby-comment"># File app/models/workout.rb, line 41</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">workout_category_attributes=</span>(<span class="ruby-identifier">category</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">workout_category</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">find_by_id</span>(<span class="ruby-identifier">category</span>[<span class="ruby-value">:category</span>])
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">workout_category</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">workout_category</span> = <span class="ruby-constant">WorkoutCategory</span>.<span class="ruby-identifier">find_or_initialize_by_category</span>(<span class="ruby-identifier">category</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- workout_category_attributes-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- workout_category_attributes-3D-method -->
+
+    
+    </section><!-- public-instance-method-details -->
   
   </section><!-- 5Buntitled-5D -->
 

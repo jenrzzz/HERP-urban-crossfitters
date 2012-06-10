@@ -181,6 +181,10 @@
   
     <li><a href="./SessionsHelper.html">SessionsHelper</a>
   
+    <li><a href="./ShareController.html">ShareController</a>
+  
+    <li><a href="./ShareHelper.html">ShareHelper</a>
+  
     <li><a href="./StatsController.html">StatsController</a>
   
     <li><a href="./StatsHelper.html">StatsHelper</a>
@@ -371,7 +375,7 @@
           <div class="method-source-code" id="index-source">
             <pre><span class="ruby-comment"># File app/controllers/health_records_controller.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-  <span class="ruby-ivar">@records</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">health_records</span>
+  <span class="ruby-ivar">@records</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">health_records</span>.<span class="ruby-identifier">ordered</span>
   <span class="ruby-ivar">@title</span> = <span class="ruby-string">'Health Records'</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
