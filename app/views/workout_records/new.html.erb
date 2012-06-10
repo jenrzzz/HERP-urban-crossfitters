@@ -18,7 +18,7 @@
     <div class="span4">
         <%= form_for @workout_record, :html => { :class => 'form-vertical' }, :url => { :action => "create" } do |f| %>
         <fieldset class="control-group">
-            <%= date_select :workout_record, :date_performed, :start_year => 1980, :end_year => Time.now.year, :order => [:month, :day, :year], :size => 4%>
+            <%= date_select :workout_record, :date_performed, :start_year => 1980, :end_year => Time.now.year, :order => [:month, :day, :year], :size => 4 %>
             <%= label_tag :note, 'Notes' %>
             <%= f.text_area :note, :rows => 3, :value => (@wod ? @wod.description : '') %>
             <%= label_tag :points, 'Points' %>

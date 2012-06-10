@@ -36,6 +36,8 @@ class WorkoutRecord < ActiveRecord::Base
     WorkoutRecord.where(:user_id => user_id).ordered.first
   end
 
+  # Returns a tuple containing the series of times and points per workout
+  # over the last month for charting.
   def self.get_series_for_chart(user_id)
     records = User.find_by_id(user_id).workout_records
     records = records.where( :date_performed => (Date.today - 30.days)..Date.today ).ordered
