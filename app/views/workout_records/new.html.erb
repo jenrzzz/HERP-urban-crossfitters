@@ -35,7 +35,7 @@
               <%= select :time, :seconds, (0..59).collect {|n| [n, n] } %> seconds
             <%= label_tag :rounds, 'Rounds' %>
             <%= f.text_field :rounds %>
-            <%= f.select :workout_id, options_for_select(@workouts.collect{|w| [w.name, w.id]}, (@generic_wod.id if @generic_wod)) %>
+            <%= f.select :workout_id, options_for_select(@workouts.collect{|w| [w.name, w.id]}, (@selected_workout.id if @selected_workout)) %>
 	    <%= f.submit "Create Workout Record", :class => 'btn btn-primary' %>
         </fieldset>
         <% end %>
