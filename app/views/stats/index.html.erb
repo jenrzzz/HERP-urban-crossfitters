@@ -1,7 +1,8 @@
 <%= javascript_include_tag :highcharts %>
-<h1>Crossfit Stats</h1>
+<div class="row"><div class="span12"><h1>Crossfit Stats</h1></div></div>&nbsp;
+
 <div class="row">
-  <div class="span10">
+  <div class="span12">
     <% if not @workout_metrics_empty %>
       <%= high_chart('workoutmetrics', @workout_metrics) %>
     <% else %>
@@ -10,7 +11,7 @@
   </div>
 </div>&nbsp;
 <div class="row">
-  <div class="span10">
+  <div class="span12">
     <% if not @bp_metrics_empty %>
       <%= high_chart('bpmetrics', @bp_metrics) %>
     <% else %>
@@ -19,7 +20,7 @@
   </div>
 </div>&nbsp;
 <div class="row">
-  <div class="span10">
+  <div class="span12">
     <% if not @health_metrics_empty %>
       <%= high_chart('healthmetrics', @health_metrics) %>
     <% else %>
