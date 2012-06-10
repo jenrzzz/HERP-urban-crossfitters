@@ -61,7 +61,15 @@ class InjuryRecordsController < ApplicationController
 
   # delete a specific injury
   def destroy
-    @injury = current_user.injury_records.lookup_by_params[:id]
-    @record.destroy
+    @injury = current_user.injury_records.find_by_id(params[:id])
+    unless @injury
+      flash[:error] = "You do not have permission to delete this injury"
+      redirect_to :action => 'index'
+      return
+    end
+    @injury.destroy
+    flash[:notice] = "Your injury was successfully deleted"
+    redirect_to :action => 'index'
+    return
   end
 end

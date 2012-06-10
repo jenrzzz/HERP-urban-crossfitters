@@ -13,5 +13,9 @@
 	<% else %>
           <p><strong>Recovery Date: </strong><%= @injury.end_date %></p>
 	<% end %>
+
+      <%= link_to 'Edit Injury', edit_injury_record_path(@injury), :class => "btn btn-primary" %> 
+      <%= link_to 'Delete Injury', injury_record_path(@injury),
+            :confirm => 'Are you sure?', :method => :delete, :class => "btn btn-primary" %><br />
     </div>
 </div>
