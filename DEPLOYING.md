@@ -29,34 +29,46 @@ Follow these instructions to deploy the Urban Crossfitters Rails application to 
 
 ## Initialization ##
 1. Edit ```config/application.yml``` with correct Facebook ```app_id``` and ```app_secret```.
+    ```
+      facebook:
+          app_id: 'your_app_id'
+          app_secret: 'your_app_secret
+    ```
 
 2. Set up environment
     ```export RAILS_ENV=production```
 
-3. Initialize the database
+3. Generate a new secret token by running ```rake secret``` and replacing the entry in ```config/initializers/secret_token.rb``` with rake's output.
+
+4. Initialize the database
     ``` 
         rake db:schema:load
         rake db:seed
     ```
 
-4. Precompile assets for production mode
+5. Precompile assets for production mode
     ```
         rake assets:precompile
     ```
 
-5. Fetch the latest WOD info (instead of waiting for Rails cron)
+6. Add cron jobs
+    ```
+        whenever --write-crontab
+    ```
+
+7. Fetch the latest WOD info (instead of waiting for Rails cron)
     ```
         rake wods:fetch_latest
     ```
 
-6. Start Rails and daemonize with -d (Thin is the preferred Rack server)
+8. Start Rails and daemonize with -d (Thin is the preferred Rack server)
     ```
         rails server thin -d
         => Booting Thin
         => Rails 3.2.3 application starting in production http://0.0.0.0:3000
     ```
 
-7. The application is now accessible at http://localhost:3000. Call rails with -p
+9. The application is now accessible at http://localhost:3000. Call rails with -p
    to specify a different port, and remember that low ports require root.
     ```
         rails server thin -p 1234 -d
